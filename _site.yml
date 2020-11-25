@@ -1,0 +1,18 @@
+name: "Yuqi's Website!"
+output_dir: "."
+navbar:
+  title: "Home"
+  right:
+    - text: "About me"
+      href: about_me.html
+    - text: "Dashboard"
+      href: dashboard.html
+    - icon: fa-envelope fa-lg
+      href: mailto:<yw3436@cumc.columbia.edu>
+    - icon: fab fa-linkedin
+      href: https://www.linkedin.com/in/yuqi-wang-bella/
+    - icon: fa-github fa-lg
+      href: https://github.com/yw3436
+output:
+  html_document:
+    theme: cosmo
