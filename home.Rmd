@@ -1,39 +1,12 @@
 ---
-title: "Resume for Yuqi Wang"
+title: "Home"
 output: 
   html_document:
     toc: true
     toc_float: true
 ---
 
-## Education
-
-**Columbia University Mailman School of Public Health**,  New York 	Expected 05/2021
-
-_Master of Public Health (MPH) in Epidemiology with Certificate in Applied Biostatistics_
-
-Relevant courses: Categorical Data, Applied Regression, Determinants of Health, Health Systems, Public Health Interventions.
-
-## Work Experience
-
-**Mailman School of Public Health**, Columbia University 	05/2020-now
-
-_Recruiter and Research Assistant, Cancer Database Shared Resources_
-
-* Conducted a literature review on the association between autoimmune diseases and pancreatic cancers
-
-* Made calls to recruit cancer patients, and collected the informed consents and baseline questionnaires for participants
-
-## Skills & Certificates
-
-**Language**: Chinese (native), English (fluent), Japanese (basic)
-
-**Computer**: Stata (advanced), Microsoft Office (advanced), SAS (advanced), Python (beginner) and R(beginner)
-
-
-
-
-**This is a very brief resume for homework only!**
+## This is the home page
 
 
 
