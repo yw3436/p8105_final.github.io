@@ -57,7 +57,10 @@ total_crime_df =
     between(PCT, 120, 123) ~ "Staten Island"
   )) %>%
   group_by(borough, year) %>% 
-  summarize(total_crime = sum(total_crime))
+  summarize(total_crime = sum(total_crime)) %>%  
+  mutate(year = as.integer(year))
+
+write.csv(total_crime_df, "./data/total_crime.csv")
 
   
 ```
@@ -76,5 +79,7 @@ census_df =
   group_by(borough) %>% 
   summarize(population_2010 = sum(population_2010)) %>% 
   drop_na(population_2010)
+
+write.csv(census_df, "./data/census.csv")
 ```
 
