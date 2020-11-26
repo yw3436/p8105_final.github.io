@@ -1,5 +1,6 @@
 ---
-title: "final"
+title: "Unemployment"
+author: RongQing Jia 
 output: github_document
 ---
 
@@ -29,7 +30,7 @@ scale_fill_discrete = scale_fill_viridis_d
 ```{r}
 labor_df1 =
     read_xls(
-    "./Revised 2015-2019 Borough Labor Force.xls",
+    "./data/Revised 2015-2019 Borough Labor Force.xls",
     sheet = "Bronx",
     range = "A4:g72",
     col_names = FALSE,
@@ -48,7 +49,7 @@ labor_df1 =
 
 labor_df2 =
     read_xls(
-    "./Revised 2015-2019 Borough Labor Force.xls",
+    "./data/Revised 2015-2019 Borough Labor Force.xls",
     sheet = "Brooklyn",
     range = "A4:g72",
     col_names = FALSE,
@@ -67,7 +68,7 @@ labor_df2 =
  
 labor_df3 =
     read_xls(
-    "./Revised 2015-2019 Borough Labor Force.xls",
+    "./data/Revised 2015-2019 Borough Labor Force.xls",
     sheet = "Manhattan",
     range = "A4:g72",
     col_names = FALSE,
@@ -86,7 +87,7 @@ labor_df3 =
 
 labor_df4 =
     read_xls(
-    "./Revised 2015-2019 Borough Labor Force.xls",
+    "./data/Revised 2015-2019 Borough Labor Force.xls",
     sheet = "Queens",
     range = "A4:g72",
     col_names = FALSE,
@@ -105,7 +106,7 @@ labor_df4 =
 
 labor_df5 =
     read_xls(
-    "./Revised 2015-2019 Borough Labor Force.xls",
+    "./data/Revised 2015-2019 Borough Labor Force.xls",
     sheet = "Staten Island",
     range = "A4:g72",
     col_names = FALSE,
@@ -123,7 +124,9 @@ labor_df5 =
   drop_na()
 
 
-econ_df = 
+unemployment = 
   rbind(labor_df1, labor_df2, labor_df3, labor_df4, labor_df5)
 
+# export tidy data frame
+write.csv(unemployment,'./data/unemployment.csv')
 ```
