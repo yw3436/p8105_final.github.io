@@ -41,7 +41,7 @@ unemployment_rate =
 ```
 
 
-### Unemployment Distribution Over Years
+## Unemployment Distribution Over Years
 ```{r, message=FALSE, warning=FALSE}
 unemployment_plot = 
   unemployment_rate %>% 
@@ -81,7 +81,7 @@ hiv_unemployment =
   merge(hiv_diagnoses, unemployment_rate)
 ```
 
-### Unemployment Rate VS. HIV Diagnoses 
+## Unemployment Rate VS. HIV Diagnoses 
 ```{r, message=FALSE, warning=FALSE}
 hiv_unemployment_plot = 
   hiv_unemployment %>% 
