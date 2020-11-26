@@ -1,5 +1,5 @@
 ---
-title: "HIV Diagnoses in New York City "
+title: "HIV Diagnoses in New York City"
 output: 
   html_document:
     toc: true

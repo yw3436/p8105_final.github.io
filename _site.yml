@@ -1,4 +1,4 @@
-name: "Yuqi's Website!"
+name: "Final Project's Website!"
 output_dir: "."
 navbar:
   title: "Home"
@@ -12,7 +12,7 @@ navbar:
     - icon: fab fa-linkedin
       href: https://www.linkedin.com/in/yuqi-wang-bella/
     - icon: fa-github fa-lg
-      href: https://github.com/yw3436
+      href: https://github.com/yw3436/p8105_final.github.io.git
 output:
   html_document:
     theme: flatly
