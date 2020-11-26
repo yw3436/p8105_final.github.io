@@ -1,0 +1,123 @@
+---
+title: "Crime Rate and HIV in NYC"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    code_folding: hide
+---
+
+
+```{r setup, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(readxl)
+library(patchwork)
+library(plotly)
+
+knitr::opts_chunk$set(
+  fig.width = 8,
+  fig.asp = .6,
+  fig.height = 8,
+  out.width = "90%"
+)
+
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
+
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+```
+
+
+
+
+```{r, message=FALSE, warning=FALSE}
+total_crime_df = 
+  read_csv("./data/total_crime.csv")
+
+census_df = 
+  read_csv("./data/census.csv")
+
+hiv_df = 
+  read_csv("./data/hiv_complete.csv")
+
+hiv_df1 =
+  hiv_df %>% 
+  filter(sex == "All",
+         sex_cat == "All",
+         race_cat == "All",
+         age_cat == "All",
+         risk_cat == "All",
+         borough == "All") %>%
+  select(year, borough_cat, total_hiv_diag_N) %>% 
+  filter(!borough_cat %in% c("All", "Unknown borough", "Outside NYC")) %>% 
+  rename(borough = borough_cat)
+
+hiv_crime =
+  left_join(hiv_df1, total_crime_df, by = c("year", "borough"))
+
+hiv_crime = 
+  hiv_crime %>% 
+  left_join(census_df, by = "borough")
+
+hiv_crime = 
+  hiv_crime %>% 
+  mutate(
+    hiv_diag_rate = (total_hiv_diag_N / population_2010) * 10000,
+    crime_rate = (total_crime / population_2010) * 10000,
+    year = as.integer(year))
+  
+```
+
+
+## Crime Rate over Years
+```{r, message=FALSE, warning=FALSE}
+crime_plot = 
+  hiv_crime %>% 
+  ggplot(aes(x = year, y = crime_rate, color = borough)) +
+  geom_point(alpha = 0.7) +
+  geom_line(size = 0.5, alpha = 0.5) +
+  scale_x_continuous(
+    breaks = c(2013, 2014, 2015, 2016, 2017, 2018, 2019),
+    labels = c("2013", "2014", "2015", "2016", "2017", "2018", "2019"),
+    limits = c(2013, 2019)) +
+  labs(title = "Crime Rate Over Years In Each Borough",
+       x = "Year",
+       y = "Crime Rate (case/10k population)") 
+
+ggplotly(crime_plot) %>% 
+  layout(legend = list(orientation = "h", 
+                       x = 0.1, y = -0.3))
+```
+
+**_Comments_**
+
+The unemployment rate decreases over time from 2015 to 2019 for Bronx (Bronx County), Brooklyn (Kings County), Manhattan (New York County), Queens (Queens County), Staten Island (Richmond County).
+
+
+
+
+## HIV Diagnosis Rate VS. Crime Rate in NYC
+
+```{r, message=FALSE, warning=FALSE}
+hiv_crime_plot =
+  hiv_crime %>% 
+  ggplot(aes(x = crime_rate, y = hiv_diag_rate)) +
+  geom_point(aes(shape = borough, color = year), alpha = 0.8) +
+  geom_smooth(size = 0.5) +
+  labs(title = "HIV Diagnosis Rate VS. Crime Rate in NYC",
+       x = "Crime Rate (case/10k population)",
+       y = "HIV Diagnosis Rate (case/10k population)")
+
+ggplotly(hiv_crime_plot)
+```
+
+*NOTE: the crime number only involves 7 major felonies according to NYPD: murder and non-negligent manslaughter, rape, robbery, felony assault, burglary, grand larceny and grand larceny of a vehicle.*
+
+**_Comments_**
+
+There is a positive correlation between crime rate and HIV diagnosis rate. In Manhattan, HIV diagnosis declined from 2013 to 2019, but crime rate did not change much.
