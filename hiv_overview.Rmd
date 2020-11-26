@@ -49,7 +49,7 @@ hiv_diagnoses =
 ```
 
 
-### HIV Trend Over Years (2015-2019)
+## HIV Trend Over Years (2015-2019)
 ```{r, message=FALSE, warning=FALSE}
 hiv_diagnoses_plot = 
   hiv_diagnoses %>% 
@@ -89,7 +89,7 @@ hiv =
 ```
 
 
-### HIV Diagnosis by Boroughs
+## HIV Diagnosis by Boroughs
 ```{r, message=FALSE, warning=FALSE}
 hiv_plot = 
   hiv %>% 
@@ -114,4 +114,57 @@ ggplotly(hiv_plot) %>%
 ```
 
 **_Comments_**
+
 Overall, Staten island has the lowest number of HIV diagnoses for each year from 2011 to 2017. The trend of HIV diagnoses for Bronx, Brooklyn, Manhattan, and Queens are similar to each other with a overall increasing trend over years. 
+
+
+```{r, message=FALSE, warning=FALSE}
+
+hiv_risk_df =
+  hiv_data %>%
+  filter(borough != "All", risk_cat != "All") %>%
+  select(year, borough, risk_cat, total_hiv_diag_N) %>% 
+  group_by(borough, risk_cat) %>% 
+  summarize(hiv_diag_over_years = sum(total_hiv_diag_N))
+
+hiv_risk_total =
+  hiv_risk_df %>% 
+  group_by(borough) %>% 
+  summarize(hiv_total = sum(hiv_diag_over_years))
+
+hiv_risk_df1 = 
+  hiv_risk_df %>% 
+  left_join(hiv_risk_total, by = "borough") %>% 
+  mutate(
+    percentage = hiv_diag_over_years / hiv_total,
+    risk_cat = fct_reorder(risk_cat, percentage)) %>% 
+  rename(risk_factor = risk_cat)
+```
+
+
+## HIV Risk by Borough
+
+```{r, message=FALSE, warning=FALSE}
+
+hiv_risk_plot =
+  hiv_risk_df1 %>% 
+  ggplot(aes(x = risk_factor, y = percentage, fill = borough)) +
+      geom_bar(width = 0.5, stat = 'identity', show.legend = F) +
+      coord_flip() +
+      facet_grid(.~borough) +
+      labs(title = 'HIV Risk by Borough',
+           x = NULL,
+           y = NULL) + 
+  theme(axis.text.x = element_text(size = 6, angle = 45),
+        legend.title = element_blank())
+
+ggplotly(hiv_risk_plot)  %>% 
+  layout(legend = list(orientation = "h",
+                     x = 0.1, y = -0.1))
+
+  
+```
+
+**_Comments_**
+
+The most common risk factor overall are men who have sex with men and heterosexual contact, which account for about 70% of HIV risk for all five boroughs. Sexual transmission is the main HIV transmission path in NYC.
