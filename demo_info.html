@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Demographic Overview</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.5.2/htmlwidgets.js"></script>
+<script src="site_libs/plotly-binding-4.9.2.1/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="site_libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="site_libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="about_me.html">About me</a>
+</li>
+<li>
+  <a href="dashboard.html">Dashboard</a>
+</li>
+<li>
+  <a href="mailto:&lt;yw3436@cumc.columbia.edu&gt;">
+    <span class="fa fa-envelope fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://www.linkedin.com/in/yuqi-wang-bella/">
+    <span class="fab fa fab fa-linkedin"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://github.com/yw3436">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Demographic Overview</h1>
+
+</div>
+
+
+<pre class="r"><code>library(tidyverse)
+library(plotly)
+
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.asp = .6,
+  out.width = &quot;90%&quot;
+)
+
+theme_set(theme_minimal() + theme(legend.position = &quot;bottom&quot;))
+
+options(
+  ggplot2.continuous.colour = &quot;viridis&quot;,
+  ggplot2.continuous.fill = &quot;viridis&quot;
+)
+
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d</code></pre>
+<p>The following graphs show the basic demographic information of people diagnosed with HIV in the five boroughs from 2011 to 2019.</p>
+<div id="gender" class="section level2">
+<h2>Gender</h2>
+<pre class="r"><code>hiv_data = read_csv(&#39;./data/hiv_complete.csv&#39;)
+
+#hiv_data %&gt;% 
+#  filter(borough == &quot;All&quot;, sex == &quot;All&quot;) %&gt;% 
+#  filter(sex_cat %in% c(&quot;Male&quot;, &quot;Female&quot;)) %&gt;% 
+#  select(year, category, total_hiv_diag_N) %&gt;% 
+#  mutate(year = as.character(year)) %&gt;% 
+#  pivot_wider(
+#    names_from = category,
+#    values_from = total_hiv_diag_N
+#  ) %&gt;% 
+#  plot_ly(x = ~year, y = ~Male, type = &quot;bar&quot;, name = &#39;Male&#39;, colors = &quot;viridis&quot;) %&gt;% 
+#  add_trace(y = ~Female, name = &quot;Female&quot;, colors = &quot;viridis&quot;) %&gt;% 
+#  layout(yaxis = list(title = &quot;Number of HIV diagnosis&quot;), barmode = &quot;stack&quot;)</code></pre>
+<pre class="r"><code>data11_17 = hiv_data %&gt;% 
+  filter(year != &quot;2018&quot;, year != &quot;2019&quot;) %&gt;% 
+  select(year, category, total_hiv_diag_N, borough, sex) %&gt;% 
+  filter(borough != &quot;All&quot;, category == &quot;TOTAL&quot;) %&gt;% 
+  pivot_wider(
+    names_from = sex,
+    values_from = total_hiv_diag_N
+  ) %&gt;% 
+  mutate(total = Male + Female,
+         male_p = Male/total *100,
+         female_p = Female/total *100) %&gt;% 
+  select(-category)
+
+data18_19 = hiv_data %&gt;% 
+  filter(year %in% c(&quot;2018&quot;, &quot;2019&quot;)) %&gt;% 
+  select(year, total_hiv_diag_N, category, sex) %&gt;% 
+  filter(sex %in% c(&quot;Male&quot;, &quot;Female&quot;), category %in% c(&quot;Bronx&quot;, &quot;Brooklyn&quot;, &quot;Manhattan&quot;, &quot;Queens&quot;, &quot;Staten Island&quot;)) %&gt;% 
+  pivot_wider(
+    names_from = sex,
+    values_from = total_hiv_diag_N
+  ) %&gt;% 
+  mutate(total = Male + Female,
+         male_p = Male/total *100,
+         female_p = Female/total *100,
+         borough = category) %&gt;% 
+  select(-category)
+  
+bind_rows(data11_17, data18_19) %&gt;% 
+  group_by(borough) %&gt;% 
+  summarize(
+    Male = mean(Male),
+    Female = mean(Female)
+  ) %&gt;% 
+  plot_ly(x = ~borough, y = ~ Male, type = &quot;bar&quot;, name = &#39;Male&#39;, colors = &quot;viridis&quot;) %&gt;% 
+  add_trace(y = ~Female, name = &quot;Female&quot;, colors = &quot;viridis&quot;) %&gt;% 
+  layout(title = &quot;Gender Distribution of HIV diagnosis&quot;,
+    yaxis = list(title = &quot;Mean Number of HIV diagnosis&quot;), barmode = &quot;stack&quot;,
+         xaxis = list(title = &quot;Broughs&quot;),
+         legend = list(orientation = &#39;h&#39;), x = 0.1, y = -0.3)</code></pre>
+<div id="htmlwidget-08252870bc15e68c0f9b" style="width:90%;height:345.6px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-08252870bc15e68c0f9b">{"x":{"visdat":{"c71f120e1aa8":["function () ","plotlyVisDat"]},"cur_data":"c71f120e1aa8","attrs":{"c71f120e1aa8":{"x":{},"y":{},"name":"Male","colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"},"c71f120e1aa8.1":{"x":{},"y":{},"name":"Female","colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar","inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Gender Distribution of HIV diagnosis","yaxis":{"domain":[0,1],"automargin":true,"title":"Mean Number of HIV diagnosis"},"barmode":"stack","xaxis":{"domain":[0,1],"automargin":true,"title":"Broughs","type":"category","categoryorder":"array","categoryarray":["Bronx","Brooklyn","Manhattan","Queens","Staten Island"]},"legend":{"orientation":"h"},"x":0.1,"y":-0.3,"hovermode":"closest","showlegend":true},"source":"A","config":{"showSendToCloud":false},"data":[{"x":["Bronx","Brooklyn","Manhattan","Queens","Staten Island"],"y":[354,498,478.444444444444,339.555555555556,34.2222222222222],"name":"Male","type":"bar","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Bronx","Brooklyn","Manhattan","Queens","Staten Island"],"y":[152.888888888889,171.444444444444,76.4444444444444,76.5555555555556,13.8888888888889],"name":"Female","type":"bar","marker":{"color":"rgba(255,127,14,1)","line":{"color":"rgba(255,127,14,1)"}},"error_y":{"color":"rgba(255,127,14,1)"},"error_x":{"color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<p><strong><em>Comments</em></strong></p>
+<p>Among people diagnosed with HIV, about 22.36% of them were female. In Bronx, female patients account for 30.18% of the total HIV population, while in Manhattan, the ratio is only 13.78%. The result show that female and male participants may have different risk of HIV infection in different boroughs.</p>
+</div>
+<div id="race" class="section level2">
+<h2>Race</h2>
+<pre class="r"><code>#hiv_data %&gt;% 
+#  filter(borough == &quot;All&quot;, sex == &quot;All&quot;) %&gt;% 
+#  filter(race_cat != &quot;All&quot;) %&gt;% 
+#  mutate(
+#    text_label = str_c(year, &quot;  \n&quot;, race_cat, &quot;:&quot;, total_hiv_diag_per,&quot;%&quot;),
+#    year = as.character(year)) %&gt;% 
+#  plot_ly(
+#    x = ~year, y = ~total_hiv_diag_N, type = &quot;bar&quot;, mode = &quot;lines&quot;,
+#    color = ~race_cat, text = ~text_label, alpha = 1, colors = &quot;viridis&quot;
+#  ) %&gt;% 
+#  layout(yaxis = list(title = &quot;Number of HIV diagnosis&quot;))
+
+
+data_race_17 = hiv_data %&gt;% 
+  filter(year != &quot;2018&quot;, year != &quot;2019&quot;) %&gt;% 
+  select(year, category, total_hiv_diag_N, borough, race_cat) %&gt;% 
+  filter(borough != &quot;All&quot;, race_cat != &quot;All&quot;) %&gt;% 
+  select(-category) %&gt;% 
+  group_by(borough, race_cat) %&gt;% 
+  summarise(
+    total_hiv_diag_N = mean(total_hiv_diag_N)
+  )
+
+
+race_plot = data_race_17 %&gt;% 
+  mutate(race_cat = fct_reorder(race_cat, total_hiv_diag_N)) %&gt;% 
+  ggplot(aes(x = race_cat, y = total_hiv_diag_N, fill = borough)) +
+  geom_bar(width = 0.5, stat = &quot;identity&quot;, show.legend = F)+
+  coord_flip()+
+  facet_grid(.~borough) +
+  labs(title = &quot;Race distribution of HIV diagnosis&quot;,
+       x = NULL, y = NULL) +
+  theme(axis.text.x = element_text(size = 6, angle = 270),
+        legend.title = element_blank())
+
+ggplotly(race_plot) %&gt;% 
+  layout(legend = list(orientation = &quot;h&quot;, 
+                       x = 0.1, y = -0.3))</code></pre>
+<div id="htmlwidget-f9e46cee102328f4144c" style="width:90%;height:345.6px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f9e46cee102328f4144c">{"x":{"data":[{"orientation":"h","width":[0.5,0.5,0.5,0.5,0.5,0.5,0.5],"base":[0,0,0,0,0,0,0],"x":[2.78571428571429,123.857142857143,124,1,0.285714285714286,0,9.64285714285714],"y":[4,6,7,3,2,1,5],"text":["race_cat: Asian/Pacific Islander<br />total_hiv_diag_N:   2.7857143<br />borough: Bronx","race_cat: Black<br />total_hiv_diag_N: 123.8571429<br />borough: Bronx","race_cat: Latino/Hispanic<br />total_hiv_diag_N: 124.0000000<br />borough: Bronx","race_cat: Multiracial<br />total_hiv_diag_N:   1.0000000<br />borough: Bronx","race_cat: Native American<br />total_hiv_diag_N:   0.2857143<br />borough: Bronx","race_cat: Unknown race<br />total_hiv_diag_N:   0.0000000<br />borough: Bronx","race_cat: White<br />total_hiv_diag_N:   9.6428571<br />borough: Bronx"],"type":"bar","marker":{"autocolorscale":false,"color":"rgba(68,1,84,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"Bronx","legendgroup":"Bronx","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"h","width":[0.5,0.5,0.5,0.5,0.5,0.5,0.5],"base":[0,0,0,0,0,0,0],"x":[10.1428571428571,217.285714285714,78.2142857142857,2.57142857142857,0.642857142857143,0,47.7857142857143],"y":[4,6,7,3,2,1,5],"text":["race_cat: Asian/Pacific Islander<br />total_hiv_diag_N:  10.1428571<br />borough: Brooklyn","race_cat: Black<br />total_hiv_diag_N: 217.2857143<br />borough: Brooklyn","race_cat: Latino/Hispanic<br />total_hiv_diag_N:  78.2142857<br />borough: Brooklyn","race_cat: Multiracial<br />total_hiv_diag_N:   2.5714286<br />borough: Brooklyn","race_cat: Native American<br />total_hiv_diag_N:   0.6428571<br />borough: Brooklyn","race_cat: Unknown race<br />total_hiv_diag_N:   0.0000000<br />borough: Brooklyn","race_cat: White<br />total_hiv_diag_N:  47.7857143<br />borough: Brooklyn"],"type":"bar","marker":{"autocolorscale":false,"color":"rgba(59,82,139,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"Brooklyn","legendgroup":"Brooklyn","showlegend":true,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"h","width":[0.5,0.5,0.5,0.5,0.5,0.5,0.5],"base":[0,0,0,0,0,0,0],"x":[14.3571428571429,86.9285714285714,102.285714285714,3,0.785714285714286,0,96.5714285714286],"y":[4,6,7,3,2,1,5],"text":["race_cat: Asian/Pacific Islander<br />total_hiv_diag_N:  14.3571429<br />borough: Manhattan","race_cat: Black<br />total_hiv_diag_N:  86.9285714<br />borough: Manhattan","race_cat: Latino/Hispanic<br />total_hiv_diag_N: 102.2857143<br />borough: Manhattan","race_cat: Multiracial<br />total_hiv_diag_N:   3.0000000<br />borough: Manhattan","race_cat: Native American<br />total_hiv_diag_N:   0.7857143<br />borough: Manhattan","race_cat: Unknown race<br />total_hiv_diag_N:   0.0000000<br />borough: Manhattan","race_cat: White<br />total_hiv_diag_N:  96.5714286<br />borough: Manhattan"],"type":"bar","marker":{"autocolorscale":false,"color":"rgba(33,144,140,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"Manhattan","legendgroup":"Manhattan","showlegend":true,"xaxis":"x3","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"h","width":[0.5,0.5,0.5,0.5,0.5,0.5,0.5],"base":[0,0,0,0,0,0,0],"x":[26.4285714285714,64.8571428571429,99.4285714285714,1.35714285714286,0.5,0,28.7857142857143],"y":[4,6,7,3,2,1,5],"text":["race_cat: Asian/Pacific Islander<br />total_hiv_diag_N:  26.4285714<br />borough: Queens","race_cat: Black<br />total_hiv_diag_N:  64.8571429<br />borough: Queens","race_cat: Latino/Hispanic<br />total_hiv_diag_N:  99.4285714<br />borough: Queens","race_cat: Multiracial<br />total_hiv_diag_N:   1.3571429<br />borough: Queens","race_cat: Native American<br />total_hiv_diag_N:   0.5000000<br />borough: Queens","race_cat: Unknown race<br />total_hiv_diag_N:   0.0000000<br />borough: Queens","race_cat: White<br />total_hiv_diag_N:  28.7857143<br />borough: Queens"],"type":"bar","marker":{"autocolorscale":false,"color":"rgba(93,200,99,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"Queens","legendgroup":"Queens","showlegend":true,"xaxis":"x4","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"h","width":[0.5,0.5,0.5,0.5,0.5],"base":[0,0,0,0,0],"x":[0.642857142857143,10.5714285714286,7.42857142857143,0.571428571428571,6.78571428571429],"y":[4,6,7,1,5],"text":["race_cat: Asian/Pacific Islander<br />total_hiv_diag_N:   0.6428571<br />borough: Staten Island","race_cat: Black<br />total_hiv_diag_N:  10.5714286<br />borough: Staten Island","race_cat: Latino/Hispanic<br />total_hiv_diag_N:   7.4285714<br />borough: Staten Island","race_cat: Unknown race<br />total_hiv_diag_N:   0.5714286<br />borough: Staten Island","race_cat: White<br />total_hiv_diag_N:   6.7857143<br />borough: Staten Island"],"type":"bar","marker":{"autocolorscale":false,"color":"rgba(253,231,37,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"Staten Island","legendgroup":"Staten Island","showlegend":true,"xaxis":"x5","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":57.4003044140031,"r":18.9954337899543,"b":23.7996402379964,"l":139.543378995434},"font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"title":{"text":"Race distribution of HIV diagnosis","font":{"color":"rgba(0,0,0,1)","family":"","size":17.5342465753425},"x":0,"xref":"paper"},"xaxis":{"domain":[0,0.187316083206494],"automargin":true,"type":"linear","autorange":false,"range":[-10.8642857142857,228.15],"tickmode":"array","ticktext":["0","50","100","150","200"],"tickvals":[0,50,100,150,200],"categoryorder":"array","categoryarray":["0","50","100","150","200"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.65296803652968,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":7.97011207970112},"tickangle":-270,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"y","title":"","hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.4,7.6],"tickmode":"array","ticktext":["Unknown race","Native American","Multiracial","Asian/Pacific Islander","White","Black","Latino/Hispanic"],"tickvals":[1,2,3,4,5,6,7],"categoryorder":"array","categoryarray":["Unknown race","Native American","Multiracial","Asian/Pacific Islander","White","Black","Latino/Hispanic"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.65296803652968,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"x","title":"","hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":0.187316083206494,"y0":0,"y1":1},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":0.187316083206494,"y0":0,"y1":23.37899543379,"yanchor":1,"ysizemode":"pixel"},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.212683916793506,"x1":0.387316083206494,"y0":0,"y1":1},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.212683916793506,"x1":0.387316083206494,"y0":0,"y1":23.37899543379,"yanchor":1,"ysizemode":"pixel"},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.412683916793506,"x1":0.587316083206494,"y0":0,"y1":1},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.412683916793506,"x1":0.587316083206494,"y0":0,"y1":23.37899543379,"yanchor":1,"ysizemode":"pixel"},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.612683916793506,"x1":0.787316083206494,"y0":0,"y1":1},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.612683916793506,"x1":0.787316083206494,"y0":0,"y1":23.37899543379,"yanchor":1,"ysizemode":"pixel"},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.812683916793506,"x1":1,"y0":0,"y1":1},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.812683916793506,"x1":1,"y0":0,"y1":23.37899543379,"yanchor":1,"ysizemode":"pixel"}],"annotations":[{"text":"Bronx","x":0.0936580416032471,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(26,26,26,1)","family":"","size":11.689497716895},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"bottom"},{"text":"Brooklyn","x":0.3,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(26,26,26,1)","family":"","size":11.689497716895},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"bottom"},{"text":"Manhattan","x":0.5,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(26,26,26,1)","family":"","size":11.689497716895},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"bottom"},{"text":"Queens","x":0.7,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(26,26,26,1)","family":"","size":11.689497716895},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"bottom"},{"text":"Staten Island","x":0.906341958396753,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(26,26,26,1)","family":"","size":11.689497716895},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"bottom"}],"xaxis2":{"type":"linear","autorange":false,"range":[-10.8642857142857,228.15],"tickmode":"array","ticktext":["0","50","100","150","200"],"tickvals":[0,50,100,150,200],"categoryorder":"array","categoryarray":["0","50","100","150","200"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.65296803652968,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":7.97011207970112},"tickangle":-270,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"domain":[0.212683916793506,0.387316083206494],"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"y","title":"","hoverformat":".2f"},"xaxis3":{"type":"linear","autorange":false,"range":[-10.8642857142857,228.15],"tickmode":"array","ticktext":["0","50","100","150","200"],"tickvals":[0,50,100,150,200],"categoryorder":"array","categoryarray":["0","50","100","150","200"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.65296803652968,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":7.97011207970112},"tickangle":-270,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"domain":[0.412683916793506,0.587316083206494],"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"y","title":"","hoverformat":".2f"},"xaxis4":{"type":"linear","autorange":false,"range":[-10.8642857142857,228.15],"tickmode":"array","ticktext":["0","50","100","150","200"],"tickvals":[0,50,100,150,200],"categoryorder":"array","categoryarray":["0","50","100","150","200"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.65296803652968,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":7.97011207970112},"tickangle":-270,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"domain":[0.612683916793506,0.787316083206494],"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"y","title":"","hoverformat":".2f"},"xaxis5":{"type":"linear","autorange":false,"range":[-10.8642857142857,228.15],"tickmode":"array","ticktext":["0","50","100","150","200"],"tickvals":[0,50,100,150,200],"categoryorder":"array","categoryarray":["0","50","100","150","200"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.65296803652968,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":7.97011207970112},"tickangle":-270,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"domain":[0.812683916793506,1],"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"y","title":"","hoverformat":".2f"},"showlegend":true,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895},"y":-0.3,"orientation":"h","x":0.1},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","showSendToCloud":false},"source":"A","attrs":{"c71f10a02d4d":{"x":{},"y":{},"fill":{},"type":"bar"}},"cur_data":"c71f10a02d4d","visdat":{"c71f10a02d4d":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<p><strong><em>Comments</em></strong></p>
+<p>The distribution of race shows different patterns in different borough. In Bronx, Queens, and Manhattan, Latino or Hispanic people accounts for a the largest proportion of HIV diagnosis, while in Brooklyn and Staten Island, Black people take the largest weight. The results may indicate that the race distribution in the five boroughs contributes to different proportion of HIV diagnosis of different race. Another possible reason might be that people of different races face different risk of HIV infection in the five boroughs.</p>
+</div>
+<div id="age" class="section level2">
+<h2>Age</h2>
+<pre class="r"><code>#hiv_data %&gt;% 
+#  filter(borough == &quot;All&quot;, sex == &quot;All&quot;) %&gt;% 
+#  filter(age_cat != &quot;All&quot;) %&gt;% 
+#  mutate(
+#    text_label = str_c(year, &quot;  \n&quot;, age_cat, &quot;:&quot;, total_hiv_diag_per,&quot;%&quot;),
+#    year = as.character(year)) %&gt;% 
+#  plot_ly(
+#    x = ~year, y = ~total_hiv_diag_N, type = &quot;bar&quot;, mode = &quot;lines&quot;,
+#    color = ~age_cat, text = ~text_label, alpha = 1, colors = &quot;viridis&quot;
+#  ) %&gt;% 
+#  layout(yaxis = list(title = &quot;Number of HIV diagnosis&quot;))
+
+data_age_17 = hiv_data %&gt;% 
+  filter(year != &quot;2018&quot;, year != &quot;2019&quot;) %&gt;% 
+  select(year, category, total_hiv_diag_N, borough, age_cat) %&gt;% 
+  filter(borough != &quot;All&quot;, age_cat != &quot;All&quot;) %&gt;% 
+  select(-category) %&gt;% 
+  group_by(borough, age_cat) %&gt;% 
+  summarise(
+    total_hiv_diag_N = mean(total_hiv_diag_N)
+  )
+
+
+race_plot = data_age_17 %&gt;% 
+  ggplot(aes(x = age_cat, y = total_hiv_diag_N, fill = age_cat)) +
+  geom_bar(width = 0.5, stat = &quot;identity&quot;, show.legend = F)+
+  facet_grid(.~borough) +
+  labs(title = &quot;Age distribution of HIV diagnosis&quot;,
+       x = NULL, y = NULL) +
+  theme(axis.text.x = element_text(size = 6, angle = 270),
+        legend.title = element_blank())
+
+ggplotly(race_plot) %&gt;% 
+  layout(legend = list(orientation = &quot;h&quot;, 
+                       x = 0.1, y = -0.3))</code></pre>
+<div id="htmlwidget-603f7225b9cc30d553d1" style="width:90%;height:345.6px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-603f7225b9cc30d553d1">{"x":{"data":[{"orientation":"v","width":0.5,"base":0,"x":[1],"y":[0.571428571428571],"text":"age_cat: 0-12<br />total_hiv_diag_N:   0.5714286<br />age_cat: 0-12","type":"bar","marker":{"autocolorscale":false,"color":"rgba(68,1,84,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"0-12","legendgroup":"0-12","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.5,"base":0,"x":[1],"y":[0.571428571428571],"text":"age_cat: 0-12<br />total_hiv_diag_N:   0.5714286<br />age_cat: 0-12","type":"bar","marker":{"autocolorscale":false,"color":"rgba(68,1,84,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"0-12","legendgroup":"0-12","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.5,"base":0,"x":[1],"y":[0.285714285714286],"text":"age_cat: 0-12<br />total_hiv_diag_N:   0.2857143<br />age_cat: 0-12","type":"bar","marker":{"autocolorscale":false,"color":"rgba(68,1,84,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"0-12","legendgroup":"0-12","showlegend":false,"xaxis":"x3","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.5,"base":0,"x":[1],"y":[0.428571428571429],"text":"age_cat: 0-12<br />total_hiv_diag_N:   0.4285714<br />age_cat: 0-12","type":"bar","marker":{"autocolorscale":false,"color":"rgba(68,1,84,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"0-12","legendgroup":"0-12","showlegend":false,"xaxis":"x4","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.5,"base":0,"x":[1],"y":[0],"text":"age_cat: 0-12<br />total_hiv_diag_N:   0.0000000<br />age_cat: 0-12","type":"bar","marker":{"autocolorscale":false,"color":"rgba(68,1,84,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"0-12","legendgroup":"0-12","showlegend":false,"xaxis":"x5","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.5,"base":0,"x":[2],"y":[13.7142857142857],"text":"age_cat: 13-19<br />total_hiv_diag_N:  13.7142857<br />age_cat: 13-19","type":"bar","marker":{"autocolorscale":false,"color":"rgba(68,58,131,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"13-19","legendgroup":"13-19","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.5,"base":0,"x":[2],"y":[18.3571428571429],"text":"age_cat: 13-19<br />total_hiv_diag_N:  18.3571429<br />age_cat: 13-19","type":"bar","marker":{"autocolorscale":false,"color":"rgba(68,58,131,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"13-19","legendgroup":"13-19","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.5,"base":0,"x":[2],"y":[8.57142857142857],"text":"age_cat: 13-19<br />total_hiv_diag_N:   8.5714286<br />age_cat: 13-19","type":"bar","marker":{"autocolorscale":false,"color":"rgba(68,58,131,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"13-19","legendgroup":"13-19","showlegend":false,"xaxis":"x3","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.5,"base":0,"x":[2],"y":[6.28571428571429],"text":"age_cat: 13-19<br />total_hiv_diag_N:   6.2857143<br />age_cat: 13-19","type":"bar","marker":{"autocolorscale":false,"color":"rgba(68,58,131,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"13-19","legendgroup":"13-19","showlegend":false,"xaxis":"x4","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.5,"base":0,"x":[2],"y":[1.28571428571429],"text":"age_cat: 13-19<br />total_hiv_diag_N:   1.2857143<br />age_cat: 13-19","type":"bar","marker":{"autocolorscale":false,"color":"rgba(68,58,131,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"13-19","legendgroup":"13-19","showlegend":false,"xaxis":"x5","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.5,"base":0,"x":[3],"y":[88.1428571428571],"text":"age_cat: 20-29<br />total_hiv_diag_N:  88.1428571<br />age_cat: 20-29","type":"bar","marker":{"autocolorscale":false,"color":"rgba(49,104,142,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"20-29","legendgroup":"20-29","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.5,"base":0,"x":[3],"y":[126.785714285714],"text":"age_cat: 20-29<br />total_hiv_diag_N: 126.7857143<br />age_cat: 20-29","type":"bar","marker":{"autocolorscale":false,"color":"rgba(49,104,142,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"20-29","legendgroup":"20-29","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.5,"base":0,"x":[3],"y":[102.714285714286],"text":"age_cat: 20-29<br />total_hiv_diag_N: 102.7142857<br />age_cat: 20-29","type":"bar","marker":{"autocolorscale":false,"color":"rgba(49,104,142,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"20-29","legendgroup":"20-29","showlegend":false,"xaxis":"x3","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.5,"base":0,"x":[3],"y":[78.7142857142857],"text":"age_cat: 20-29<br />total_hiv_diag_N:  78.7142857<br />age_cat: 20-29","type":"bar","marker":{"autocolorscale":false,"color":"rgba(49,104,142,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"20-29","legendgroup":"20-29","showlegend":false,"xaxis":"x4","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.5,"base":0,"x":[3],"y":[8.28571428571429],"text":"age_cat: 20-29<br />total_hiv_diag_N:   8.2857143<br />age_cat: 20-29","type":"bar","marker":{"autocolorscale":false,"color":"rgba(49,104,142,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"20-29","legendgroup":"20-29","showlegend":false,"xaxis":"x5","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.5,"base":0,"x":[4],"y":[59.8571428571429],"text":"age_cat: 30-39<br />total_hiv_diag_N:  59.8571429<br />age_cat: 30-39","type":"bar","marker":{"autocolorscale":false,"color":"rgba(33,144,140,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"30-39","legendgroup":"30-39","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.5,"base":0,"x":[4],"y":[82.0714285714286],"text":"age_cat: 30-39<br />total_hiv_diag_N:  82.0714286<br />age_cat: 30-39","type":"bar","marker":{"autocolorscale":false,"color":"rgba(33,144,140,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"30-39","legendgroup":"30-39","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.5,"base":0,"x":[4],"y":[85.0714285714286],"text":"age_cat: 30-39<br />total_hiv_diag_N:  85.0714286<br />age_cat: 30-39","type":"bar","marker":{"autocolorscale":false,"color":"rgba(33,144,140,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"30-39","legendgroup":"30-39","showlegend":false,"xaxis":"x3","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.5,"base":0,"x":[4],"y":[62.2142857142857],"text":"age_cat: 30-39<br />total_hiv_diag_N:  62.2142857<br />age_cat: 30-39","type":"bar","marker":{"autocolorscale":false,"color":"rgba(33,144,140,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"30-39","legendgroup":"30-39","showlegend":false,"xaxis":"x4","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.5,"base":0,"x":[4],"y":[6.42857142857143],"text":"age_cat: 30-39<br />total_hiv_diag_N:   6.4285714<br />age_cat: 30-39","type":"bar","marker":{"autocolorscale":false,"color":"rgba(33,144,140,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"30-39","legendgroup":"30-39","showlegend":false,"xaxis":"x5","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.5,"base":0,"x":[5],"y":[50.7857142857143],"text":"age_cat: 40-49<br />total_hiv_diag_N:  50.7857143<br />age_cat: 40-49","type":"bar","marker":{"autocolorscale":false,"color":"rgba(53,183,121,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"40-49","legendgroup":"40-49","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.5,"base":0,"x":[5],"y":[63.7857142857143],"text":"age_cat: 40-49<br />total_hiv_diag_N:  63.7857143<br />age_cat: 40-49","type":"bar","marker":{"autocolorscale":false,"color":"rgba(53,183,121,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"40-49","legendgroup":"40-49","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.5,"base":0,"x":[5],"y":[62.2857142857143],"text":"age_cat: 40-49<br />total_hiv_diag_N:  62.2857143<br />age_cat: 40-49","type":"bar","marker":{"autocolorscale":false,"color":"rgba(53,183,121,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"40-49","legendgroup":"40-49","showlegend":false,"xaxis":"x3","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.5,"base":0,"x":[5],"y":[40],"text":"age_cat: 40-49<br />total_hiv_diag_N:  40.0000000<br />age_cat: 40-49","type":"bar","marker":{"autocolorscale":false,"color":"rgba(53,183,121,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"40-49","legendgroup":"40-49","showlegend":false,"xaxis":"x4","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.5,"base":0,"x":[5],"y":[5.07142857142857],"text":"age_cat: 40-49<br />total_hiv_diag_N:   5.0714286<br />age_cat: 40-49","type":"bar","marker":{"autocolorscale":false,"color":"rgba(53,183,121,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"40-49","legendgroup":"40-49","showlegend":false,"xaxis":"x5","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.5,"base":0,"x":[6],"y":[33.2142857142857],"text":"age_cat: 50-59<br />total_hiv_diag_N:  33.2142857<br />age_cat: 50-59","type":"bar","marker":{"autocolorscale":false,"color":"rgba(143,215,68,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"50-59","legendgroup":"50-59","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.5,"base":0,"x":[6],"y":[43.2857142857143],"text":"age_cat: 50-59<br />total_hiv_diag_N:  43.2857143<br />age_cat: 50-59","type":"bar","marker":{"autocolorscale":false,"color":"rgba(143,215,68,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"50-59","legendgroup":"50-59","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.5,"base":0,"x":[6],"y":[31.0714285714286],"text":"age_cat: 50-59<br />total_hiv_diag_N:  31.0714286<br />age_cat: 50-59","type":"bar","marker":{"autocolorscale":false,"color":"rgba(143,215,68,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"50-59","legendgroup":"50-59","showlegend":false,"xaxis":"x3","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.5,"base":0,"x":[6],"y":[24.5],"text":"age_cat: 50-59<br />total_hiv_diag_N:  24.5000000<br />age_cat: 50-59","type":"bar","marker":{"autocolorscale":false,"color":"rgba(143,215,68,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"50-59","legendgroup":"50-59","showlegend":false,"xaxis":"x4","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.5,"base":0,"x":[6],"y":[3],"text":"age_cat: 50-59<br />total_hiv_diag_N:   3.0000000<br />age_cat: 50-59","type":"bar","marker":{"autocolorscale":false,"color":"rgba(143,215,68,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"50-59","legendgroup":"50-59","showlegend":false,"xaxis":"x5","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.5,"base":0,"x":[7],"y":[15.2857142857143],"text":"age_cat: 60+<br />total_hiv_diag_N:  15.2857143<br />age_cat: 60+","type":"bar","marker":{"autocolorscale":false,"color":"rgba(253,231,37,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"60+","legendgroup":"60+","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.5,"base":0,"x":[7],"y":[21.7857142857143],"text":"age_cat: 60+<br />total_hiv_diag_N:  21.7857143<br />age_cat: 60+","type":"bar","marker":{"autocolorscale":false,"color":"rgba(253,231,37,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"60+","legendgroup":"60+","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.5,"base":0,"x":[7],"y":[13.9285714285714],"text":"age_cat: 60+<br />total_hiv_diag_N:  13.9285714<br />age_cat: 60+","type":"bar","marker":{"autocolorscale":false,"color":"rgba(253,231,37,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"60+","legendgroup":"60+","showlegend":false,"xaxis":"x3","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.5,"base":0,"x":[7],"y":[9.21428571428571],"text":"age_cat: 60+<br />total_hiv_diag_N:   9.2142857<br />age_cat: 60+","type":"bar","marker":{"autocolorscale":false,"color":"rgba(253,231,37,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"60+","legendgroup":"60+","showlegend":false,"xaxis":"x4","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.5,"base":0,"x":[7],"y":[1.92857142857143],"text":"age_cat: 60+<br />total_hiv_diag_N:   1.9285714<br />age_cat: 60+","type":"bar","marker":{"autocolorscale":false,"color":"rgba(253,231,37,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"60+","legendgroup":"60+","showlegend":false,"xaxis":"x5","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":57.4003044140031,"r":18.9954337899543,"b":23.7996402379964,"l":28.4931506849315},"font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"title":{"text":"Age distribution of HIV diagnosis","font":{"color":"rgba(0,0,0,1)","family":"","size":17.5342465753425},"x":0,"xref":"paper"},"xaxis":{"domain":[0,0.187316083206494],"automargin":true,"type":"linear","autorange":false,"range":[0.4,7.6],"tickmode":"array","ticktext":["0-12","13-19","20-29","30-39","40-49","50-59","60+"],"tickvals":[1,2,3,4,5,6,7],"categoryorder":"array","categoryarray":["0-12","13-19","20-29","30-39","40-49","50-59","60+"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.65296803652968,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":7.97011207970112},"tickangle":-270,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"y","title":"","hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-6.33928571428572,133.125],"tickmode":"array","ticktext":["0","50","100"],"tickvals":[-8.88178419700125e-16,50,100],"categoryorder":"array","categoryarray":["0","50","100"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.65296803652968,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"x","title":"","hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":0.187316083206494,"y0":0,"y1":1},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":0.187316083206494,"y0":0,"y1":23.37899543379,"yanchor":1,"ysizemode":"pixel"},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.212683916793506,"x1":0.387316083206494,"y0":0,"y1":1},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.212683916793506,"x1":0.387316083206494,"y0":0,"y1":23.37899543379,"yanchor":1,"ysizemode":"pixel"},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.412683916793506,"x1":0.587316083206494,"y0":0,"y1":1},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.412683916793506,"x1":0.587316083206494,"y0":0,"y1":23.37899543379,"yanchor":1,"ysizemode":"pixel"},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.612683916793506,"x1":0.787316083206494,"y0":0,"y1":1},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.612683916793506,"x1":0.787316083206494,"y0":0,"y1":23.37899543379,"yanchor":1,"ysizemode":"pixel"},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.812683916793506,"x1":1,"y0":0,"y1":1},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.812683916793506,"x1":1,"y0":0,"y1":23.37899543379,"yanchor":1,"ysizemode":"pixel"}],"annotations":[{"text":"Bronx","x":0.0936580416032471,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(26,26,26,1)","family":"","size":11.689497716895},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"bottom"},{"text":"Brooklyn","x":0.3,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(26,26,26,1)","family":"","size":11.689497716895},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"bottom"},{"text":"Manhattan","x":0.5,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(26,26,26,1)","family":"","size":11.689497716895},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"bottom"},{"text":"Queens","x":0.7,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(26,26,26,1)","family":"","size":11.689497716895},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"bottom"},{"text":"Staten Island","x":0.906341958396753,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(26,26,26,1)","family":"","size":11.689497716895},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"bottom"}],"xaxis2":{"type":"linear","autorange":false,"range":[0.4,7.6],"tickmode":"array","ticktext":["0-12","13-19","20-29","30-39","40-49","50-59","60+"],"tickvals":[1,2,3,4,5,6,7],"categoryorder":"array","categoryarray":["0-12","13-19","20-29","30-39","40-49","50-59","60+"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.65296803652968,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":7.97011207970112},"tickangle":-270,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"domain":[0.212683916793506,0.387316083206494],"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"y","title":"","hoverformat":".2f"},"xaxis3":{"type":"linear","autorange":false,"range":[0.4,7.6],"tickmode":"array","ticktext":["0-12","13-19","20-29","30-39","40-49","50-59","60+"],"tickvals":[1,2,3,4,5,6,7],"categoryorder":"array","categoryarray":["0-12","13-19","20-29","30-39","40-49","50-59","60+"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.65296803652968,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":7.97011207970112},"tickangle":-270,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"domain":[0.412683916793506,0.587316083206494],"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"y","title":"","hoverformat":".2f"},"xaxis4":{"type":"linear","autorange":false,"range":[0.4,7.6],"tickmode":"array","ticktext":["0-12","13-19","20-29","30-39","40-49","50-59","60+"],"tickvals":[1,2,3,4,5,6,7],"categoryorder":"array","categoryarray":["0-12","13-19","20-29","30-39","40-49","50-59","60+"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.65296803652968,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":7.97011207970112},"tickangle":-270,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"domain":[0.612683916793506,0.787316083206494],"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"y","title":"","hoverformat":".2f"},"xaxis5":{"type":"linear","autorange":false,"range":[0.4,7.6],"tickmode":"array","ticktext":["0-12","13-19","20-29","30-39","40-49","50-59","60+"],"tickvals":[1,2,3,4,5,6,7],"categoryorder":"array","categoryarray":["0-12","13-19","20-29","30-39","40-49","50-59","60+"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.65296803652968,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":7.97011207970112},"tickangle":-270,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"domain":[0.812683916793506,1],"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"y","title":"","hoverformat":".2f"},"showlegend":true,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895},"y":-0.3,"orientation":"h","x":0.1},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","showSendToCloud":false},"source":"A","attrs":{"c71f3d78233d":{"x":{},"y":{},"fill":{},"type":"bar"}},"cur_data":"c71f3d78233d","visdat":{"c71f3d78233d":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<p><strong><em>Comments</em></strong></p>
+<p>The age distribution of people diagnosed with HIV is similar in five boroughs. Generally speaking, people aged 20-29 years are the population with the highest risk, followed by 30-39 age group.</p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

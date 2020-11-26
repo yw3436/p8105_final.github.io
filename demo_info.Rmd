@@ -1,0 +1,197 @@
+---
+title: "Demographic Overview"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    code_folding: hide
+---
+
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(plotly)
+
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.asp = .6,
+  out.width = "90%"
+)
+
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
+
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+```
+
+
+The following graphs show the basic demographic information of people diagnosed with HIV in the five boroughs from 2011 to 2019.
+
+
+
+## Gender
+
+```{r, message=FALSE, warning=FALSE}
+hiv_data = read_csv('./data/hiv_complete.csv')
+
+#hiv_data %>% 
+#  filter(borough == "All", sex == "All") %>% 
+#  filter(sex_cat %in% c("Male", "Female")) %>% 
+#  select(year, category, total_hiv_diag_N) %>% 
+#  mutate(year = as.character(year)) %>% 
+#  pivot_wider(
+#    names_from = category,
+#    values_from = total_hiv_diag_N
+#  ) %>% 
+#  plot_ly(x = ~year, y = ~Male, type = "bar", name = 'Male', colors = "viridis") %>% 
+#  add_trace(y = ~Female, name = "Female", colors = "viridis") %>% 
+#  layout(yaxis = list(title = "Number of HIV diagnosis"), barmode = "stack")
+```
+
+
+```{r, message=FALSE, warning=FALSE}
+data11_17 = hiv_data %>% 
+  filter(year != "2018", year != "2019") %>% 
+  select(year, category, total_hiv_diag_N, borough, sex) %>% 
+  filter(borough != "All", category == "TOTAL") %>% 
+  pivot_wider(
+    names_from = sex,
+    values_from = total_hiv_diag_N
+  ) %>% 
+  mutate(total = Male + Female,
+         male_p = Male/total *100,
+         female_p = Female/total *100) %>% 
+  select(-category)
+
+data18_19 = hiv_data %>% 
+  filter(year %in% c("2018", "2019")) %>% 
+  select(year, total_hiv_diag_N, category, sex) %>% 
+  filter(sex %in% c("Male", "Female"), category %in% c("Bronx", "Brooklyn", "Manhattan", "Queens", "Staten Island")) %>% 
+  pivot_wider(
+    names_from = sex,
+    values_from = total_hiv_diag_N
+  ) %>% 
+  mutate(total = Male + Female,
+         male_p = Male/total *100,
+         female_p = Female/total *100,
+         borough = category) %>% 
+  select(-category)
+  
+bind_rows(data11_17, data18_19) %>% 
+  group_by(borough) %>% 
+  summarize(
+    Male = mean(Male),
+    Female = mean(Female)
+  ) %>% 
+  plot_ly(x = ~borough, y = ~ Male, type = "bar", name = 'Male', colors = "viridis") %>% 
+  add_trace(y = ~Female, name = "Female", colors = "viridis") %>% 
+  layout(title = "Gender Distribution of HIV diagnosis",
+    yaxis = list(title = "Mean Number of HIV diagnosis"), barmode = "stack",
+         xaxis = list(title = "Broughs"),
+         legend = list(orientation = 'h'), x = 0.1, y = -0.3)
+```
+
+
+**_Comments_**
+
+Among people diagnosed with HIV, about 22.36% of them were female. In Bronx, female patients account for 30.18% of the total HIV population, while in Manhattan, the ratio is only 13.78%. The result show that female and male participants may have different risk of HIV infection in different boroughs.
+
+
+## Race
+
+```{r, message=FALSE, warning=FALSE}
+#hiv_data %>% 
+#  filter(borough == "All", sex == "All") %>% 
+#  filter(race_cat != "All") %>% 
+#  mutate(
+#    text_label = str_c(year, "  \n", race_cat, ":", total_hiv_diag_per,"%"),
+#    year = as.character(year)) %>% 
+#  plot_ly(
+#    x = ~year, y = ~total_hiv_diag_N, type = "bar", mode = "lines",
+#    color = ~race_cat, text = ~text_label, alpha = 1, colors = "viridis"
+#  ) %>% 
+#  layout(yaxis = list(title = "Number of HIV diagnosis"))
+
+
+data_race_17 = hiv_data %>% 
+  filter(year != "2018", year != "2019") %>% 
+  select(year, category, total_hiv_diag_N, borough, race_cat) %>% 
+  filter(borough != "All", race_cat != "All") %>% 
+  select(-category) %>% 
+  group_by(borough, race_cat) %>% 
+  summarise(
+    total_hiv_diag_N = mean(total_hiv_diag_N)
+  )
+
+
+race_plot = data_race_17 %>% 
+  mutate(race_cat = fct_reorder(race_cat, total_hiv_diag_N)) %>% 
+  ggplot(aes(x = race_cat, y = total_hiv_diag_N, fill = borough)) +
+  geom_bar(width = 0.5, stat = "identity", show.legend = F)+
+  coord_flip()+
+  facet_grid(.~borough) +
+  labs(title = "Race distribution of HIV diagnosis",
+       x = NULL, y = NULL) +
+  theme(axis.text.x = element_text(size = 6, angle = 270),
+        legend.title = element_blank())
+
+ggplotly(race_plot) %>% 
+  layout(legend = list(orientation = "h", 
+                       x = 0.1, y = -0.3))
+```
+
+
+**_Comments_**
+
+The distribution of race shows different patterns in different borough. In Bronx, Queens, and Manhattan, Latino or Hispanic people accounts for a the largest proportion of HIV diagnosis, while in Brooklyn and Staten Island, Black people take the largest weight. The results may indicate that the race distribution in the five boroughs contributes to different proportion of HIV diagnosis of different race. Another possible reason might be that people of different races face different risk of HIV infection in the five boroughs.
+
+
+## Age
+
+```{r, message=FALSE, warning=FALSE}
+#hiv_data %>% 
+#  filter(borough == "All", sex == "All") %>% 
+#  filter(age_cat != "All") %>% 
+#  mutate(
+#    text_label = str_c(year, "  \n", age_cat, ":", total_hiv_diag_per,"%"),
+#    year = as.character(year)) %>% 
+#  plot_ly(
+#    x = ~year, y = ~total_hiv_diag_N, type = "bar", mode = "lines",
+#    color = ~age_cat, text = ~text_label, alpha = 1, colors = "viridis"
+#  ) %>% 
+#  layout(yaxis = list(title = "Number of HIV diagnosis"))
+
+data_age_17 = hiv_data %>% 
+  filter(year != "2018", year != "2019") %>% 
+  select(year, category, total_hiv_diag_N, borough, age_cat) %>% 
+  filter(borough != "All", age_cat != "All") %>% 
+  select(-category) %>% 
+  group_by(borough, age_cat) %>% 
+  summarise(
+    total_hiv_diag_N = mean(total_hiv_diag_N)
+  )
+
+
+race_plot = data_age_17 %>% 
+  ggplot(aes(x = age_cat, y = total_hiv_diag_N, fill = age_cat)) +
+  geom_bar(width = 0.5, stat = "identity", show.legend = F)+
+  facet_grid(.~borough) +
+  labs(title = "Age distribution of HIV diagnosis",
+       x = NULL, y = NULL) +
+  theme(axis.text.x = element_text(size = 6, angle = 270),
+        legend.title = element_blank())
+
+ggplotly(race_plot) %>% 
+  layout(legend = list(orientation = "h", 
+                       x = 0.1, y = -0.3))
+```
+
+**_Comments_**
+
+The age distribution of people diagnosed with HIV is similar in five boroughs. Generally speaking, people aged 20-29 years are the population with the highest risk, followed by 30-39 age group.
+
+
