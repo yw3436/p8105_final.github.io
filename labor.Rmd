@@ -28,170 +28,80 @@ scale_colour_discrete = scale_colour_viridis_d
 scale_fill_discrete = scale_fill_viridis_d
 ```
 
+## Unemployment
 
-The following graphs show the basic demographic information of people diagnosed with HIV in the five boroughs from 2011 to 2019.
+### Unemployment Rate VS. HIV Diagnoses 
+
+```{r, message=FALSE, warning=FALSE}
+unemployment_df = read_csv('./data/unemployment.csv')
+
+unemployment_rate = 
+  unemployment_df %>% 
+  filter(month == "Avg") %>% 
+  select(unemployment_rate, area, year, month) %>% 
+  mutate(
+    area = recode(area, "Bronx County" = "Bronx", "Kings County" = "Brooklyn", "New York  County" = "Manhattan", "Queens County" = "Queens", "Richmond County" = "Staten Island")
+    )
+```
+
+```{r, message=FALSE, warning=FALSE}
+unemployment_plot = 
+  unemployment_rate %>% 
+  ggplot(aes(x = year, y = unemployment_rate, color = area)) +
+  geom_point(alpha = 0.7) +
+  geom_smooth(size = 0.5, alpha = 0.5) +
+  theme(axis.text.x = element_text(angle = 25, vjust = 0.5, hjust = 0.5)) +
+  labs(title = "Unemployment Rate Within Each Borough",
+       x = "Year",
+       y = "Unemployment Rate (%)") 
+
+ggplotly(unemployment_plot) %>% 
+  layout(legend = list(orientation = "h", 
+                       x = 0.1, y = -0.3))
+```
+
+**_Comments_**
+
+The unemployment rate decreases over time from 2015 to 2019 for Bronx (Bronx County), Brooklyn (Kings County), Manhattan (New York County), Queens (Queens County), Staten Island (Richmond County).
 
 
-
-## Gender
 
 ```{r, message=FALSE, warning=FALSE}
 hiv_data = read_csv('./data/hiv_complete.csv')
 
-#hiv_data %>% 
-#  filter(borough == "All", sex == "All") %>% 
-#  filter(sex_cat %in% c("Male", "Female")) %>% 
-#  select(year, category, total_hiv_diag_N) %>% 
-#  mutate(year = as.character(year)) %>% 
-#  pivot_wider(
-#    names_from = category,
-#    values_from = total_hiv_diag_N
-#  ) %>% 
-#  plot_ly(x = ~year, y = ~Male, type = "bar", name = 'Male', colors = "viridis") %>% 
-#  add_trace(y = ~Female, name = "Female", colors = "viridis") %>% 
-#  layout(yaxis = list(title = "Number of HIV diagnosis"), barmode = "stack")
+hiv_diagnoses = 
+  hiv_data %>% 
+  filter(borough == "All", sex == "All") %>% 
+  filter(borough_cat != "All") %>% 
+  select(year, total_hiv_diag_N, borough_cat) %>% 
+  filter(borough_cat %in% c("Bronx", "Brooklyn", "Manhattan", "Queens", "Staten Island")) %>% 
+  filter(year %in% c("2015", "2016", "2017", "2018", "2019")) %>% 
+  rename(area = borough_cat)
 ```
 
-
 ```{r, message=FALSE, warning=FALSE}
-data11_17 = hiv_data %>% 
-  filter(year != "2018", year != "2019") %>% 
-  select(year, category, total_hiv_diag_N, borough, sex) %>% 
-  filter(borough != "All", category == "TOTAL") %>% 
-  pivot_wider(
-    names_from = sex,
-    values_from = total_hiv_diag_N
-  ) %>% 
-  mutate(total = Male + Female,
-         male_p = Male/total *100,
-         female_p = Female/total *100) %>% 
-  select(-category)
-
-data18_19 = hiv_data %>% 
-  filter(year %in% c("2018", "2019")) %>% 
-  select(year, total_hiv_diag_N, category, sex) %>% 
-  filter(sex %in% c("Male", "Female"), category %in% c("Bronx", "Brooklyn", "Manhattan", "Queens", "Staten Island")) %>% 
-  pivot_wider(
-    names_from = sex,
-    values_from = total_hiv_diag_N
-  ) %>% 
-  mutate(total = Male + Female,
-         male_p = Male/total *100,
-         female_p = Female/total *100,
-         borough = category) %>% 
-  select(-category)
-  
-bind_rows(data11_17, data18_19) %>% 
-  group_by(borough) %>% 
-  summarize(
-    Male = mean(Male),
-    Female = mean(Female)
-  ) %>% 
-  plot_ly(x = ~borough, y = ~ Male, type = "bar", name = 'Male', colors = "viridis") %>% 
-  add_trace(y = ~Female, name = "Female", colors = "viridis") %>% 
-  layout(title = "Gender Distribution of HIV diagnosis",
-    yaxis = list(title = "Mean Number of HIV diagnosis"), barmode = "stack",
-         xaxis = list(title = "Broughs"),
-         legend = list(orientation = 'h'), x = 0.1, y = -0.3)
+hiv_unemployment = 
+  merge(hiv_diagnoses, unemployment_rate)
 ```
 
-
-**_Comments_**
-
-Among people diagnosed with HIV, about 22.36% of them were female. In Bronx, female patients account for 30.18% of the total HIV population, while in Manhattan, the ratio is only 13.78%. The result show that female and male participants may have different risk of HIV infection in different boroughs.
-
-
-## Race
-
 ```{r, message=FALSE, warning=FALSE}
-#hiv_data %>% 
-#  filter(borough == "All", sex == "All") %>% 
-#  filter(race_cat != "All") %>% 
-#  mutate(
-#    text_label = str_c(year, "  \n", race_cat, ":", total_hiv_diag_per,"%"),
-#    year = as.character(year)) %>% 
-#  plot_ly(
-#    x = ~year, y = ~total_hiv_diag_N, type = "bar", mode = "lines",
-#    color = ~race_cat, text = ~text_label, alpha = 1, colors = "viridis"
-#  ) %>% 
-#  layout(yaxis = list(title = "Number of HIV diagnosis"))
+hiv_unemployment_plot = 
+  hiv_unemployment %>% 
+  ggplot(aes(x = unemployment_rate, y = total_hiv_diag_N)) +
+  geom_point(aes(shape = area, color = year)) +
+  geom_smooth(size = 0.3) +
+  scale_y_continuous(
+    breaks = c(0, 150, 300, 450, 600, 750),
+    labels = c("0", "150", "300", "450", "600", "750")
+  ) +
+  theme(axis.text.x = element_text(size = 9, vjust = 0.5, hjust = 0.5)) +
+  labs(title = "Unemployment Rate vs. HIV Diagnoses",
+       x = "Unemployment Rate (%)",
+       y = "HIV Diagnoses") 
 
-
-data_race_17 = hiv_data %>% 
-  filter(year != "2018", year != "2019") %>% 
-  select(year, category, total_hiv_diag_N, borough, race_cat) %>% 
-  filter(borough != "All", race_cat != "All") %>% 
-  select(-category) %>% 
-  group_by(borough, race_cat) %>% 
-  summarise(
-    total_hiv_diag_N = mean(total_hiv_diag_N)
-  )
-
-
-race_plot = data_race_17 %>% 
-  mutate(race_cat = fct_reorder(race_cat, total_hiv_diag_N)) %>% 
-  ggplot(aes(x = race_cat, y = total_hiv_diag_N, fill = borough)) +
-  geom_bar(width = 0.5, stat = "identity", show.legend = F)+
-  coord_flip()+
-  facet_grid(.~borough) +
-  labs(title = "Race distribution of HIV diagnosis",
-       x = NULL, y = NULL) +
-  theme(axis.text.x = element_text(size = 6, angle = 270),
-        legend.title = element_blank())
-
-ggplotly(race_plot) %>% 
-  layout(legend = list(orientation = "h", 
-                       x = 0.1, y = -0.3))
-```
-
-
-**_Comments_**
-
-The distribution of race shows different patterns in different borough. In Bronx, Queens, and Manhattan, Latino or Hispanic people accounts for a the largest proportion of HIV diagnosis, while in Brooklyn and Staten Island, Black people take the largest weight. The results may indicate that the race distribution in the five boroughs contributes to different proportion of HIV diagnosis of different race. Another possible reason might be that people of different races face different risk of HIV infection in the five boroughs.
-
-
-## Age
-
-```{r, message=FALSE, warning=FALSE}
-#hiv_data %>% 
-#  filter(borough == "All", sex == "All") %>% 
-#  filter(age_cat != "All") %>% 
-#  mutate(
-#    text_label = str_c(year, "  \n", age_cat, ":", total_hiv_diag_per,"%"),
-#    year = as.character(year)) %>% 
-#  plot_ly(
-#    x = ~year, y = ~total_hiv_diag_N, type = "bar", mode = "lines",
-#    color = ~age_cat, text = ~text_label, alpha = 1, colors = "viridis"
-#  ) %>% 
-#  layout(yaxis = list(title = "Number of HIV diagnosis"))
-
-data_age_17 = hiv_data %>% 
-  filter(year != "2018", year != "2019") %>% 
-  select(year, category, total_hiv_diag_N, borough, age_cat) %>% 
-  filter(borough != "All", age_cat != "All") %>% 
-  select(-category) %>% 
-  group_by(borough, age_cat) %>% 
-  summarise(
-    total_hiv_diag_N = mean(total_hiv_diag_N)
-  )
-
-
-race_plot = data_age_17 %>% 
-  ggplot(aes(x = age_cat, y = total_hiv_diag_N, fill = age_cat)) +
-  geom_bar(width = 0.5, stat = "identity", show.legend = F)+
-  facet_grid(.~borough) +
-  labs(title = "Age distribution of HIV diagnosis",
-       x = NULL, y = NULL) +
-  theme(axis.text.x = element_text(size = 6, angle = 270),
-        legend.title = element_blank())
-
-ggplotly(race_plot) %>% 
-  layout(legend = list(orientation = "h", 
-                       x = 0.1, y = -0.3))
+ggplotly(hiv_unemployment_plot) 
 ```
 
 **_Comments_**
 
-The age distribution of people diagnosed with HIV is similar in five boroughs. Generally speaking, people aged 20-29 years are the population with the highest risk, followed by 30-39 age group.
-
-
+Overall, the smooth line indicates an increasing trend of HIV diagnoses when unemployment rate increases. 
