@@ -1,0 +1,118 @@
+---
+title: "HIV Overview"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    code_folding: hide
+---
+
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(plotly)
+
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.asp = .6,
+  out.width = "90%"
+)
+
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
+
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+```
+
+
+```{r, message=FALSE, warning=FALSE}
+hiv_data = read_csv('./data/hiv_complete.csv')
+
+hiv_diagnoses = 
+  hiv_data %>% 
+  filter(borough == "All", sex == "All") %>% 
+  filter(borough_cat == "All", sex_cat == "All", race_cat == "All", age_cat == "All", risk_cat == "All") %>% 
+  select(year, total_hiv_diag_N, death_N, plwha_N, borough_cat) %>% 
+  pivot_longer(
+    total_hiv_diag_N:death_N, 
+    names_to = "outcome_cat",
+    names_prefix = "_N",
+    values_to = "outcome_number"
+  ) %>% 
+   mutate(
+    outcome_cat = recode(outcome_cat, "total_hiv_diag_N" = "HIV diagnoses", "death_N" = "HIV Related Death")
+    )
+```
+
+
+### HIV Trend Over Years (2015-2019)
+```{r, message=FALSE, warning=FALSE}
+hiv_diagnoses_plot = 
+  hiv_diagnoses %>% 
+  ggplot(aes(x = year, y = outcome_number, color = outcome_cat)) +
+  geom_point(alpha = 0.5) +
+  geom_line(alpha = 0.5) +
+  scale_x_continuous(
+    breaks = c(2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019),
+    labels = c("2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019")
+  ) +
+  scale_y_continuous(
+    breaks = c(0, 500, 1000, 1500, 2000, 2500, 3000, 3500),
+    labels = c("0", "500", "1000", "1500", "2000", "2500", "3000", "3500")
+  ) +
+  theme(axis.text.x = element_text(angle = 25, vjust = 0.5, hjust = 0.5)) +
+  labs(title = "Trend Over Years",
+       x = "Year",
+       y = "Number") 
+
+ggplotly(hiv_diagnoses_plot) %>% 
+  layout(legend = list(orientation = "h", 
+                       x = 0.1, y = -0.3))
+```
+
+**_Comments_**
+
+According to this overall trend, the HIV diagnoses and HIV related death decrease over the years. 
+
+```{r, message=FALSE, warning=FALSE}
+hiv = 
+  hiv_data %>% 
+  filter(borough != "All") %>% 
+  filter(borough_cat == "All", sex_cat == "All", race_cat == "All", age_cat == "All", risk_cat == "All") %>% 
+  select(year, total_hiv_diag_N, borough, sex) %>% 
+  group_by(borough, year) %>% 
+  summarise(num_hiv_diagnoses = sum(total_hiv_diag_N))
+```
+
+
+### HIV Diagnosis by Boroughs
+```{r, message=FALSE, warning=FALSE}
+hiv_plot = 
+  hiv %>% 
+  ggplot(aes(x = year, y = num_hiv_diagnoses, fill = year)) +
+  geom_bar(width = 0.5, stat = "identity", show.legend = T) +
+  facet_grid(.~borough) +
+  scale_x_continuous(
+    breaks = c(2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019),
+    labels = c("2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019")
+  ) +
+  scale_y_continuous(
+    breaks = c(0, 200, 400, 600, 800, 1000),
+    labels = c("0", "200", "400", "600", "800", "1000")
+  ) +
+  theme(axis.text.x = element_text(angle = 75, vjust = 1, hjust = 0.5)) +
+  labs(title = "Number of HIV Diagnosis",
+       x = NULL, y = NULL) 
+
+ggplotly(hiv_plot) %>% 
+  layout(legend = list(orientation = "h", 
+                       x = 0.1, y = -0.3))
+```
+
+
+**_Comments_**
+Overall, Staten island has the lowest number of HIV diagnoses for each year from 2011 to 2017. The trend of HIV diagnoses for Bronx, Brooklyn, Manhattan, and Queens are similar to each other with a overall increasing trend over years. 
