@@ -112,4 +112,4 @@ ggplotly(hiv_unemployment_plot)
 
 **_Comments_**
 
-Overall, the smooth line indicates an increasing trend of HIV diagnoses when unemployment rate increases. 
+Overall, the smooth line indicates an increasing trend of number of HIV diagnoses when unemployment rate increases. 
