@@ -1,0 +1,63 @@
+category,New York city,Bronx,Brooklyn,Manhattan,Queens,Staten Island
+"Population estimates, July 1, 2019,  (V2019)",8336817,1418207,2559903,1628706,2253858,476143
+"Population estimates base, April 1, 2010,  (V2019)",8175031,1384580,2504721,1586381,2230619,468730
+"Population, percent change - April 1, 2010 (estimates base) to July 1, 2019,  (V2019)",0.02,0.024,0.022,0.027,0.01,0.016
+"Population, Census, April 1, 2010",8175133,1385108,2504700,1585873,2230722,468730
+"Persons under 5 years, percent",0.065,0.071,0.071,0.047,0.061,0.057
+"Persons under 18 years, percent",0.209,0.246,0.227,0.143,0.2,0.218
+"Persons 65 years and over, percent",0.141,0.133,0.144,0.17,0.163,0.167
+"Female persons, percent",0.523,0.528,0.526,0.526,0.515,0.514
+"White alone, percent",0.427,0.447,0.498,0.646,0.478,0.745
+"Black or African American alone, percent",0.243,0.436,0.338,0.178,0.207,0.116
+"American Indian and Alaska Native alone, percent",0.004,0.029,0.009,0.012,0.013,0.007
+"Asian alone, percent",0.139,0.046,0.127,0.128,0.269,0.109
+"Native Hawaiian and Other Pacific Islander alone, percent",0.001,0.004,0.001,0.002,0.002,0.001
+"Two or More Races, percent",0.035,0.038,0.027,0.034,0.03,0.022
+"Hispanic or Latino, percent",0.291,0.564,0.189,0.256,0.282,0.186
+"White alone, not Hispanic or Latino, percent",0.321,0.09,0.368,0.472,0.249,0.596
+"Veterans, 2014-2018",156514,26186,38322,32519,43330,16157
+"Foreign born persons, percent, 2014-2018",0.37,0.354,0.365,0.29,0.473,0.23
+"Housing units,  July 1, 2019,  (V2019)",X,537232,1065399,892878,869400,181751
+"Owner-occupied housing unit rate, 2014-2018",0.327,0.196,0.3,0.241,0.446,0.697
+"Median value of owner-occupied housing units, 2014-2018",570500,382900,665300,944600,504900,478600
+"Median selected monthly owner costs -with a mortgage, 2014-2018",2665,2440,2824,3186,2549,2493
+"Median selected monthly owner costs -without a mortgage, 2014-2018",871,755,878,1014,856,879
+"Median gross rent, 2014-2018",1396,1176,1374,1682,1520,1282
+"Building permits, 2019",X,5541,9696,5512,5137,661
+"Households, 2014-2018",3154103,499728,950856,758133,779234,166152
+"Persons per household, 2014-2018",2.62,2.79,2.69,2.07,2.91,2.81
+"Living in same house 1 year ago, percent of persons age 1 year+, 2014-2018",0.9,0.911,0.906,0.847,0.916,0.941
+"Language other than English spoken at home, percent of persons age 5 years+, 2014-2018",0.487,0.593,0.454,0.397,0.558,0.319
+"Households with a computer, percent, 2014-2018",0.875,0.843,0.858,0.901,0.888,0.883
+"Households with a broadband Internet subscription, percent, 2014-2018",0.794,0.725,0.776,0.833,0.819,0.811
+"High school graduate or higher, percent of persons age 25 years+, 2014-2018",0.816,0.72,0.816,0.87,0.815,0.885
+"Bachelor's degree or higher, percent of persons age 25 years+, 2014-2018",0.374,0.198,0.365,0.608,0.315,0.33
+"With a disability, under age 65 years, percent, 2014-2018",0.068,0.111,0.061,0.061,0.056,0.064
+"Persons  without health insurance, under age 65 years, percent",0.096,0.087,0.078,0.061,0.101,0.053
+"In civilian labor force, total, percent of population age 16 years+, 2014-2018",0.635,0.597,0.635,0.67,0.641,0.581
+"In civilian labor force, female, percent of population age 16 years+, 2014-2018",0.585,0.556,0.592,0.625,0.576,0.528
+"Total accommodation and food services sales, 2012 ($1,000)",27452861,1005143,2453405,20382622,3139120,472571
+"Total health care and social assistance receipts/revenue, 2012 ($1,000)",76165547,10001272,16419598,34680452,12103525,2960700
+"Total manufacturers shipments, 2012 ($1,000)",14816322,1477909,3644086,4970920,4438082,285325
+"Total merchant wholesaler sales, 2012 ($1,000)",173797846,10994538,16522942,128760891,16059427,1460048
+"Total retail sales, 2012 ($1,000)",92265000,6872806,20533079,44039957,17003207,3815951
+"Total retail sales per capita, 2012",11067,4880,8003,27200,7481,8106
+"Mean travel time to work (minutes), workers age 16 years+, 2014-2018",41.2,44.8,42.6,32.1,44.1,44.5
+"Median household income (in 2018 dollars), 2014-2018",60762,38085,56015,82459,64987,79267
+"Per capita income in past 12 months (in 2018 dollars), 2014-2018",37693,20850,31984,72832,30289,34987
+"Persons in poverty, percent",0.189,0.273,0.189,0.156,0.116,0.117
+"Total employer establishments, 2018",X,18309,59792,102903,50770,9435
+"Total employment, 2018",X,271541,655714,2276786,585188,105648
+"Total annual payroll, 2018 ($1,000)",X,12886127,27660905,263303530,29642182,4573941
+"Total employment, percent change, 2017-2018",X,0.021,0.046,0.007,0.034,Z
+"Total nonemployer establishments, 2018",X,120174,288852,232503,266193,38651
+"All firms, 2012",1050911,135782,296858,315399,265643,39645
+"Men-owned firms, 2012",571852,61813,162037,171730,154224,22660
+"Women-owned firms, 2012",413899,68705,118489,114896,97982,13921
+"Minority-owned firms, 2012",539447,110222,143596,99763,173633,12318
+"Nonminority-owned firms, 2012",483136,23478,147926,198433,87648,26347
+"Veteran-owned firms, 2012",57216,7987,16236,18120,12513,2407
+"Nonveteran-owned firms, 2012",966167,125616,275506,280398,249046,36335
+"Population per square mile, 2010",27012.5,32903.6,35369.1,69467.5,20553.6,8030.3
+"Land area in square miles, 2010",302.64,42.1,70.82,22.83,108.53,58.37
+FIPS Code,"""3651000""","""36005""","""36047""","""36061""","""36081""","""36085"""
