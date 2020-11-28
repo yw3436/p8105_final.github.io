@@ -108,6 +108,8 @@ rate_final=
   left_join(total_rate, census_2019, 
             by = c("borough_cat" = "borough_cat"))
 
+write.csv(rate_final,'./data/rate_complete.csv')
+
 ```
 The current data contains variables:
 
