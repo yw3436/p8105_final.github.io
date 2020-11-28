@@ -1,0 +1,179 @@
+Unemployment
+================
+RongQing Jia
+
+``` r
+library(tidyverse)
+library(readxl)
+
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.asp = 0.6,
+  out.width = "90%"
+)
+
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
+
+options(
+  ggplot2.continuous.color = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+
+sclae_color_discrete = scale_color_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+```
+
+# data import and cleaning
+
+``` r
+labor_df1 =
+    read_xls(
+    "./data/Revised 2015-2019 Borough Labor Force.xls",
+    sheet = "Bronx",
+    range = "A4:g72",
+    col_names = FALSE,
+  ) %>% 
+  janitor::clean_names() %>% 
+  rename(area = x1, year = x2, month = x3, labor_force = x4, employed = x5, unemployed = x6, unemployment_rate = x7) %>% 
+  mutate(
+    labor_force = round(labor_force),
+    employed = round(employed),
+    unemployed = round(unemployed), 
+    unemployment_rate = round(unemployment_rate, digits = 1), 
+    area = as.factor(area), 
+    month = as.factor(month)
+  ) %>% 
+  drop_na()
+```
+
+    ## New names:
+    ## * `` -> ...1
+    ## * `` -> ...2
+    ## * `` -> ...3
+    ## * `` -> ...4
+    ## * `` -> ...5
+    ## * ...
+
+``` r
+labor_df2 =
+    read_xls(
+    "./data/Revised 2015-2019 Borough Labor Force.xls",
+    sheet = "Brooklyn",
+    range = "A4:g72",
+    col_names = FALSE,
+  ) %>% 
+  janitor::clean_names() %>% 
+  rename(area = x1, year = x2, month = x3, labor_force = x4, employed = x5, unemployed = x6, unemployment_rate = x7) %>% 
+  mutate(
+    labor_force = round(labor_force),
+    employed = round(employed),
+    unemployed = round(unemployed), 
+    unemployment_rate = round(unemployment_rate, digits = 1), 
+    area = as.factor(area), 
+    month = as.factor(month)
+  ) %>% 
+  drop_na()
+```
+
+    ## New names:
+    ## * `` -> ...1
+    ## * `` -> ...2
+    ## * `` -> ...3
+    ## * `` -> ...4
+    ## * `` -> ...5
+    ## * ...
+
+``` r
+labor_df3 =
+    read_xls(
+    "./data/Revised 2015-2019 Borough Labor Force.xls",
+    sheet = "Manhattan",
+    range = "A4:g72",
+    col_names = FALSE,
+  ) %>% 
+  janitor::clean_names() %>% 
+  rename(area = x1, year = x2, month = x3, labor_force = x4, employed = x5, unemployed = x6, unemployment_rate = x7) %>% 
+  mutate(
+    labor_force = round(labor_force),
+    employed = round(employed),
+    unemployed = round(unemployed), 
+    unemployment_rate = round(unemployment_rate, digits = 1), 
+    area = as.factor(area), 
+    month = as.factor(month)
+  ) %>% 
+  drop_na()
+```
+
+    ## New names:
+    ## * `` -> ...1
+    ## * `` -> ...2
+    ## * `` -> ...3
+    ## * `` -> ...4
+    ## * `` -> ...5
+    ## * ...
+
+``` r
+labor_df4 =
+    read_xls(
+    "./data/Revised 2015-2019 Borough Labor Force.xls",
+    sheet = "Queens",
+    range = "A4:g72",
+    col_names = FALSE,
+  ) %>% 
+  janitor::clean_names() %>% 
+  rename(area = x1, year = x2, month = x3, labor_force = x4, employed = x5, unemployed = x6, unemployment_rate = x7) %>% 
+  mutate(
+    labor_force = round(labor_force),
+    employed = round(employed),
+    unemployed = round(unemployed), 
+    unemployment_rate = round(unemployment_rate, digits = 1), 
+    area = as.factor(area), 
+    month = as.factor(month)
+  ) %>% 
+  drop_na()
+```
+
+    ## New names:
+    ## * `` -> ...1
+    ## * `` -> ...2
+    ## * `` -> ...3
+    ## * `` -> ...4
+    ## * `` -> ...5
+    ## * ...
+
+``` r
+labor_df5 =
+    read_xls(
+    "./data/Revised 2015-2019 Borough Labor Force.xls",
+    sheet = "Staten Island",
+    range = "A4:g72",
+    col_names = FALSE,
+  ) %>% 
+  janitor::clean_names() %>% 
+  rename(area = x1, year = x2, month = x3, labor_force = x4, employed = x5, unemployed = x6, unemployment_rate = x7) %>% 
+  mutate(
+    labor_force = round(labor_force),
+    employed = round(employed),
+    unemployed = round(unemployed), 
+    unemployment_rate = round(unemployment_rate, digits = 1), 
+    area = as.factor(area), 
+    month = as.factor(month)
+  ) %>% 
+  drop_na()
+```
+
+    ## New names:
+    ## * `` -> ...1
+    ## * `` -> ...2
+    ## * `` -> ...3
+    ## * `` -> ...4
+    ## * `` -> ...5
+    ## * ...
+
+``` r
+unemployment = 
+  rbind(labor_df1, labor_df2, labor_df3, labor_df4, labor_df5)
+
+# export tidy data frame
+write.csv(unemployment,'./data/unemployment.csv')
+```

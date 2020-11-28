@@ -1,0 +1,168 @@
+---
+title: "Dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    source: embed
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(plotly)
+library(rvest)
+library(readr)
+library(viridis)
+library(leaflet)
+library(RColorBrewer)
+
+```
+
+
+```{r, echo=FALSE, warning=FALSE}
+total_hiv = read.csv("./data/hiv_complete.csv") %>% 
+  filter(borough == "All", sex == "All")%>% 
+  select(year,total_hiv_diag_N, aids_N, plwha_N, death_N, borough_cat) %>%
+  filter(!borough_cat %in% c("All", "Unknown borough", "Outside NYC")) %>%
+  mutate(total_hiv_diag_N = as.numeric(total_hiv_diag_N),
+         aids_N = as.numeric(aids_N),
+         death_N = as.numeric(death_N),
+         plwha_N = as.numeric(plwha_N))
+
+census_df = read_csv('./data/census.csv') %>% 
+  select(-X1) %>% 
+rename(borough_cat = borough, population = population_2010)
+
+total_hiv =
+  left_join(total_hiv, census_df, 
+  by = c("borough_cat" = "borough_cat")) 
+
+hiv_rate = total_hiv %>% 
+  mutate(hiv_diag_rate = total_hiv_diag_N / population*10000,
+         aids_rate = aids_N / population*10000,
+         plwha_rate = as.numeric(plwha_N) / population*100,
+         death_rate = death_N /population*10000)
+
+crime_df = read_csv('./data/total_crime.csv') %>%
+  rename(borough_cat = borough) %>%
+  select(-X1)
+
+crime_rate = 
+    left_join(crime_df, census_df, 
+              by = c("borough_cat" = "borough_cat")) %>%
+    mutate(crime_rate = total_crime / population*100)
+
+hiv_rate =
+  left_join(hiv_rate, crime_rate, 
+  by = c("borough_cat"="borough_cat", "year"="year"))
+
+
+unemployment_df = read_csv('./data/unemployment_rate.csv')
+
+unemployment_rate = 
+  unemployment_df %>% 
+  filter(month == "avg") %>% 
+  select(unemployment_rate, area, year, month) %>% 
+  mutate(
+    area = recode(area, "Bronx County" = "Bronx", "Kings County" = "Brooklyn", 
+                  "New York County" = "Manhattan", "Queens County" = "Queens", 
+                  "Richmond County" = "Staten Island")
+    ) %>%
+  rename(borough_cat = area) %>%
+  filter(borough_cat %in% c("Bronx", "Brooklyn", "Manhattan", "Queens","Staten Island")) %>% 
+  select(-month)
+
+total_rate = 
+  left_join(hiv_rate, unemployment_rate, 
+            by = c("borough_cat" = "borough_cat", "year"="year"))
+
+rate_trend = total_rate %>%
+  select(year, hiv_diag_rate, aids_rate, plwha_rate, death_rate,
+         crime_rate, unemployment_rate, borough_cat) %>%
+  pivot_longer(
+    hiv_diag_rate:death_rate,
+    names_to = "information", 
+    values_to = "value") %>%
+  pivot_longer(
+    crime_rate:unemployment_rate,
+    names_to = "other", 
+    values_to = "rate") %>%
+  mutate(
+    information = recode(information, "hiv_diag_rate" = "HIV Diagnosis Rate", 
+                         "aids_rate" = "AIDs Rate", "plwha_rate" = "PLWHA Rate", 
+                         "death_rate" = "Death Rate"),
+    other = recode(other, "crime_rate" = "Crime Rate",
+                   "unemployment_rate" = "Unemployment Rate")
+    ) 
+```
+  
+Sidebar {.sidebar}
+-----------------------------------------------------------------------
+
+```{r, echo=FALSE, warning=FALSE}
+## create input widget
+
+boro =  rate_trend %>% distinct(borough_cat) %>% pull()
+infor = rate_trend %>% distinct(information) %>% pull()
+other = rate_trend %>% distinct(other) %>% pull()
+
+selectInput(
+  "boroughInput",
+  label = h1("Borough Choice"),
+  choices = boro,
+  selected = "Bronx")
+
+sliderInput(
+  "yearInput",
+  h1("Year"),
+  min = 2011, max = 2019, step = 1, 
+  value = c(min, max))
+  
+checkboxGroupInput("inforInput",
+                   h1("HIV Information"),
+                   choices = infor,
+                   selected = c("HIV Diagnosis Rate"))
+
+radioButtons("otherInput",
+            h1("Other Factors"),
+            choices = other,
+            selected = c("Crime Rate"))
+
+```
+
+Row {data-height=650}
+-----------------------------------------------------------------------
+### HIV Data in the US 2011-2019
+
+```{r, echo=FALSE, warning=FALSE}
+
+renderPlotly({
+
+rate_trend %>% 
+    filter(
+      borough_cat == input$boroughInput,
+      year %in% input$yearInput[1]:input$yearInput[2],
+      information %in% input$inforInput,
+      other %in% input$otherInput) %>%
+    
+plot_ly(y = ~value, x = ~year, color = ~information, type = "scatter", mode = "lines") %>%
+add_trace( y = ~rate, x = ~year, color = ~other, type = "scatter", mode = "lines", yaxis = "y2") %>%
+layout(yaxis2 = list(overlaying = "y", side = "right"),
+       title = "HIV Rate verse Related Factors Rate over Time",
+       yaxis = list(title = "Rate"),
+       xaxis = list(title = "Year"),
+       legend = list(orientation = "h", x = 0.1, y = -0.3))
+})
+```
+
+### About the graphs
+
+Notes:
+
+* HIV Diagnosis Rate = Total HIV Diagnosis Number/ Population * 10000
+* AIDs Rate = Total AIDs Number / Population * 10000
+* PLWHA Rate = Total People Living with AIDs / Population * 100
+* Death Rate = Total Death Number / Population * 10000
+* Crime Rate = Total Crime Number / Population * 100
+* Unemployment Rate = Total Unemployment Number / Total Labor Number

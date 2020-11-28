@@ -1,5 +1,5 @@
 ---
-title: "Add our project title"
+title: "HIV Diagnoses in New York City"
 output: 
   html_document:
     toc: true
@@ -7,35 +7,37 @@ output:
 ---
 
 
-## The following is for reference only!
+#### **Investigating the HIV prelavence and factors associated with HIV**
+##### Yuqi Wang (yw3436); Rongqing Jia (rj2579); Xiaoyu Li (xl2834); Yan Song (ys3295)
 
-## Hello! Welcome to Yuqi's website
+<img src="image/nyc_pic.JPG" style=:width:75%">
 
-_Let me tell you something about me..._
+## **Motivation**
+According to the latest report from New York Department of Health and Mental Hygiene HIV Epidemiology Program, there was 197 new HIV diagnoses and 1683 deaths among people with HIV (8.6 per 1000 people with HIV) in 2018. We would like to investigate the general trend of HIV diagnosis from 2011 to 2019, and also analysis the potential influence factors of it. In this project, we examined the trend of HIV prevalence and incidence from 2011 to 2019. In particular, we are interested in:
 
-My name is Yuqi Wang, a MPH candidate at Columbia University.
-
-I love kitty!!!
-
-![](images/cat.jpg)
-
-For more information, please go to [About Me](about_me.html) to read my resume.
-
+* What is the general trend of HIV diagnoses across the time?
+* What is the demographic of the HIV population? 
+* Are HIV diagnses different among different boroughs? 
+* Whether unemployment rate and crime rate contribute to HIV prevalence. 
 
 
+## **Data Resources**
+We used data from the following datasets in NYC OpenData: 
 
-## Guidance for this website
+* [***HIV/AIDS Annual Surveillance Statistics***](https://www1.nyc.gov/site/doh/data/data-sets/hiv-aids-annual-surveillance-statistics.page) Annual data are provided on new diagnoses of HIV (non-AIDS), concurrent HIV/AIDS and AIDS, as well as the number of persons living with HIV and AIDS and the number of deaths among persons with HIV and AIDS. The data are shown for New York City overall and by sex, race, age, borough, area-based poverty level, risk factor, and United Hospital Fund neighborhood. All the data used in this project was extracted from the PDF of the annual reports.
 
-From this website, you can learn something about me. On top right site, I include some information about **my resume, my email, my github and my linkedin**. Also, since this is the website for homework, you may also find a link for the Dashboard in next sections. I will try to input more things in the website in the future.
+* [***Unemployment Rate***](http://www.labor.ny.gov/stats/nyc/) Unemployment information for all boroughs in New York City (2015-2019) from New York State Deparmtent of Labor.
+
+* ***Crime Data*** Annual data are provided on new diagnoses of HIV (non-AIDS), concurrent HIV/AIDS and AIDS, as well as the number of persons living with HIV and AIDS and the number of deaths among persons with HIV and AIDS. The data are shown for New York City overall and by sex, race, age, borough, area-based poverty level, risk factor, and United Hospital Fund neighborhood.
+
+* ***Census Data*** Annual data are provided on new diagnoses of HIV (non-AIDS), concurrent HIV/AIDS and AIDS, as well as the number of persons living with HIV and AIDS and the number of deaths among persons with HIV and AIDS. The data are shown for New York City overall and by sex, race, age, borough, area-based poverty level, risk factor, and United Hospital Fund neighborhood.
+
+## **Overview**
 
 
 
 
-## Link to page within the site
 
-If you would like to look at my brief resume, please go to [About Me](about_me.html).
-
-If you are interested in the dashboard I made for the `rnoaa` dataset, please go to [Dashboard](dashboard.html). The dashboard provides the information about weather of three places in the U.S.
 
 
 
