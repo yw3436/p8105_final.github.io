@@ -1,0 +1,950 @@
+HIV dataset excel version
+================
+Yuqi Wang
+
+``` r
+library(tidyverse)
+library(rvest)
+library(readxl)
+library(hablar)
+
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.asp = .6,
+  out.width = "90%"
+)
+
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
+
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+
+set.seed(1)
+```
+
+First, upload all the excel datasets.
+
+This is the data for 2011:
+
+``` r
+data11 = read_excel('./data/hiv_data/2011_1.xlsx', range = 'A8:AH48', col_names = FALSE) %>%
+  janitor::clean_names() %>%
+  select(x1, x5, x10, x12, x14, x16, x18, x19, x25, x29, x33, x34) %>%
+  filter(!is.na(x5)) %>% 
+  filter(!str_detect(x1, "poverty")) %>% 
+  rename(
+    category = x1,
+    total_hiv_diag_N = x5,
+    total_hiv_diag_per = x10,
+    without_aids_N = x12,
+    without_aids_per = x14,
+    concurrent_aids_N = x16,
+    concurrent_aids_per = x18,
+    aids = x19,
+    plwha = x25,
+    death = x29,
+    borough = x33,
+    sex = x34
+  ) %>%
+  separate(aids, c("aids_N", "aids_per"), " ") %>% 
+  separate(plwha, c("plwha_N", "plwha_per"), " ") %>% 
+  separate(death, c("death_N", "death_per"), " ") %>% 
+  select(-aids_per, -plwha_per, -death_per) %>% 
+  mutate(year = 2011) %>% 
+  mutate_if(is.numeric, as.character)
+```
+
+    ## New names:
+    ## * `` -> ...1
+    ## * `` -> ...2
+    ## * `` -> ...3
+    ## * `` -> ...4
+    ## * `` -> ...5
+    ## * ...
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 32 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [1].
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 32 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [1].
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 32 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [1].
+
+``` r
+data11_d = read_excel('./data/hiv_data/2011_1.xlsx', range = 'A49:AH324', col_names = FALSE) %>%
+  janitor::clean_names() %>%
+  select(x1, x7, x10, x13, x14, x16, x18, x20, x26, x29, x33, x34) %>%
+  filter(!is.na(x7)) %>% 
+  filter(!str_detect(x1, "poverty")) %>% 
+  rename(
+    category = x1,
+    total_hiv_diag_N = x7,
+    total_hiv_diag_per = x10,
+    without_aids_N = x13,
+    without_aids_per = x14,
+    concurrent_aids_N = x16,
+    concurrent_aids_per = x18,
+    aids = x20,
+    plwha = x26,
+    death = x29,
+    borough = x33,
+    sex = x34
+  ) %>%
+  separate(aids, c("aids_N", "aids_per"), " ") %>% 
+  separate(plwha, c("plwha_N", "plwha_per"), " ") %>% 
+  separate(death, c("death_N", "death_per"), " ") %>% 
+  select(-aids_per, -plwha_per, -death_per) %>% 
+  mutate(year = 2011) %>% 
+  mutate_if(is.numeric, as.character)
+```
+
+    ## New names:
+    ## * `` -> ...1
+    ## * `` -> ...2
+    ## * `` -> ...3
+    ## * `` -> ...4
+    ## * `` -> ...5
+    ## * ...
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 206 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 10 rows [1, 24,
+    ## 45, 68, 89, 112, 133, 156, 177, 198].
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 206 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 10 rows [1, 24,
+    ## 45, 68, 89, 112, 133, 156, 177, 198].
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 206 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 10 rows [1, 24,
+    ## 45, 68, 89, 112, 133, 156, 177, 198].
+
+This is the data for 2012:
+
+``` r
+data12 = read_excel('./data/hiv_data/2012.xlsx', range = 'A8:AG48', col_names = FALSE) %>%
+  janitor::clean_names() %>%
+  select(x1, x5, x10, x12, x14, x16, x18, x19, x24, x29, x32, x33) %>%
+  filter(!is.na(x5)) %>% 
+  filter(!str_detect(x1, "poverty")) %>% 
+  rename(
+    category = x1,
+    total_hiv_diag_N = x5,
+    total_hiv_diag_per = x10,
+    without_aids_N = x12,
+    without_aids_per = x14,
+    concurrent_aids_N = x16,
+    concurrent_aids_per = x18,
+    aids = x19,
+    plwha = x24,
+    death = x29,
+    borough = x32,
+    sex = x33
+  ) %>%
+  separate(aids, c("aids_N", "aids_per"), " ") %>% 
+  separate(plwha, c("plwha_N", "plwha_per"), " ") %>% 
+  separate(death, c("death_N", "death_per"), " ") %>% 
+  select(-aids_per, -plwha_per, -death_per) %>% 
+  mutate(year = 2012) %>% 
+  mutate_if(is.numeric, as.character)
+```
+
+    ## New names:
+    ## * `` -> ...1
+    ## * `` -> ...2
+    ## * `` -> ...3
+    ## * `` -> ...4
+    ## * `` -> ...5
+    ## * ...
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 32 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [1].
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 32 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [1].
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 32 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [1].
+
+``` r
+data12_d = read_excel('./data/hiv_data/2012.xlsx', range = 'A49:AH324', col_names = FALSE) %>%
+  janitor::clean_names() %>%
+  select(x1, x7, x10, x13, x14, x16, x18, x20, x26, x29, x32, x33) %>%
+  filter(!is.na(x7)) %>% 
+  filter(!str_detect(x1, "poverty")) %>% 
+  rename(
+    category = x1,
+    total_hiv_diag_N = x7,
+    total_hiv_diag_per = x10,
+    without_aids_N = x13,
+    without_aids_per = x14,
+    concurrent_aids_N = x16,
+    concurrent_aids_per = x18,
+    aids = x20,
+    plwha = x26,
+    death = x29,
+    borough = x32,
+    sex = x33
+  ) %>%
+  separate(aids, c("aids_N", "aids_per"), " ") %>% 
+  separate(plwha, c("plwha_N", "plwha_per"), " ") %>% 
+  separate(death, c("death_N", "death_per"), " ") %>% 
+  select(-aids_per, -plwha_per, -death_per) %>% 
+  mutate(year = 2012) %>% 
+  mutate_if(is.numeric, as.character)
+```
+
+    ## New names:
+    ## * `` -> ...1
+    ## * `` -> ...2
+    ## * `` -> ...3
+    ## * `` -> ...4
+    ## * `` -> ...5
+    ## * ...
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 206 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 10 rows [1, 24,
+    ## 45, 68, 89, 112, 133, 156, 177, 198].
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 206 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 10 rows [1, 24,
+    ## 45, 68, 89, 112, 133, 156, 177, 198].
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 206 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 10 rows [1, 24,
+    ## 45, 68, 89, 112, 133, 156, 177, 198].
+
+This is the data for 2013:
+
+``` r
+data13 = read_excel('./data/hiv_data/2013.xlsx', range = 'A8:AG48', col_names = FALSE) %>%
+  janitor::clean_names() %>% 
+  select(x1, x5, x9, x11, x13, x15, x17, x18, x24, x28, x32, x33) %>%
+  filter(!is.na(x5)) %>% 
+  filter(!str_detect(x1, "poverty")) %>% 
+  rename(
+    category = x1,
+    total_hiv_diag_N = x5,
+    total_hiv_diag_per = x9,
+    without_aids_N = x11,
+    without_aids_per = x13,
+    concurrent_aids_N = x15,
+    concurrent_aids_per = x17,
+    aids = x18,
+    plwha = x24,
+    death = x28,
+    borough = x32,
+    sex = x33
+  ) %>%
+  separate(aids, c("aids_N", "aids_per"), " ") %>% 
+  separate(plwha, c("plwha_N", "plwha_per"), " ") %>% 
+  separate(death, c("death_N", "death_per"), " ") %>% 
+  select(-aids_per, -plwha_per, -death_per) %>% 
+  mutate(year = 2013) %>% 
+  mutate_if(is.numeric, as.character)
+```
+
+    ## New names:
+    ## * `` -> ...1
+    ## * `` -> ...2
+    ## * `` -> ...3
+    ## * `` -> ...4
+    ## * `` -> ...5
+    ## * ...
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 32 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [1].
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 32 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [1].
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 32 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [1].
+
+``` r
+data13_d = read_excel('./data/hiv_data/2013.xlsx', range = 'A49:AG324', col_names = FALSE) %>%
+  janitor::clean_names() %>% 
+  select(x1, x6, x9, x12, x13, x15, x17, x19, x25, x28, x32, x33) %>%
+  filter(!is.na(x6)) %>% 
+  filter(!str_detect(x1, "poverty")) %>% 
+  rename(
+    category = x1,
+    total_hiv_diag_N = x6,
+    total_hiv_diag_per = x9,
+    without_aids_N = x12,
+    without_aids_per = x13,
+    concurrent_aids_N = x15,
+    concurrent_aids_per = x17,
+    aids = x19,
+    plwha = x25,
+    death = x28,
+    borough = x32,
+    sex = x33
+  ) %>%
+  separate(aids, c("aids_N", "aids_per"), " ") %>% 
+  separate(plwha, c("plwha_N", "plwha_per"), " ") %>% 
+  separate(death, c("death_N", "death_per"), " ") %>% 
+  select(-aids_per, -plwha_per, -death_per) %>% 
+  mutate(year = 2013) %>% 
+  mutate_if(is.numeric, as.character)
+```
+
+    ## New names:
+    ## * `` -> ...1
+    ## * `` -> ...2
+    ## * `` -> ...3
+    ## * `` -> ...4
+    ## * `` -> ...5
+    ## * ...
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 206 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 10 rows [1, 24,
+    ## 45, 68, 89, 112, 133, 156, 177, 198].
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 206 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 10 rows [1, 24,
+    ## 45, 68, 89, 112, 133, 156, 177, 198].
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 206 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 10 rows [1, 24,
+    ## 45, 68, 89, 112, 133, 156, 177, 198].
+
+This is the data for 2014:
+
+``` r
+data14 = read_excel('./data/hiv_data/2014.xlsx', range = 'A8:AG48', col_names = FALSE) %>%
+  janitor::clean_names() %>% 
+  select(x1, x5, x8, x10, x11, x13, x15, x16, x21, x25, x29, x30) %>%
+  filter(!is.na(x5)) %>% 
+  filter(!str_detect(x1, "poverty")) %>% 
+  rename(
+    category = x1,
+    total_hiv_diag_N = x5,
+    total_hiv_diag_per = x8,
+    without_aids_N = x10,
+    without_aids_per = x11,
+    concurrent_aids_N = x13,
+    concurrent_aids_per = x15,
+    aids = x16,
+    plwha = x21,
+    death = x25,
+    borough = x29,
+    sex = x30
+  ) %>%
+  separate(aids, c("aids_N", "aids_per"), " ") %>% 
+  separate(plwha, c("plwha_N", "plwha_per"), " ") %>% 
+  separate(death, c("death_N", "death_per"), " ") %>% 
+  select(-aids_per, -plwha_per, -death_per) %>% 
+  mutate(year = 2014) %>% 
+  mutate_if(is.numeric, as.character)
+```
+
+    ## New names:
+    ## * `` -> ...1
+    ## * `` -> ...2
+    ## * `` -> ...3
+    ## * `` -> ...4
+    ## * `` -> ...5
+    ## * ...
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 31 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [1].
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 31 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [1].
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 31 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [1].
+
+``` r
+data14_d = read_excel('./data/hiv_data/2014.xlsx', range = 'A50:AD335', col_names = FALSE) %>%
+  janitor::clean_names() %>%
+  select(x1, x6, x8, x10, x11, x13, x15, x16, x22, x25, x29, x30) %>%
+  filter(!is.na(x6)) %>% 
+  filter(!str_detect(x1, "poverty")) %>% 
+  rename(
+    category = x1,
+    total_hiv_diag_N = x6,
+    total_hiv_diag_per = x8,
+    without_aids_N = x10,
+    without_aids_per = x11,
+    concurrent_aids_N = x13,
+    concurrent_aids_per = x15,
+    aids = x16,
+    plwha = x22,
+    death = x25,
+    borough = x29,
+    sex = x30
+  ) %>%
+  separate(aids, c("aids_N", "aids_per"), " ") %>% 
+  separate(plwha, c("plwha_N", "plwha_per"), " ") %>% 
+  separate(death, c("death_N", "death_per"), " ") %>% 
+  select(-aids_per, -plwha_per, -death_per) %>% 
+  mutate(year = 2014) %>% 
+  mutate_if(is.numeric, as.character)
+```
+
+    ## New names:
+    ## * `` -> ...1
+    ## * `` -> ...2
+    ## * `` -> ...3
+    ## * `` -> ...4
+    ## * `` -> ...5
+    ## * ...
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 206 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 10 rows [1, 24,
+    ## 45, 68, 89, 112, 133, 156, 177, 198].
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 206 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 10 rows [1, 24,
+    ## 45, 68, 89, 112, 133, 156, 177, 198].
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 206 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 10 rows [1, 24,
+    ## 45, 68, 89, 112, 133, 156, 177, 198].
+
+This is the data for 2015:
+
+``` r
+data15 = read_excel('./data/hiv_data/2015.xlsx', range = 'A8:AG49', col_names = FALSE) %>%
+  janitor::clean_names() %>% 
+  select(x1, x5, x9, x11, x12, x14, x16, x18, x23, x28, x32, x33) %>%
+  filter(!is.na(x5)) %>% 
+  filter(!str_detect(x1, "poverty")) %>% 
+  rename(
+    category = x1,
+    total_hiv_diag_N = x5,
+    total_hiv_diag_per = x9,
+    without_aids_N = x11,
+    without_aids_per = x12,
+    concurrent_aids_N = x14,
+    concurrent_aids_per = x16,
+    aids = x18,
+    plwha = x23,
+    death = x28,
+    borough = x32,
+    sex = x33
+  ) %>%
+  separate(aids, c("aids_N", "aids_per"), " ") %>% 
+  separate(plwha, c("plwha_N", "plwha_per"), " ") %>% 
+  separate(death, c("death_N", "death_per"), " ") %>% 
+  select(-aids_per, -plwha_per, -death_per) %>% 
+  mutate(year = 2015) %>% 
+  mutate_if(is.numeric, as.character)
+```
+
+    ## New names:
+    ## * `` -> ...1
+    ## * `` -> ...2
+    ## * `` -> ...3
+    ## * `` -> ...4
+    ## * `` -> ...5
+    ## * ...
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 32 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [1].
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 32 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [1].
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 32 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [1].
+
+``` r
+data15_d = read_excel('./data/hiv_data/2015.xlsx', range = 'A50:AG335', col_names = FALSE) %>%
+  janitor::clean_names() %>%
+  select(x1, x6, x9, x11, x12, x14, x16, x18, x25, x28, x32, x33) %>%
+  filter(!is.na(x6)) %>% 
+  filter(!str_detect(x1, "poverty")) %>% 
+  rename(
+    category = x1,
+    total_hiv_diag_N = x6,
+    total_hiv_diag_per = x9,
+    without_aids_N = x11,
+    without_aids_per = x12,
+    concurrent_aids_N = x14,
+    concurrent_aids_per = x16,
+    aids = x18,
+    plwha = x25,
+    death = x28,
+    borough = x32,
+    sex = x33
+  ) %>%
+  separate(aids, c("aids_N", "aids_per"), " ") %>% 
+  separate(plwha, c("plwha_N", "plwha_per"), " ") %>% 
+  separate(death, c("death_N", "death_per"), " ") %>% 
+  select(-aids_per, -plwha_per, -death_per) %>% 
+  mutate(year = 2015) %>% 
+  mutate_if(is.numeric, as.character)
+```
+
+    ## New names:
+    ## * `` -> ...1
+    ## * `` -> ...2
+    ## * `` -> ...3
+    ## * `` -> ...4
+    ## * `` -> ...5
+    ## * ...
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 206 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 10 rows [1, 24,
+    ## 45, 68, 89, 112, 133, 156, 177, 198].
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 206 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 10 rows [1, 24,
+    ## 45, 68, 89, 112, 133, 156, 177, 198].
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 206 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 10 rows [1, 24,
+    ## 45, 68, 89, 112, 133, 156, 177, 198].
+
+This is the data for 2016:
+
+``` r
+data16 = read_excel('./data/hiv_data/2016.xlsx', range = 'A8:AC49', col_names = FALSE) %>%
+  janitor::clean_names() %>%
+  select(x1, x5, x7, x9, x10, x12, x14, x15, x20, x24, x28, x29) %>%
+  filter(!is.na(x5)) %>% 
+  filter(!str_detect(x1, "poverty")) %>% 
+  rename(
+    category = x1,
+    total_hiv_diag_N = x5,
+    total_hiv_diag_per = x7,
+    without_aids_N = x9,
+    without_aids_per = x10,
+    concurrent_aids_N = x12,
+    concurrent_aids_per = x14,
+    aids = x15,
+    plwha = x20,
+    death = x24,
+    borough = x28,
+    sex = x29
+  ) %>%
+  separate(aids, c("aids_N", "aids_per"), " ") %>% 
+  separate(plwha, c("plwha_N", "plwha_per"), " ") %>% 
+  separate(death, c("death_N", "death_per"), " ") %>% 
+  select(-aids_per, -plwha_per, -death_per) %>% 
+  mutate(year = 2016) %>% 
+  mutate_if(is.numeric, as.character)
+```
+
+    ## New names:
+    ## * `` -> ...1
+    ## * `` -> ...2
+    ## * `` -> ...3
+    ## * `` -> ...4
+    ## * `` -> ...5
+    ## * ...
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 32 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [1].
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 32 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [1].
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 32 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [1].
+
+``` r
+data16_d = read_excel('./data/hiv_data/2016.xlsx', range = 'A50:AC335', col_names = FALSE) %>%
+  janitor::clean_names() %>%
+  select(x1, x5, x7, x9, x10, x12, x14, x15, x21, x24, x28, x29) %>%
+  filter(!is.na(x5)) %>% 
+  filter(!str_detect(x1, "poverty")) %>% 
+  rename(
+    category = x1,
+    total_hiv_diag_N = x5,
+    total_hiv_diag_per = x7,
+    without_aids_N = x9,
+    without_aids_per = x10,
+    concurrent_aids_N = x12,
+    concurrent_aids_per = x14,
+    aids = x15,
+    plwha = x21,
+    death = x24,
+    borough = x28,
+    sex = x29
+  ) %>%
+  separate(aids, c("aids_N", "aids_per"), " ") %>% 
+  separate(plwha, c("plwha_N", "plwha_per"), " ") %>% 
+  separate(death, c("death_N", "death_per"), " ") %>% 
+  select(-aids_per, -plwha_per, -death_per) %>% 
+  mutate(year = 2016) %>% 
+  mutate_if(is.numeric, as.character)
+```
+
+    ## New names:
+    ## * `` -> ...1
+    ## * `` -> ...2
+    ## * `` -> ...3
+    ## * `` -> ...4
+    ## * `` -> ...5
+    ## * ...
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 206 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 10 rows [1, 24,
+    ## 45, 68, 89, 112, 133, 156, 177, 198].
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 206 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 10 rows [1, 24,
+    ## 45, 68, 89, 112, 133, 156, 177, 198].
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 206 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 10 rows [1, 24,
+    ## 45, 68, 89, 112, 133, 156, 177, 198].
+
+This is the data for 2017:
+
+``` r
+data17 = read_excel('./data/hiv_data/2017.xlsx', range = 'A8:AD49', col_names = FALSE) %>%
+  janitor::clean_names() %>%
+  select(x1, x5, x8, x10, x11, x13, x15, x16, x21, x25, x29, x30) %>%
+  filter(!is.na(x5)) %>% 
+  filter(!str_detect(x1, "poverty")) %>% 
+  rename(
+    category = x1,
+    total_hiv_diag_N = x5,
+    total_hiv_diag_per = x8,
+    without_aids_N = x10,
+    without_aids_per = x11,
+    concurrent_aids_N = x13,
+    concurrent_aids_per = x15,
+    aids = x16,
+    plwha = x21,
+    death = x25,
+    borough = x29,
+    sex = x30
+  ) %>%
+  separate(aids, c("aids_N", "aids_per"), " ") %>% 
+  separate(plwha, c("plwha_N", "plwha_per"), " ") %>% 
+  separate(death, c("death_N", "death_per"), " ") %>% 
+  select(-aids_per, -plwha_per, -death_per) %>% 
+  mutate(year = 2017) %>% 
+  mutate_if(is.numeric, as.character)
+```
+
+    ## New names:
+    ## * `` -> ...1
+    ## * `` -> ...2
+    ## * `` -> ...3
+    ## * `` -> ...4
+    ## * `` -> ...5
+    ## * ...
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 32 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [1].
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 32 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [1].
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 32 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [1].
+
+``` r
+data17_d = read_excel('./data/hiv_data/2017.xlsx', range = 'A50:AD335', col_names = FALSE) %>%
+  janitor::clean_names() %>% 
+  select(x1, x6, x8, x10, x11, x13, x15, x16, x22, x25, x29, x30) %>%
+  filter(!is.na(x6)) %>% 
+  filter(!str_detect(x1, "poverty")) %>% 
+  rename(
+    category = x1,
+    total_hiv_diag_N = x6,
+    total_hiv_diag_per = x8,
+    without_aids_N = x10,
+    without_aids_per = x11,
+    concurrent_aids_N = x13,
+    concurrent_aids_per = x15,
+    aids = x16,
+    plwha = x22,
+    death = x25,
+    borough = x29,
+    sex = x30
+  ) %>%
+  separate(aids, c("aids_N", "aids_per"), " ") %>% 
+  separate(plwha, c("plwha_N", "plwha_per"), " ") %>% 
+  separate(death, c("death_N", "death_per"), " ") %>% 
+  select(-aids_per, -plwha_per, -death_per) %>% 
+  mutate(year = 2017) %>% 
+  mutate_if(is.numeric, as.character)
+```
+
+    ## New names:
+    ## * `` -> ...1
+    ## * `` -> ...2
+    ## * `` -> ...3
+    ## * `` -> ...4
+    ## * `` -> ...5
+    ## * ...
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 206 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 10 rows [1, 24,
+    ## 45, 68, 89, 112, 133, 156, 177, 198].
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 206 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 10 rows [1, 24,
+    ## 45, 68, 89, 112, 133, 156, 177, 198].
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 206 rows [2, 3, 4, 5,
+    ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
+
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 10 rows [1, 24,
+    ## 45, 68, 89, 112, 133, 156, 177, 198].
+
+This is the data for 2018:
+
+``` r
+data18 = read_excel('./data/hiv_data/2018.xlsx', range = 'A7:BU128', col_names = FALSE) %>%
+  janitor::clean_names() %>% 
+  select(x1, x21, x24, x27, x31, x38, x42, x50, x58, x67, x72, x73) %>%
+  filter(!is.na(x21)) %>% 
+  filter(!str_detect(x1, "poverty")) %>% 
+  rename(
+    category = x1,
+    total_hiv_diag_N = x21,
+    total_hiv_diag_per = x24,
+    without_aids_N = x27,
+    without_aids_per = x31,
+    concurrent_aids_N = x38,
+    concurrent_aids_per = x42,
+    aids_N = x50,
+    plwha_N = x58,
+    death_N = x67,
+    borough = x72,
+    sex = x73
+  ) %>%
+  mutate(year = 2018) %>% 
+  mutate_if(is.numeric, as.character)
+```
+
+    ## New names:
+    ## * `` -> ...1
+    ## * `` -> ...2
+    ## * `` -> ...3
+    ## * `` -> ...4
+    ## * `` -> ...5
+    ## * ...
+
+This is the data for 2019:
+
+``` r
+data19 = read_excel('./data/hiv_data/2019.xlsx', range = 'A7:O128', col_names = FALSE) %>%
+  janitor::clean_names() %>%
+  select(x1, x4, x5, x6, x7, x8, x9, x10, x11, x12, x14, x15) %>%
+  filter(!is.na(x4)) %>% 
+  filter(!str_detect(x1, "poverty")) %>% 
+  rename(
+    category = x1,
+    total_hiv_diag_N = x4,
+    total_hiv_diag_per = x5,
+    without_aids_N = x6,
+    without_aids_per = x7,
+    concurrent_aids_N = x8,
+    concurrent_aids_per = x9,
+    aids_N = x10,
+    plwha_N = x11,
+    death_N = x12,
+    borough = x14,
+    sex = x15
+  ) %>%
+  mutate(year = 2019) %>% 
+  mutate_if(is.numeric, as.character)
+```
+
+    ## New names:
+    ## * `` -> ...1
+    ## * `` -> ...2
+    ## * `` -> ...3
+    ## * `` -> ...4
+    ## * `` -> ...5
+    ## * ...
+
+``` r
+data19 = data19 %>% retype() %>% 
+  mutate(
+    total_hiv_diag_N = 2*total_hiv_diag_N,
+    without_aids_N = 2*without_aids_N,
+    concurrent_aids_N = 2*concurrent_aids_N,
+    aids_N = 2*aids_N,
+    death_N = 2*death_N
+  ) %>% mutate_if(is.numeric, as.character)
+```
+
+Combine all the datasets together:
+
+``` r
+hiv_complete = list(
+  data11,
+  data11_d,
+  data12,
+  data12_d,
+  data13,
+  data13_d,
+  data14,
+  data14_d,
+  data15,
+  data15_d,
+  data16,
+  data16_d,
+  data17,
+  data17_d,
+  data18,
+  data19
+) %>% 
+  bind_rows() %>% relocate(year) %>% retype()
+
+hiv_complete = hiv_complete %>% 
+  mutate(
+    category = str_replace(category, "0‐12", "0-12"),
+    category = str_replace(category, "13‐19", "13-19"),
+    category = str_replace(category, "20‐29", "20-29"),
+    category = str_replace(category, "30‐39", "30-39"),
+    category = str_replace(category, "40‐49", "40-49"),
+    category = str_replace(category, "50‐59", "50-59"),
+    category = str_replace(category, "Latina/Hispanic", "Latino/Hispanic"),
+    category = str_replace(category, "MSM‐IDU", "MSM-IDU"),
+    category = str_replace(category, "Other rsk", "Other risk"),
+    category = str_replace(category, "Total", "TOTAL"),
+    category = str_replace(category, "Women", "Female"),
+    category = str_replace(category, "Men", "Male"),
+  ) 
+
+hiv_complete = hiv_complete %>% 
+    mutate(
+    sex_cat = case_when(
+      category == "Male" ~ "Male",
+      category == "Female" ~ "Female",
+      category == "Transgender" ~ "Transgender",
+      TRUE ~ "All"
+    ),
+    race_cat = case_when(
+      category == "Black" ~ "Black",
+      category == "Latino/Hispanic" ~ "Latino/Hispanic",
+      category == "White" ~ "White",
+      category == "Asian/Pacific Islander" ~ "Asian/Pacific Islander",
+      category == "Native American" ~ "Native American",
+      category == "Multiracial" ~ "Multiracial",
+      category == "Unknown race" ~ "Unknown race",
+      TRUE ~ "All"
+    ),
+    borough_cat = case_when(
+      category == "Bronx" ~ "Bronx",
+      category == "Brooklyn" ~ "Brooklyn",
+      category == "Manhattan" ~ "Manhattan",
+      category == "Queens" ~ "Queens",
+      category == "Staten Island" ~ "Staten Island",
+      category == "Outside NYC" ~ "Outside NYC",
+      category == "Unknown borough" ~ "Unknown borough",
+      TRUE ~ "All"
+    ),
+    age_cat = case_when(
+      category == "0-12" ~ "0-12",
+      category == "13-19" ~ "13-19",
+      category == "20-29" ~ "20-29",
+      category == "30-39" ~ "30-39",
+      category == "40-49" ~ "40-49",
+      category == "50-59" ~ "50-59",
+      category == "60+" ~ "60+",
+      TRUE ~ "All"
+    ),
+    risk_cat = case_when(
+      category == "Injection drug use history (IDU)" ~ "Injection drug use history (IDU)",
+      category == "Heterosexual contact" ~ "Heterosexual contact",
+      category == "Male who have sex with men (MSM)" ~ "Male who have sex with men (MSM)",
+      category == "MSM-IDU" ~ "MSM-IDU",
+      category == "Perinatal" ~ "Perinatal",
+      category == "Transgender people with sexual contact" ~ "Transgender people with sexual contact",
+      category == "Unknown risk" ~ "Unknown risk",
+      category == "Other risk" ~ "Other risk",
+      TRUE ~ "All"
+    ))
+
+write.csv(hiv_complete,'./data/hiv_complete.csv')
+```
