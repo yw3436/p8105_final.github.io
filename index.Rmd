@@ -13,7 +13,7 @@ output:
 <img src="image/nyc_pic.JPG" style=:width:75%">
 
 ## **Motivation**
-According to the latest report from New York Department of Health and Mental Hygiene HIV Epidemiology Program, there was 197 new HIV diagnoses and 1683 deaths among people with HIV (8.6 per 1000 people with HIV) in 2018. In this project, we examined the trend of HIV prevalence and incidence from 2015 to 2019. In particular, we are interested in:
+According to the latest report from New York Department of Health and Mental Hygiene HIV Epidemiology Program, there was 197 new HIV diagnoses and 1683 deaths among people with HIV (8.6 per 1000 people with HIV) in 2018. We would like to investigate the general trend of HIV diagnosis from 2011 to 2019, and also analysis the potential influence factors of it. In this project, we examined the trend of HIV prevalence and incidence from 2011 to 2019. In particular, we are interested in:
 
 * What is the general trend of HIV diagnoses across the time?
 * What is the demographic of the HIV population? 
@@ -21,14 +21,16 @@ According to the latest report from New York Department of Health and Mental Hyg
 * Whether unemployment rate and crime rate contribute to HIV prevalence. 
 
 
-## **Data**
+## **Data Resources**
 We used data from the following datasets in NYC OpenData: 
 
-* ***HIV/AIDS Diagnoses by Neighborhood, Sex, and Race/Ethnicity*** These data were reported to the NYC DOHMH by June 30, 2014. This dataset includes data on new diagnoses of HIV and AIDS in NYC for the calendar years 2010 through 2013. Reported cases and case rates (per 100,000 population) are stratified by age group, race/ethnicity, and United Hospital Fund (UHF) neighborhood. 
+* [***HIV/AIDS Annual Surveillance Statistics***](https://www1.nyc.gov/site/doh/data/data-sets/hiv-aids-annual-surveillance-statistics.page) Annual data are provided on new diagnoses of HIV (non-AIDS), concurrent HIV/AIDS and AIDS, as well as the number of persons living with HIV and AIDS and the number of deaths among persons with HIV and AIDS. The data are shown for New York City overall and by sex, race, age, borough, area-based poverty level, risk factor, and United Hospital Fund neighborhood. All the data used in this project was extracted from the PDF of the annual reports.
 
 * [***Unemployment Rate***](http://www.labor.ny.gov/stats/nyc/) Unemployment information for all boroughs in New York City (2015-2019) from New York State Deparmtent of Labor.
 
-* ***HIV/AIDS Annual Surveillance Statistics*** Annual data are provided on new diagnoses of HIV (non-AIDS), concurrent HIV/AIDS and AIDS, as well as the number of persons living with HIV and AIDS and the number of deaths among persons with HIV and AIDS. The data are shown for New York City overall and by sex, race, age, borough, area-based poverty level, risk factor, and United Hospital Fund neighborhood.
+* ***Crime Data*** Annual data are provided on new diagnoses of HIV (non-AIDS), concurrent HIV/AIDS and AIDS, as well as the number of persons living with HIV and AIDS and the number of deaths among persons with HIV and AIDS. The data are shown for New York City overall and by sex, race, age, borough, area-based poverty level, risk factor, and United Hospital Fund neighborhood.
+
+* ***Census Data*** Annual data are provided on new diagnoses of HIV (non-AIDS), concurrent HIV/AIDS and AIDS, as well as the number of persons living with HIV and AIDS and the number of deaths among persons with HIV and AIDS. The data are shown for New York City overall and by sex, race, age, borough, area-based poverty level, risk factor, and United Hospital Fund neighborhood.
 
 ## **Overview**
 

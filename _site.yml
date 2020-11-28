@@ -11,7 +11,7 @@ navbar:
       menu:
       - text: "Demographics"
         href: demo_info.html
-      - text: "Crims"
+      - text: "Crime"
         href: crime.rmd.html
       - text: "Unemployment"
         href: unemployment.html 
