@@ -11,7 +11,6 @@ output:
 ```{r setup, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(readxl)
-library(patchwork)
 library(plotly)
 
 knitr::opts_chunk$set(
@@ -106,6 +105,7 @@ The unemployment rate decreases over time from 2015 to 2019 for Bronx (Bronx Cou
 ```{r, message=FALSE, warning=FALSE}
 hiv_crime_plot =
   hiv_crime %>% 
+  mutate(year = as.factor(year)) %>% 
   ggplot(aes(x = crime_rate, y = hiv_diag_rate)) +
   geom_point(aes(shape = borough, color = year), alpha = 0.8) +
   geom_smooth(size = 0.5) +
@@ -116,7 +116,7 @@ hiv_crime_plot =
 ggplotly(hiv_crime_plot)
 ```
 
-*NOTE: the crime number only involves 7 major felonies according to NYPD: murder and non-negligent manslaughter, rape, robbery, felony assault, burglary, grand larceny and grand larceny of a vehicle.*
+*NOTE: the crime number only involves 7 major felony offenses according to NYPD: murder and non-negligent manslaughter, rape, robbery, felony assault, burglary, grand larceny and grand larceny of a vehicle.*
 
 **_Comments_**
 
