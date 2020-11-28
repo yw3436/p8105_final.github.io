@@ -2,17 +2,15 @@ name: "Final Project's Website!"
 output_dir: "."
 navbar:
   title: "Home"
-  right:
-    - text: "About me"
-      href: about_me.html
+  left:
+    - text: "HIV Trends"
+      href: hiv_overview.html
     - text: "Dashboard"
       href: dashboard.html
-    - icon: fa-envelope fa-lg
-      href: mailto:<yw3436@cumc.columbia.edu>
-    - icon: fab fa-linkedin
-      href: https://www.linkedin.com/in/yuqi-wang-bella/
+      
+  right:
     - icon: fa-github fa-lg
-      href: https://github.com/yw3436/p8105_final.github.io.git
+      href: https://github.com/yw3436/p8105_final.github.io
 output:
   html_document:
     theme: flatly
