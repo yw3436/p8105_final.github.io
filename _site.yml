@@ -5,8 +5,8 @@ navbar:
   right:
     - text: "HIV Trends"
       href: hiv_overview.html
-    - text: "Dashboard"
-      href: dashboard.html
+    - text: "Shiny Dashboard"
+      href: https://yw3436.shinyapps.io/dashboard/
     - text: "Overview"
       menu:
       - text: "Demographics"
