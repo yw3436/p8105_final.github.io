@@ -11,11 +11,11 @@
 
 
 
-<title>Add our project title</title>
+<title>HIV Diagnoses in New York City</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -107,33 +107,33 @@ summary {
 <style type="text/css">
 /* padding for bootstrap navbar */
 body {
-  padding-top: 51px;
+  padding-top: 60px;
   padding-bottom: 40px;
 }
 /* offset scroll position for anchor links (for fixed navbar)  */
 .section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 65px;
+  margin-top: -65px;
 }
 .section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 65px;
+  margin-top: -65px;
 }
 .section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 65px;
+  margin-top: -65px;
 }
 .section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 65px;
+  margin-top: -65px;
 }
 .section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 65px;
+  margin-top: -65px;
 }
 .section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 65px;
+  margin-top: -65px;
 }
 .dropdown-submenu {
   position: relative;
@@ -371,7 +371,7 @@ div.tocify {
   </a>
 </li>
 <li>
-  <a href="https://github.com/yw3436">
+  <a href="https://github.com/yw3436/p8105_final.github.io.git">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -385,30 +385,39 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Add our project title</h1>
+<h1 class="title toc-ignore">HIV Diagnoses in New York City</h1>
 
 </div>
 
 
-<div id="the-following-is-for-reference-only" class="section level2">
-<h2>The following is for reference only!</h2>
+<div id="investigating-the-hiv-prelavence-and-factors-associated-with-hiv" class="section level4">
+<h4><strong>Investigating the HIV prelavence and factors associated with HIV</strong></h4>
+<div id="yuqi-wang-yw3436-rongqing-jia-rj2579-xiaoyu-li-xl2834-yan-song-ys3295" class="section level5">
+<h5>Yuqi Wang (yw3436); Rongqing Jia (rj2579); Xiaoyu Li (xl2834); Yan Song (ys3295)</h5>
+<p><img src="image/nyc_pic.jpg" style=:width:75%"></p>
 </div>
-<div id="hello-welcome-to-yuqis-website" class="section level2">
-<h2>Hello! Welcome to Yuqi’s website</h2>
-<p><em>Let me tell you something about me…</em></p>
-<p>My name is Yuqi Wang, a MPH candidate at Columbia University.</p>
-<p>I love kitty!!!</p>
-<p><img src="images/cat.jpg" /></p>
-<p>For more information, please go to <a href="about_me.html">About Me</a> to read my resume.</p>
 </div>
-<div id="guidance-for-this-website" class="section level2">
-<h2>Guidance for this website</h2>
-<p>From this website, you can learn something about me. On top right site, I include some information about <strong>my resume, my email, my github and my linkedin</strong>. Also, since this is the website for homework, you may also find a link for the Dashboard in next sections. I will try to input more things in the website in the future.</p>
+<div id="motivation" class="section level2">
+<h2><strong>Motivation</strong></h2>
+<p>According to the latest report from New York Department of Health and Mental Hygiene HIV Epidemiology Program, there was 197 new HIV diagnoses and 1683 deaths among people with HIV (8.6 per 1000 people with HIV) in 2018. In this project, we examined the trend of HIV prevalence and incidence from 2015 to 2019. In particular, we are interested in:</p>
+<ul>
+<li>What is the general trend of HIV diagnoses across the time?</li>
+<li>What is the demographic of the HIV population?</li>
+<li>Are HIV diagnses different among different boroughs?</li>
+<li>Whether unemployment rate and crime rate contribute to HIV prevalence.</li>
+</ul>
 </div>
-<div id="link-to-page-within-the-site" class="section level2">
-<h2>Link to page within the site</h2>
-<p>If you would like to look at my brief resume, please go to <a href="about_me.html">About Me</a>.</p>
-<p>If you are interested in the dashboard I made for the <code>rnoaa</code> dataset, please go to <a href="dashboard.html">Dashboard</a>. The dashboard provides the information about weather of three places in the U.S.</p>
+<div id="data" class="section level2">
+<h2><strong>Data</strong></h2>
+<p>We used data from the following datasets in NYC OpenData:</p>
+<ul>
+<li><p><strong><em>HIV/AIDS Diagnoses by Neighborhood, Sex, and Race/Ethnicity</em></strong> These data were reported to the NYC DOHMH by June 30, 2014. This dataset includes data on new diagnoses of HIV and AIDS in NYC for the calendar years 2010 through 2013. Reported cases and case rates (per 100,000 population) are stratified by age group, race/ethnicity, and United Hospital Fund (UHF) neighborhood.</p></li>
+<li><p><a href="http://www.labor.ny.gov/stats/nyc/"><strong><em>Unemployment Rate</em></strong></a> Unemployment information for all boroughs in New York City (2015-2019) from New York State Deparmtent of Labor.</p></li>
+<li><p><strong><em>HIV/AIDS Annual Surveillance Statistics</em></strong> Annual data are provided on new diagnoses of HIV (non-AIDS), concurrent HIV/AIDS and AIDS, as well as the number of persons living with HIV and AIDS and the number of deaths among persons with HIV and AIDS. The data are shown for New York City overall and by sex, race, age, borough, area-based poverty level, risk factor, and United Hospital Fund neighborhood.</p></li>
+</ul>
+</div>
+<div id="overview" class="section level2">
+<h2><strong>Overview</strong></h2>
 </div>
 
 
