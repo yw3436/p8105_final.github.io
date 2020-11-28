@@ -95,6 +95,9 @@ hiv_unemployment =
 ```{r, message=FALSE, warning=FALSE}
 hiv_unemployment_plot = 
   hiv_unemployment %>% 
+  mutate(
+    year = as.factor(year)
+  ) %>% 
   ggplot(aes(x = unemployment_rate, y = total_hiv_diag_N)) +
   geom_point(aes(shape = area, color = year)) +
   geom_smooth(size = 0.3) +
