@@ -26,8 +26,6 @@
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
@@ -38,7 +36,7 @@
   div.column{display: inline-block; vertical-align: top; width: 50%;}
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
-    </style>
+      </style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -437,7 +435,20 @@ options(
 
 scale_colour_discrete = scale_colour_viridis_d
 scale_fill_discrete = scale_fill_viridis_d</code></pre>
+<div id="analysis" class="section level2">
+<h2>Analysis</h2>
 <pre class="r"><code>rate_complete_df = read_csv(&#39;./data/rate_complete.csv&#39;)</code></pre>
+<p>Since our outcome, HIV Diagnoses rate, is calculated using a count variable (number of HIV Diagnoses) repeated over 2013-2019, we’ll model it using Generalized Estimating Equation with a Poisson link function.</p>
+<pre class="r"><code>rate_complete_df %&gt;% 
+  ggplot(aes(x = hiv_diag_rate)) + 
+  geom_density() +
+  theme_light() +
+  labs(x = &quot;HIV Diagnoses Rate&quot;,
+       y = &quot;Count&quot;,
+       title = &quot;Distribution of HIV Diagnoses Rate&quot;) +
+  theme(plot.title = element_text(hjust = 0.5))</code></pre>
+<p><img src="model_building_files/figure-html/unnamed-chunk-3-1.png" width="90%" /></p>
+</div>
 
 
 
@@ -450,7 +461,7 @@ scale_fill_discrete = scale_fill_viridis_d</code></pre>
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();

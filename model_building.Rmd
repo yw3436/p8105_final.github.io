@@ -28,10 +28,21 @@ scale_colour_discrete = scale_colour_viridis_d
 scale_fill_discrete = scale_fill_viridis_d
 ```
 
+## Analysis 
 ```{r, message=FALSE, warning=FALSE}
 rate_complete_df = read_csv('./data/rate_complete.csv')
-  
-  
 ```
 
+Since our outcome, HIV Diagnoses rate, is calculated using a count variable (number of HIV Diagnoses) repeated over 2013-2019, we’ll model it using Generalized Estimating Equation with a Poisson link function.
+
+```{r}
+rate_complete_df %>% 
+  ggplot(aes(x = hiv_diag_rate)) + 
+  geom_density() +
+  theme_light() +
+  labs(x = "HIV Diagnoses Rate",
+       y = "Count",
+       title = "Distribution of HIV Diagnoses Rate") +
+  theme(plot.title = element_text(hjust = 0.5))
+```
 
