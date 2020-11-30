@@ -10,6 +10,9 @@ output:
 ```{r, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(plotly)
+library(corrplot)
+library(geepack)
+library(fastDummies)
 
 knitr::opts_chunk$set(
   fig.width = 6,
@@ -45,4 +48,31 @@ rate_complete_df %>%
        title = "Distribution of HIV Diagnoses Rate") +
   theme(plot.title = element_text(hjust = 0.5))
 ```
+
+```{r}
+rate_complete_df %>% 
+  drop_na() %>%
+  select(-X1, -aids_rate, -plwha_rate, -death_rate, -borough_cat, -year) %>%
+  cor() %>%
+  corrplot(type = "lower",
+           method = "color", 
+           addCoef.col = "black", 
+           diag = FALSE, 
+           number.cex = .55,
+           insig = "blank" ,
+           tl.col = "black",
+           tl.cex = .9,
+           tl.srt = 45
+           )
+
+```
+
+We found that several predictors are highly correlated with each other, which should not be included in the model simultaneously, such as:
+
+* `crime_rate` and `female` (r=0.87)
+* `white` and `black` (r=-0.82)
+* `american_indian` and `hawaiian` (0.98)
+* `high_school` and `black` (r=-0.93)
+* `age_over_64` and `black` (r=-0.97)
+
 
