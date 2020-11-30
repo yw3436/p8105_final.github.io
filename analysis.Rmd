@@ -1,0 +1,129 @@
+---
+title: "analysis"
+author: "Yan Song"
+date: "11/28/2020"
+output: html_document
+---
+```{r, echo=FALSE, warning=FALSE}
+library(tidyverse)
+library(plotly)
+
+total_hiv = read.csv("./data/hiv_complete.csv") %>% 
+  filter(borough == "All", sex == "All") %>% 
+  select(year,total_hiv_diag_N, aids_N, plwha_N, death_N, borough_cat) %>%
+  filter(!borough_cat %in% c("All", "Unknown borough", "Outside NYC")) %>%
+  mutate(total_hiv_diag_N = as.numeric(total_hiv_diag_N),
+         aids_N = as.numeric(aids_N),
+         death_N = as.numeric(death_N),
+         plwha_N = as.numeric(plwha_N))
+
+census_df = read_csv('./data/census.csv') %>% 
+  select(-X1) %>% 
+rename(borough_cat = borough, population = population_2010)
+
+total_hiv =
+  left_join(total_hiv, census_df, 
+  by = c("borough_cat" = "borough_cat")) 
+
+hiv_rate = total_hiv %>% 
+  mutate(hiv_diag_rate = total_hiv_diag_N / population*10000,
+         aids_rate = aids_N / population*10000,
+         plwha_rate = as.numeric(plwha_N) / population*100,
+         death_rate = death_N /population*10000)
+
+crime_df = read_csv('./data/total_crime.csv') %>%
+  rename(borough_cat = borough) %>%
+  select(-X1)
+
+crime_rate = 
+    left_join(crime_df, census_df, 
+              by = c("borough_cat" = "borough_cat")) %>%
+    mutate(crime_rate = total_crime / population*100)
+
+hiv_rate =
+  left_join(hiv_rate, crime_rate, 
+  by = c("borough_cat"="borough_cat", "year"="year"))
+
+
+unemployment_df = read_csv('./data/unemployment_rate.csv')
+
+unemployment_rate = 
+  unemployment_df %>% 
+  filter(month == "avg") %>% 
+  select(unemployment_rate, area, year, month) %>% 
+  mutate(
+    area = recode(area, "Bronx County" = "Bronx", "Kings County" = "Brooklyn", 
+                  "New York County" = "Manhattan", "Queens County" = "Queens", 
+                  "Richmond County" = "Staten Island")
+    ) %>%
+  rename(borough_cat = area) %>%
+  filter(borough_cat %in% c("Bronx", "Brooklyn", "Manhattan", "Queens","Staten Island")) %>% 
+  select(-month)
+
+total_rate = 
+  left_join(hiv_rate, unemployment_rate, 
+            by = c("borough_cat" = "borough_cat", "year"="year"))
+
+total_rate = total_rate %>%
+  select(year, hiv_diag_rate, aids_rate, plwha_rate, death_rate,
+         crime_rate, unemployment_rate, borough_cat) 
+
+census_2019 = read_csv('./data/census_19.csv') %>%
+  janitor::clean_names() %>%
+  pivot_longer(
+    new_york_city:staten_island,
+    names_to = "borough_cat", 
+    values_to = "value") %>%
+  pivot_wider(
+    names_from = "category", 
+    values_from = "value") %>%
+  janitor::clean_names() %>%
+  rename(age_under_18 = persons_under_18_years_percent,
+         age_over_64 = persons_65_years_and_over_percent,
+         female = female_persons_percent,
+         white = white_alone_percent,
+         black = black_or_african_american_alone_percent,
+         american_indian =  american_indian_and_alaska_native_alone_percent,
+         asian = asian_alone_percent,
+         hawaiian = native_hawaiian_and_other_pacific_islander_alone_percent,
+         hispanic = hispanic_or_latino_percent,
+         high_school = 
+           high_school_graduate_or_higher_percent_of_persons_age_25_years_2014_2018,
+         bachelor = bachelors_degree_or_higher_percent_of_persons_age_25_years_2014_2018,
+         poverty = persons_in_poverty_percent,
+         labor_force =
+           in_civilian_labor_force_total_percent_of_population_age_16_years_2014_2018
+         ) %>%
+  select(borough_cat, female, white, black, american_indian, asian, hawaiian, hispanic, high_school, bachelor, poverty, labor_force, age_under_18, age_over_64) %>%
+  mutate (
+      borough_cat = recode(borough_cat, "bronx" = "Bronx", "brooklyn" ="Brooklyn", 
+                  "manhattan" = "Manhattan", "queens" = "Queens", 
+                  "staten_island" = "Staten Island"),
+      age_under_18 = as.numeric(age_under_18),
+      age_over_64 = as.numeric(age_over_64),
+      age_18_64 = 1-age_under_18-age_over_64)
+   
+
+rate_final= 
+  left_join(total_rate, census_2019, 
+            by = c("borough_cat" = "borough_cat"))
+
+write.csv(rate_final,'./data/rate_complete.csv')
+
+```
+The current data contains variables:
+
+* female: Female persons, percent
+* white: White only, percent
+* black: Black or African American only, percent
+* american_indian: American Indian and Alaska Native only, percent
+* asian: Asian only, percent
+* hawaiian: Native Hawaiian and Other Pacific Islander only, percent
+* hispanic: Hispanic or Latino, percent
+* high_school: High school graduate or higher, percent of persons age 25 years+, 2014-2018
+* bachelor: Bachelor's degree or higher, percent of persons age 25 years+, 2014-2018
+* poverty: Persons in poverty, percent
+* labor_force: Civilian labor force in total, percent of population age 16 years+, 2014-2018
+* age_under_18: Persons under 18 years, percent
+* age_18_64: Persons between 18 and 64 years, percent
+* age_over_64: Persons over 64 years, percent

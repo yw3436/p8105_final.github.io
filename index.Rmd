@@ -24,13 +24,13 @@ According to the latest report from New York Department of Health and Mental Hyg
 ## **Data Resources**
 We used data from the following datasets in NYC OpenData: 
 
-* [***HIV/AIDS Annual Surveillance Statistics***](https://www1.nyc.gov/site/doh/data/data-sets/hiv-aids-annual-surveillance-statistics.page) Annual data are provided on new diagnoses of HIV (non-AIDS), concurrent HIV/AIDS and AIDS, as well as the number of persons living with HIV and AIDS and the number of deaths among persons with HIV and AIDS. The data are shown for New York City overall and by sex, race, age, borough, area-based poverty level, risk factor, and United Hospital Fund neighborhood. All the data used in this project was extracted from the PDF of the annual reports.
+* [***HIV/AIDS Annual Surveillance Statistics***](https://www1.nyc.gov/site/doh/data/data-sets/hiv-aids-annual-surveillance-statistics.page) Annual data are provided on new diagnoses of HIV (non-AIDS), concurrent HIV/AIDS and AIDS, as well as the number of persons living with HIV and AIDS and the number of deaths among persons with HIV and AIDS. The data are shown for New York City overall and by sex, race, age, borough, area-based poverty level, risk factor, and United Hospital Fund neighborhood. All the data used in this project was extracted from 9 PDF files of the annual reports.
 
-* [***Unemployment Rate***](http://www.labor.ny.gov/stats/nyc/) Unemployment information for all boroughs in New York City (2015-2019) from New York State Deparmtent of Labor.
+* [***Unemployment Rate***](https://labor.ny.gov/stats/LSLAUS.shtm) Unemployment information for all boroughs in New York City (1990-2020) from New York State Department of Labor. We used the data from 2011 to 2019 in this project.
 
-* ***Crime Data*** Annual data are provided on new diagnoses of HIV (non-AIDS), concurrent HIV/AIDS and AIDS, as well as the number of persons living with HIV and AIDS and the number of deaths among persons with HIV and AIDS. The data are shown for New York City overall and by sex, race, age, borough, area-based poverty level, risk factor, and United Hospital Fund neighborhood.
+* [***Crime Data***](https://www1.nyc.gov/site/nypd/stats/crime-statistics/historical.page) Citywide crime data are provided by New York City Police Department (NYPD). The data show annual number of seven major felony offenses (murder and non-negligent manslaughter, rape, robbery, felony assault, burglary, grand larceny and grand larceny of a vehicle) by precinct (2013-2019).
 
-* ***Census Data*** Annual data are provided on new diagnoses of HIV (non-AIDS), concurrent HIV/AIDS and AIDS, as well as the number of persons living with HIV and AIDS and the number of deaths among persons with HIV and AIDS. The data are shown for New York City overall and by sex, race, age, borough, area-based poverty level, risk factor, and United Hospital Fund neighborhood.
+* [***Census Data***](https://data.cityofnewyork.us/City-Government/Census-Demographics-at-the-Neighborhood-Tabulation/rnsn-acs2) Census data are provided on neighborhood tabulation area level by Department of City Planning (DCP). Since census takes place every 10 years, we used total population in 2010 census to calculate all rate measures.
 
 ## **Overview**
 

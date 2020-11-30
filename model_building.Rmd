@@ -1,0 +1,105 @@
+---
+title: "Unemployment in NYC"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    code_folding: hide
+---
+
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(plotly)
+
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.asp = .6,
+  out.width = "90%"
+)
+
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
+
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+```
+
+```{r, message=FALSE, warning=FALSE}
+unemployment_df = read_csv('./data/unemployment.csv')
+
+unemployment_rate = 
+  unemployment_df %>% 
+  filter(month == "Avg") %>% 
+  select(unemployment_rate, area, year, month) %>% 
+  mutate(
+    area = recode(area, "Bronx County" = "Bronx", "Kings County" = "Brooklyn", "New York  County" = "Manhattan", "Queens County" = "Queens", "Richmond County" = "Staten Island")
+    )
+```
+
+
+## Unemployment Distribution Over Years
+```{r, message=FALSE, warning=FALSE}
+unemployment_plot = 
+  unemployment_rate %>% 
+  ggplot(aes(x = year, y = unemployment_rate, color = area)) +
+  geom_point(alpha = 0.7) +
+  geom_smooth(size = 0.5, alpha = 0.5) +
+  theme(axis.text.x = element_text(angle = 25, vjust = 0.5, hjust = 0.5)) +
+  labs(title = "Unemployment Rate Within Each Borough",
+       x = "Year",
+       y = "Unemployment Rate (%)") 
+
+ggplotly(unemployment_plot) %>% 
+  layout(legend = list(orientation = "h", 
+                       x = 0.1, y = -0.3))
+```
+
+**_Comments_**
+
+The unemployment rate decreases over time from 2015 to 2019 for Bronx (Bronx County), Brooklyn (Kings County), Manhattan (New York County), Queens (Queens County), Staten Island (Richmond County).
+
+
+
+
+```{r, message=FALSE, warning=FALSE}
+hiv_data = read_csv('./data/hiv_complete.csv')
+
+hiv_diagnoses = 
+  hiv_data %>% 
+  filter(borough == "All", sex == "All") %>% 
+  filter(borough_cat != "All") %>% 
+  select(year, total_hiv_diag_N, borough_cat) %>% 
+  filter(borough_cat %in% c("Bronx", "Brooklyn", "Manhattan", "Queens", "Staten Island")) %>% 
+  filter(year %in% c("2015", "2016", "2017", "2018", "2019")) %>% 
+  rename(area = borough_cat)
+
+hiv_unemployment = 
+  merge(hiv_diagnoses, unemployment_rate)
+```
+
+## Unemployment Rate VS. HIV Diagnoses 
+```{r, message=FALSE, warning=FALSE}
+hiv_unemployment_plot = 
+  hiv_unemployment %>% 
+  ggplot(aes(x = unemployment_rate, y = total_hiv_diag_N)) +
+  geom_point(aes(shape = area, color = year)) +
+  geom_smooth(size = 0.3) +
+  scale_y_continuous(
+    breaks = c(0, 150, 300, 450, 600, 750),
+    labels = c("0", "150", "300", "450", "600", "750")
+  ) +
+  theme(axis.text.x = element_text(size = 9, vjust = 0.5, hjust = 0.5)) +
+  labs(title = "Unemployment Rate vs. Number of HIV Diagnoses",
+       x = "Unemployment Rate (%)",
+       y = "Number of HIV Diagnoses") 
+
+ggplotly(hiv_unemployment_plot) 
+```
+
+**_Comments_**
+
+Overall, the smooth line indicates an increasing trend of HIV diagnoses when unemployment rate increases. 
