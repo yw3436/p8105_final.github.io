@@ -12,6 +12,7 @@ library(tidyverse)
 library(plotly)
 library(corrplot)
 library(geepack)
+library(fastDummies)
 library(modelr)
 library(mgcv)
 
@@ -50,6 +51,32 @@ rate_complete_df %>%
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
+<br>
+## Relevant predictors
+The data we are using includes the following variables:
+
+* `year` The year of HIV diagnosis measured.
+* `hiv_diag_rate` The HIV diagnosis rate.
+* `crime_rate` The crime rate.
+* `unemployment_rate` The unemployment rate.
+* `borough_cat` The name of borough.
+* `female` The percentage of female within each borough. 
+* `white` The percentage of population with Race categorized as White within each borough. 
+* `black` The percentage of population with Race categorized as Black or African American within each borough. 
+* `american_indian` The percentage of population with Race categorized as American Indian and Alaska Native within each borough. 
+* `asian` The percentage of population with Race categorized as Asian within each borough. 
+* `hawaiian` The percentage of population with Race categorized as Native Hawaiian and Other Pacific Islander within each borough. 
+* `hispanic` The percentage of population with Race categorized as Hispanic or Latino within each borough. 
+* `high_school` The percentage of people age 25 years+, 2014-2018, with Race categorized as High school graduate or higher degree within each borough. 
+* `bachelor` The percentage of population with education categorized as Bachelor's degree or higher degree within each borough. 
+* `poverty` The percentage of population in poverty within each borough. 
+* `labor_force` The percentage of people age 16 years+, 2014-2018, in civilian labor force.
+* `age_under_18` The percentage of population under 18 years.
+* `age_over_64` The percentage of population over 64 years.
+* `age_18_64` The percentage of population between 18 and 64 years.
+
+<br>
+
 ## Correlation Matrx
 
 ```{r, message=FALSE, warning=FALSE}
@@ -62,13 +89,12 @@ rate_complete_df %>%
            method = "color", 
            addCoef.col = "black", 
            diag = FALSE, 
-           number.cex = .55,
+           number.cex = .45,
            insig = "blank" ,
            tl.col = "black",
-           tl.cex = .9,
-           tl.srt = 45
+           tl.cex = .7,
+           tl.srt = 1
            )
-
 ```
 
 We found that several predictors are highly correlated with each other, which should not be included in the model simultaneously, such as:
@@ -79,6 +105,7 @@ We found that several predictors are highly correlated with each other, which sh
 * `high_school` and `black` (r=-0.93)
 * `age_over_64` and `black` (r=-0.97)
 
+<br>
 
 ## Summary of Models
 
@@ -122,7 +149,7 @@ hyp_model_2 =
 
 ```
 
-```{r, error = TRUE}
+```{r, error = TRUE, message=FALSE, warning=FALSE}
 
 full_fit = 
   geeglm(hiv_diag_rate ~
@@ -138,6 +165,8 @@ step.spind(full_fit, data = rate_df, steps = NULL, trace = TRUE, AICc = FALSE)
 
 gee_stepper_o(full_fit, formula(full_fit))
 ```
+
+<br>
 
 ## Cross Validation
 
@@ -177,6 +206,8 @@ cv_df =
     rmse_hyp_2 = map2_dbl(hyp_model_2, test, ~rmse(model = .x, data = .y)))
 ```
 
+<br>
+
 **Compare models using cross-validated prediction error**
 
 ```{r, message=FALSE, warning=FALSE}
@@ -204,6 +235,8 @@ cv_df %>%
   knitr::kable()
 ```
 
+<br>
+
 ## Select a Model
 
 ```{r, message=FALSE, warning=FALSE}
@@ -211,4 +244,5 @@ hyp_model %>%
   broom::tidy() %>% 
   knitr::kable()
 ```
+
 

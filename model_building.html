@@ -26,8 +26,6 @@
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
@@ -38,7 +36,7 @@
   div.column{display: inline-block; vertical-align: top; width: 50%;}
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
-    </style>
+      </style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -423,6 +421,7 @@ div.tocify {
 library(plotly)
 library(corrplot)
 library(geepack)
+library(fastDummies)
 library(modelr)
 library(mgcv)
 
@@ -454,6 +453,29 @@ scale_fill_discrete = scale_fill_viridis_d</code></pre>
        title = &quot;Distribution of HIV Diagnoses Rate&quot;) +
   theme(plot.title = element_text(hjust = 0.5))</code></pre>
 <p><img src="model_building_files/figure-html/unnamed-chunk-3-1.png" width="90%" /></p>
+<p><br> ## Relevant predictors The data we are using includes the following variables:</p>
+<ul>
+<li><code>year</code> The year of HIV diagnosis measured.</li>
+<li><code>hiv_diag_rate</code> The HIV diagnosis rate.</li>
+<li><code>crime_rate</code> The crime rate.</li>
+<li><code>unemployment_rate</code> The unemployment rate.</li>
+<li><code>borough_cat</code> The name of borough.</li>
+<li><code>female</code> The percentage of female within each borough.</li>
+<li><code>white</code> The percentage of population with Race categorized as White within each borough.</li>
+<li><code>black</code> The percentage of population with Race categorized as Black or African American within each borough.</li>
+<li><code>american_indian</code> The percentage of population with Race categorized as American Indian and Alaska Native within each borough.</li>
+<li><code>asian</code> The percentage of population with Race categorized as Asian within each borough.</li>
+<li><code>hawaiian</code> The percentage of population with Race categorized as Native Hawaiian and Other Pacific Islander within each borough.</li>
+<li><code>hispanic</code> The percentage of population with Race categorized as Hispanic or Latino within each borough.</li>
+<li><code>high_school</code> The percentage of people age 25 years+, 2014-2018, with Race categorized as High school graduate or higher degree within each borough.</li>
+<li><code>bachelor</code> The percentage of population with education categorized as Bachelor’s degree or higher degree within each borough.</li>
+<li><code>poverty</code> The percentage of population in poverty within each borough.</li>
+<li><code>labor_force</code> The percentage of people age 16 years+, 2014-2018, in civilian labor force.</li>
+<li><code>age_under_18</code> The percentage of population under 18 years.</li>
+<li><code>age_over_64</code> The percentage of population over 64 years.</li>
+<li><code>age_18_64</code> The percentage of population between 18 and 64 years.</li>
+</ul>
+<p><br></p>
 </div>
 <div id="correlation-matrx" class="section level2">
 <h2>Correlation Matrx</h2>
@@ -465,11 +487,11 @@ scale_fill_discrete = scale_fill_viridis_d</code></pre>
            method = &quot;color&quot;, 
            addCoef.col = &quot;black&quot;, 
            diag = FALSE, 
-           number.cex = .55,
+           number.cex = .45,
            insig = &quot;blank&quot; ,
            tl.col = &quot;black&quot;,
-           tl.cex = .9,
-           tl.srt = 45
+           tl.cex = .7,
+           tl.srt = 1
            )</code></pre>
 <p><img src="model_building_files/figure-html/unnamed-chunk-4-1.png" width="90%" /></p>
 <p>We found that several predictors are highly correlated with each other, which should not be included in the model simultaneously, such as:</p>
@@ -480,6 +502,7 @@ scale_fill_discrete = scale_fill_viridis_d</code></pre>
 <li><code>high_school</code> and <code>black</code> (r=-0.93)</li>
 <li><code>age_over_64</code> and <code>black</code> (r=-0.97)</li>
 </ul>
+<p><br></p>
 </div>
 <div id="summary-of-models" class="section level2">
 <h2>Summary of Models</h2>
@@ -528,41 +551,6 @@ hyp_model_2 =
          data = rate_df,
          family = poisson, 
          corstr = &quot;ar1&quot;)</code></pre>
-<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.855295</code></pre>
-<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.822693</code></pre>
-<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 4.357222</code></pre>
-<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.048664</code></pre>
-<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.130715</code></pre>
-<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.552070</code></pre>
-<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.878588</code></pre>
-<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.871685</code></pre>
-<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.012801</code></pre>
-<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.216052</code></pre>
-<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.544850</code></pre>
-<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.531241</code></pre>
-<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.436593</code></pre>
-<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.896247</code></pre>
-<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.301389</code></pre>
-<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.588168</code></pre>
-<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.287699</code></pre>
-<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.673606</code></pre>
-<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.829004</code></pre>
-<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.642737</code></pre>
-<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.270503</code></pre>
-<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.463369</code></pre>
-<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.433991</code></pre>
-<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.761761</code></pre>
-<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 0.853370</code></pre>
-<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.176648</code></pre>
-<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.227812</code></pre>
-<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.364628</code></pre>
-<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.604862</code></pre>
-<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 0.661362</code></pre>
-<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.321041</code></pre>
-<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.892442</code></pre>
-<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.295266</code></pre>
-<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.291062</code></pre>
-<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 0.810701</code></pre>
 <pre><code>##   (Intercept) borough_catBrooklyn borough_catManhattan borough_catQueens
 ## 1           1                   0                    0                 0
 ## 2           1                   1                    0                 0
@@ -589,6 +577,7 @@ hyp_model_2 =
 <pre><code>## Error in step.spind(full_fit, data = rate_df, steps = NULL, trace = TRUE, : could not find function &quot;step.spind&quot;</code></pre>
 <pre class="r"><code>gee_stepper_o(full_fit, formula(full_fit))</code></pre>
 <pre><code>## Error in gee_stepper_o(full_fit, formula(full_fit)): could not find function &quot;gee_stepper_o&quot;</code></pre>
+<p><br></p>
 </div>
 <div id="cross-validation" class="section level2">
 <h2>Cross Validation</h2>
@@ -625,6 +614,7 @@ cv_df =
     rmse_naive = map2_dbl(naive_model, test, ~rmse(model = .x, data = .y)),
     rmse_hyp = map2_dbl(hyp_model, test, ~rmse(model = .x, data = .y)),
     rmse_hyp_2 = map2_dbl(hyp_model_2, test, ~rmse(model = .x, data = .y)))</code></pre>
+<p><br></p>
 <p><strong>Compare models using cross-validated prediction error</strong></p>
 <pre class="r"><code>cv_df %&gt;%
   select(starts_with(&quot;rmse&quot;)) %&gt;% 
@@ -658,6 +648,7 @@ cv_df =
 <tbody>
 <tr class="odd">
 <td align="left">hyp</td>
+<<<<<<< HEAD
 <td align="right">1.672230</td>
 </tr>
 <tr class="even">
@@ -667,9 +658,21 @@ cv_df =
 <tr class="odd">
 <td align="left">naive</td>
 <td align="right">1.687211</td>
+=======
+<td align="right">1.703789</td>
+</tr>
+<tr class="even">
+<td align="left">hyp_2</td>
+<td align="right">1.707904</td>
+</tr>
+<tr class="odd">
+<td align="left">naive</td>
+<td align="right">1.723145</td>
+>>>>>>> 7665cb2977044b535ac8112e85ef71beabeb3c3a
 </tr>
 </tbody>
 </table>
+<p><br></p>
 </div>
 <div id="select-a-model" class="section level2">
 <h2>Select a Model</h2>
@@ -691,7 +694,7 @@ cv_df =
 <td align="left">(Intercept)</td>
 <td align="right">238.5589662</td>
 <td align="right">3.18e-05</td>
-<td align="right">5.629132e+13</td>
+<td align="right">5.629125e+13</td>
 <td align="right">0</td>
 </tr>
 <tr class="even">
@@ -705,7 +708,7 @@ cv_df =
 <td align="left">borough_catManhattan</td>
 <td align="right">-0.2988790</td>
 <td align="right">1.00e-07</td>
-<td align="right">1.600613e+13</td>
+<td align="right">1.600614e+13</td>
 <td align="right">0</td>
 </tr>
 <tr class="even">
@@ -726,7 +729,7 @@ cv_df =
 <td align="left">year</td>
 <td align="right">-0.1175101</td>
 <td align="right">0.00e+00</td>
-<td align="right">5.776269e+13</td>
+<td align="right">5.776262e+13</td>
 <td align="right">0</td>
 </tr>
 <tr class="odd">
@@ -740,7 +743,7 @@ cv_df =
 <td align="left">unemployment_rate</td>
 <td align="right">-0.0580295</td>
 <td align="right">0.00e+00</td>
-<td align="right">1.077676e+14</td>
+<td align="right">1.077674e+14</td>
 <td align="right">0</td>
 </tr>
 </tbody>
@@ -758,7 +761,7 @@ cv_df =
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
