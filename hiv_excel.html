@@ -1,656 +1,388 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
-<meta charset="utf-8">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>hiv_excel.utf8</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 <style type="text/css">
-@font-face {
-font-family: octicons-link;
-src: url(data:font/woff;charset=utf-8;base64,d09GRgABAAAAAAZwABAAAAAACFQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABEU0lHAAAGaAAAAAgAAAAIAAAAAUdTVUIAAAZcAAAACgAAAAoAAQAAT1MvMgAAAyQAAABJAAAAYFYEU3RjbWFwAAADcAAAAEUAAACAAJThvmN2dCAAAATkAAAABAAAAAQAAAAAZnBnbQAAA7gAAACyAAABCUM+8IhnYXNwAAAGTAAAABAAAAAQABoAI2dseWYAAAFsAAABPAAAAZwcEq9taGVhZAAAAsgAAAA0AAAANgh4a91oaGVhAAADCAAAABoAAAAkCA8DRGhtdHgAAAL8AAAADAAAAAwGAACfbG9jYQAAAsAAAAAIAAAACABiATBtYXhwAAACqAAAABgAAAAgAA8ASm5hbWUAAAToAAABQgAAAlXu73sOcG9zdAAABiwAAAAeAAAAME3QpOBwcmVwAAAEbAAAAHYAAAB/aFGpk3jaTY6xa8JAGMW/O62BDi0tJLYQincXEypYIiGJjSgHniQ6umTsUEyLm5BV6NDBP8Tpts6F0v+k/0an2i+itHDw3v2+9+DBKTzsJNnWJNTgHEy4BgG3EMI9DCEDOGEXzDADU5hBKMIgNPZqoD3SilVaXZCER3/I7AtxEJLtzzuZfI+VVkprxTlXShWKb3TBecG11rwoNlmmn1P2WYcJczl32etSpKnziC7lQyWe1smVPy/Lt7Kc+0vWY/gAgIIEqAN9we0pwKXreiMasxvabDQMM4riO+qxM2ogwDGOZTXxwxDiycQIcoYFBLj5K3EIaSctAq2kTYiw+ymhce7vwM9jSqO8JyVd5RH9gyTt2+J/yUmYlIR0s04n6+7Vm1ozezUeLEaUjhaDSuXHwVRgvLJn1tQ7xiuVv/ocTRF42mNgZGBgYGbwZOBiAAFGJBIMAAizAFoAAABiAGIAznjaY2BkYGAA4in8zwXi+W2+MjCzMIDApSwvXzC97Z4Ig8N/BxYGZgcgl52BCSQKAA3jCV8CAABfAAAAAAQAAEB42mNgZGBg4f3vACQZQABIMjKgAmYAKEgBXgAAeNpjYGY6wTiBgZWBg2kmUxoDA4MPhGZMYzBi1AHygVLYQUCaawqDA4PChxhmh/8ODDEsvAwHgMKMIDnGL0x7gJQCAwMAJd4MFwAAAHjaY2BgYGaA4DAGRgYQkAHyGMF8NgYrIM3JIAGVYYDT+AEjAwuDFpBmA9KMDEwMCh9i/v8H8sH0/4dQc1iAmAkALaUKLgAAAHjaTY9LDsIgEIbtgqHUPpDi3gPoBVyRTmTddOmqTXThEXqrob2gQ1FjwpDvfwCBdmdXC5AVKFu3e5MfNFJ29KTQT48Ob9/lqYwOGZxeUelN2U2R6+cArgtCJpauW7UQBqnFkUsjAY/kOU1cP+DAgvxwn1chZDwUbd6CFimGXwzwF6tPbFIcjEl+vvmM/byA48e6tWrKArm4ZJlCbdsrxksL1AwWn/yBSJKpYbq8AXaaTb8AAHja28jAwOC00ZrBeQNDQOWO//sdBBgYGRiYWYAEELEwMTE4uzo5Zzo5b2BxdnFOcALxNjA6b2ByTswC8jYwg0VlNuoCTWAMqNzMzsoK1rEhNqByEyerg5PMJlYuVueETKcd/89uBpnpvIEVomeHLoMsAAe1Id4AAAAAAAB42oWQT07CQBTGv0JBhagk7HQzKxca2sJCE1hDt4QF+9JOS0nbaaYDCQfwCJ7Au3AHj+LO13FMmm6cl7785vven0kBjHCBhfpYuNa5Ph1c0e2Xu3jEvWG7UdPDLZ4N92nOm+EBXuAbHmIMSRMs+4aUEd4Nd3CHD8NdvOLTsA2GL8M9PODbcL+hD7C1xoaHeLJSEao0FEW14ckxC+TU8TxvsY6X0eLPmRhry2WVioLpkrbp84LLQPGI7c6sOiUzpWIWS5GzlSgUzzLBSikOPFTOXqly7rqx0Z1Q5BAIoZBSFihQYQOOBEdkCOgXTOHA07HAGjGWiIjaPZNW13/+lm6S9FT7rLHFJ6fQbkATOG1j2OFMucKJJsxIVfQORl+9Jyda6Sl1dUYhSCm1dyClfoeDve4qMYdLEbfqHf3O/AdDumsjAAB42mNgYoAAZQYjBmyAGYQZmdhL8zLdDEydARfoAqIAAAABAAMABwAKABMAB///AA8AAQAAAAAAAAAAAAAAAAABAAAAAA==) format('woff');
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
 }
-body {
--webkit-text-size-adjust: 100%;
-text-size-adjust: 100%;
-color: #333;
-font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-font-size: 16px;
-line-height: 1.6;
-word-wrap: break-word;
-}
-a {
-background-color: transparent;
-}
-a:active,
-a:hover {
-outline: 0;
-}
-strong {
-font-weight: bold;
-}
+</script>
+
+
+
+<style type="text/css">
 h1 {
-font-size: 2em;
-margin: 0.67em 0;
+  font-size: 34px;
 }
-img {
-border: 0;
-}
-hr {
-box-sizing: content-box;
-height: 0;
-}
-pre {
-overflow: auto;
-}
-code,
-kbd,
-pre {
-font-family: monospace, monospace;
-font-size: 1em;
-}
-input {
-color: inherit;
-font: inherit;
-margin: 0;
-}
-html input[disabled] {
-cursor: default;
-}
-input {
-line-height: normal;
-}
-input[type="checkbox"] {
-box-sizing: border-box;
-padding: 0;
-}
-table {
-border-collapse: collapse;
-border-spacing: 0;
-}
-td,
-th {
-padding: 0;
-}
-* {
-box-sizing: border-box;
-}
-input {
-font: 13px / 1.4 Helvetica, arial, nimbussansl, liberationsans, freesans, clean, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-}
-a {
-color: #4078c0;
-text-decoration: none;
-}
-a:hover,
-a:active {
-text-decoration: underline;
-}
-hr {
-height: 0;
-margin: 15px 0;
-overflow: hidden;
-background: transparent;
-border: 0;
-border-bottom: 1px solid #ddd;
-}
-hr:before {
-display: table;
-content: "";
-}
-hr:after {
-display: table;
-clear: both;
-content: "";
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-margin-top: 15px;
-margin-bottom: 15px;
-line-height: 1.1;
-}
-h1 {
-font-size: 30px;
+h1.title {
+  font-size: 38px;
 }
 h2 {
-font-size: 21px;
+  font-size: 30px;
 }
 h3 {
-font-size: 16px;
+  font-size: 24px;
 }
 h4 {
-font-size: 14px;
+  font-size: 18px;
 }
 h5 {
-font-size: 12px;
+  font-size: 16px;
 }
 h6 {
-font-size: 11px;
+  font-size: 12px;
 }
-blockquote {
-margin: 0;
+.table th:not([align]) {
+  text-align: left;
 }
-ul,
-ol {
-padding: 0;
-margin-top: 0;
-margin-bottom: 0;
-}
-ol ol,
-ul ol {
-list-style-type: lower-roman;
-}
-ul ul ol,
-ul ol ol,
-ol ul ol,
-ol ol ol {
-list-style-type: lower-alpha;
-}
-dd {
-margin-left: 0;
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
 }
 code {
-font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
-font-size: 12px;
-}
-pre {
-margin-top: 0;
-margin-bottom: 0;
-font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-.select::-ms-expand {
-opacity: 0;
-}
-.octicon {
-font: normal normal normal 16px/1 octicons-link;
-display: inline-block;
-text-decoration: none;
-text-rendering: auto;
--webkit-font-smoothing: antialiased;
--moz-osx-font-smoothing: grayscale;
--webkit-user-select: none;
--moz-user-select: none;
--ms-user-select: none;
-user-select: none;
-}
-.octicon-link:before {
-content: '\f05c';
-}
-.markdown-body:before {
-display: table;
-content: "";
-}
-.markdown-body:after {
-display: table;
-clear: both;
-content: "";
-}
-.markdown-body>*:first-child {
-margin-top: 0 !important;
-}
-.markdown-body>*:last-child {
-margin-bottom: 0 !important;
-}
-a:not([href]) {
-color: inherit;
-text-decoration: none;
-}
-.anchor {
-display: inline-block;
-padding-right: 2px;
-margin-left: -18px;
-}
-.anchor:focus {
-outline: none;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-margin-top: 1em;
-margin-bottom: 16px;
-font-weight: bold;
-line-height: 1.4;
-}
-h1 .octicon-link,
-h2 .octicon-link,
-h3 .octicon-link,
-h4 .octicon-link,
-h5 .octicon-link,
-h6 .octicon-link {
-color: #000;
-vertical-align: middle;
-visibility: hidden;
-}
-h1:hover .anchor,
-h2:hover .anchor,
-h3:hover .anchor,
-h4:hover .anchor,
-h5:hover .anchor,
-h6:hover .anchor {
-text-decoration: none;
-}
-h1:hover .anchor .octicon-link,
-h2:hover .anchor .octicon-link,
-h3:hover .anchor .octicon-link,
-h4:hover .anchor .octicon-link,
-h5:hover .anchor .octicon-link,
-h6:hover .anchor .octicon-link {
-visibility: visible;
-}
-h1 {
-padding-bottom: 0.3em;
-font-size: 2.25em;
-line-height: 1.2;
-border-bottom: 1px solid #eee;
-}
-h1 .anchor {
-line-height: 1;
-}
-h2 {
-padding-bottom: 0.3em;
-font-size: 1.75em;
-line-height: 1.225;
-border-bottom: 1px solid #eee;
-}
-h2 .anchor {
-line-height: 1;
-}
-h3 {
-font-size: 1.5em;
-line-height: 1.43;
-}
-h3 .anchor {
-line-height: 1.2;
-}
-h4 {
-font-size: 1.25em;
-}
-h4 .anchor {
-line-height: 1.2;
-}
-h5 {
-font-size: 1em;
-}
-h5 .anchor {
-line-height: 1.1;
-}
-h6 {
-font-size: 1em;
-color: #777;
-}
-h6 .anchor {
-line-height: 1.1;
-}
-p,
-blockquote,
-ul,
-ol,
-dl,
-table,
-pre {
-margin-top: 0;
-margin-bottom: 16px;
-}
-hr {
-height: 4px;
-padding: 0;
-margin: 16px 0;
-background-color: #e7e7e7;
-border: 0 none;
-}
-ul,
-ol {
-padding-left: 2em;
-}
-ul ul,
-ul ol,
-ol ol,
-ol ul {
-margin-top: 0;
-margin-bottom: 0;
-}
-li>p {
-margin-top: 16px;
-}
-dl {
-padding: 0;
-}
-dl dt {
-padding: 0;
-margin-top: 16px;
-font-size: 1em;
-font-style: italic;
-font-weight: bold;
-}
-dl dd {
-padding: 0 16px;
-margin-bottom: 16px;
-}
-blockquote {
-padding: 0 15px;
-color: #777;
-border-left: 4px solid #ddd;
-}
-blockquote>:first-child {
-margin-top: 0;
-}
-blockquote>:last-child {
-margin-bottom: 0;
-}
-table {
-display: block;
-width: 100%;
-overflow: auto;
-word-break: normal;
-word-break: keep-all;
-}
-table th {
-font-weight: bold;
-}
-table th,
-table td {
-padding: 6px 13px;
-border: 1px solid #ddd;
-}
-table tr {
-background-color: #fff;
-border-top: 1px solid #ccc;
-}
-table tr:nth-child(2n) {
-background-color: #f8f8f8;
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
-max-width: 100%;
-box-sizing: content-box;
-background-color: #fff;
+  max-width:100%;
 }
-code {
-padding: 0;
-padding-top: 0.2em;
-padding-bottom: 0.2em;
-margin: 0;
-font-size: 85%;
-background-color: rgba(0,0,0,0.04);
-border-radius: 3px;
+.tabbed-pane {
+  padding-top: 12px;
 }
-code:before,
-code:after {
-letter-spacing: -0.2em;
-content: "\00a0";
+.html-widget {
+  margin-bottom: 20px;
 }
-pre>code {
-padding: 0;
-margin: 0;
-font-size: 100%;
-word-break: normal;
-white-space: pre;
-background: transparent;
-border: 0;
+button.code-folding-btn:focus {
+  outline: none;
 }
-.highlight {
-margin-bottom: 16px;
+summary {
+  display: list-item;
 }
-.highlight pre,
-pre {
-padding: 16px;
-overflow: auto;
-font-size: 85%;
-line-height: 1.45;
-background-color: #f7f7f7;
-border-radius: 3px;
-}
-.highlight pre {
-margin-bottom: 0;
-word-break: normal;
-}
-pre {
-word-wrap: normal;
-}
-pre code {
-display: inline;
-max-width: initial;
-padding: 0;
-margin: 0;
-overflow: initial;
-line-height: inherit;
-word-wrap: normal;
-background-color: transparent;
-border: 0;
-}
-pre code:before,
-pre code:after {
-content: normal;
-}
-kbd {
-display: inline-block;
-padding: 3px 5px;
-font-size: 11px;
-line-height: 10px;
-color: #555;
-vertical-align: middle;
-background-color: #fcfcfc;
-border: solid 1px #ccc;
-border-bottom-color: #bbb;
-border-radius: 3px;
-box-shadow: inset 0 -1px 0 #bbb;
-}
-.pl-c {
-color: #969896;
-}
-.pl-c1,
-.pl-s .pl-v {
-color: #0086b3;
-}
-.pl-e,
-.pl-en {
-color: #795da3;
-}
-.pl-s .pl-s1,
-.pl-smi {
-color: #333;
-}
-.pl-ent {
-color: #63a35c;
-}
-.pl-k {
-color: #a71d5d;
-}
-.pl-pds,
-.pl-s,
-.pl-s .pl-pse .pl-s1,
-.pl-sr,
-.pl-sr .pl-cce,
-.pl-sr .pl-sra,
-.pl-sr .pl-sre {
-color: #183691;
-}
-.pl-v {
-color: #ed6a43;
-}
-.pl-id {
-color: #b52a1d;
-}
-.pl-ii {
-background-color: #b52a1d;
-color: #f8f8f8;
-}
-.pl-sr .pl-cce {
-color: #63a35c;
-font-weight: bold;
-}
-.pl-ml {
-color: #693a17;
-}
-.pl-mh,
-.pl-mh .pl-en,
-.pl-ms {
-color: #1d3e81;
-font-weight: bold;
-}
-.pl-mq {
-color: #008080;
-}
-.pl-mi {
-color: #333;
-font-style: italic;
-}
-.pl-mb {
-color: #333;
-font-weight: bold;
-}
-.pl-md {
-background-color: #ffecec;
-color: #bd2c00;
-}
-.pl-mi1 {
-background-color: #eaffea;
-color: #55a532;
-}
-.pl-mdr {
-color: #795da3;
-font-weight: bold;
-}
-.pl-mo {
-color: #1d3e81;
-}
-kbd {
-display: inline-block;
-padding: 3px 5px;
-font: 11px Consolas, "Liberation Mono", Menlo, Courier, monospace;
-line-height: 10px;
-color: #555;
-vertical-align: middle;
-background-color: #fcfcfc;
-border: solid 1px #ccc;
-border-bottom-color: #bbb;
-border-radius: 3px;
-box-shadow: inset 0 -1px 0 #bbb;
-}
-.task-list-item {
-list-style-type: none;
-}
-.task-list-item+.task-list-item {
-margin-top: 3px;
-}
-.task-list-item input {
-margin: 0 0.35em 0.25em -1.6em;
-vertical-align: middle;
-}
-:checked+.radio-label {
-z-index: 1;
-position: relative;
-border-color: #4078c0;
-}
-.sourceLine {
-display: inline-block;
-}
-code .kw { color: #000000; }
-code .dt { color: #ed6a43; }
-code .dv { color: #009999; }
-code .bn { color: #009999; }
-code .fl { color: #009999; }
-code .ch { color: #009999; }
-code .st { color: #183691; }
-code .co { color: #969896; }
-code .ot { color: #0086b3; }
-code .al { color: #a61717; }
-code .fu { color: #63a35c; }
-code .er { color: #a61717; background-color: #e3d2d2; }
-code .wa { color: #000000; }
-code .cn { color: #008080; }
-code .sc { color: #008080; }
-code .vs { color: #183691; }
-code .ss { color: #183691; }
-code .im { color: #000000; }
-code .va {color: #008080; }
-code .cf { color: #000000; }
-code .op { color: #000000; }
-code .bu { color: #000000; }
-code .ex { color: #000000; }
-code .pp { color: #999999; }
-code .at { color: #008080; }
-code .do { color: #969896; }
-code .an { color: #008080; }
-code .cv { color: #008080; }
-code .in { color: #008080; }
 </style>
-<style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
 body {
-  box-sizing: border-box;
-  min-width: 200px;
-  max-width: 980px;
-  margin: 0 auto;
-  padding: 45px;
-  padding-top: 0px;
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
 
 </head>
 
 <body>
 
-<h1 id="hiv-dataset-excel-version">HIV dataset excel version</h1>
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="hiv_overview.html">HIV Trends</a>
+</li>
+<li>
+  <a href="https://yw3436.shinyapps.io/dashboard/">Shiny Dashboard</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Overview
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="demo_info.html">Demographics</a>
+    </li>
+    <li>
+      <a href="unemployment.html">Unemployment</a>
+    </li>
+    <li>
+      <a href="crime.rmd.html">Crime</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="model_building.html">Model Building</a>
+</li>
+<li>
+  <a href="https://github.com/yw3436/p8105_final.github.io">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<div id="hiv-dataset-excel-version" class="section level1">
+<h1>HIV dataset excel version</h1>
 <p>Yuqi Wang</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(rvest)</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">library</span>(readxl)</span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">library</span>(hablar)</span>
-<span id="cb1-5"><a href="#cb1-5"></a></span>
-<span id="cb1-6"><a href="#cb1-6"></a>knitr<span class="op">::</span>opts_chunk<span class="op">$</span><span class="kw">set</span>(</span>
-<span id="cb1-7"><a href="#cb1-7"></a>  <span class="dt">fig.width =</span> <span class="dv">6</span>,</span>
-<span id="cb1-8"><a href="#cb1-8"></a>  <span class="dt">fig.asp =</span> <span class="fl">.6</span>,</span>
-<span id="cb1-9"><a href="#cb1-9"></a>  <span class="dt">out.width =</span> <span class="st">&quot;90%&quot;</span></span>
-<span id="cb1-10"><a href="#cb1-10"></a>)</span>
-<span id="cb1-11"><a href="#cb1-11"></a></span>
-<span id="cb1-12"><a href="#cb1-12"></a><span class="kw">theme_set</span>(<span class="kw">theme_minimal</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>))</span>
-<span id="cb1-13"><a href="#cb1-13"></a></span>
-<span id="cb1-14"><a href="#cb1-14"></a><span class="kw">options</span>(</span>
-<span id="cb1-15"><a href="#cb1-15"></a>  <span class="dt">ggplot2.continuous.colour =</span> <span class="st">&quot;viridis&quot;</span>,</span>
-<span id="cb1-16"><a href="#cb1-16"></a>  <span class="dt">ggplot2.continuous.fill =</span> <span class="st">&quot;viridis&quot;</span></span>
-<span id="cb1-17"><a href="#cb1-17"></a>)</span>
-<span id="cb1-18"><a href="#cb1-18"></a></span>
-<span id="cb1-19"><a href="#cb1-19"></a>scale_colour_discrete =<span class="st"> </span>scale_colour_viridis_d</span>
-<span id="cb1-20"><a href="#cb1-20"></a>scale_fill_discrete =<span class="st"> </span>scale_fill_viridis_d</span>
-<span id="cb1-21"><a href="#cb1-21"></a></span>
-<span id="cb1-22"><a href="#cb1-22"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span></code></pre></div>
+<pre class="r"><code>library(tidyverse)
+library(rvest)
+library(readxl)
+library(hablar)
+
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.asp = .6,
+  out.width = &quot;90%&quot;
+)
+
+theme_set(theme_minimal() + theme(legend.position = &quot;bottom&quot;))
+
+options(
+  ggplot2.continuous.colour = &quot;viridis&quot;,
+  ggplot2.continuous.fill = &quot;viridis&quot;
+)
+
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+
+set.seed(1)</code></pre>
 <p>First, upload all the excel datasets.</p>
 <p>This is the data for 2011:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>data11 =<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;./data/hiv_data/2011_1.xlsx&#39;</span>, <span class="dt">range =</span> <span class="st">&#39;A8:AH48&#39;</span>, <span class="dt">col_names =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="st">  </span>janitor<span class="op">::</span><span class="kw">clean_names</span>() <span class="op">%&gt;%</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="st">  </span><span class="kw">select</span>(x1, x5, x10, x12, x14, x16, x18, x19, x25, x29, x33, x34) <span class="op">%&gt;%</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(x5)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">str_detect</span>(x1, <span class="st">&quot;poverty&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="st">  </span><span class="kw">rename</span>(</span>
-<span id="cb2-7"><a href="#cb2-7"></a>    <span class="dt">category =</span> x1,</span>
-<span id="cb2-8"><a href="#cb2-8"></a>    <span class="dt">total_hiv_diag_N =</span> x5,</span>
-<span id="cb2-9"><a href="#cb2-9"></a>    <span class="dt">total_hiv_diag_per =</span> x10,</span>
-<span id="cb2-10"><a href="#cb2-10"></a>    <span class="dt">without_aids_N =</span> x12,</span>
-<span id="cb2-11"><a href="#cb2-11"></a>    <span class="dt">without_aids_per =</span> x14,</span>
-<span id="cb2-12"><a href="#cb2-12"></a>    <span class="dt">concurrent_aids_N =</span> x16,</span>
-<span id="cb2-13"><a href="#cb2-13"></a>    <span class="dt">concurrent_aids_per =</span> x18,</span>
-<span id="cb2-14"><a href="#cb2-14"></a>    <span class="dt">aids =</span> x19,</span>
-<span id="cb2-15"><a href="#cb2-15"></a>    <span class="dt">plwha =</span> x25,</span>
-<span id="cb2-16"><a href="#cb2-16"></a>    <span class="dt">death =</span> x29,</span>
-<span id="cb2-17"><a href="#cb2-17"></a>    <span class="dt">borough =</span> x33,</span>
-<span id="cb2-18"><a href="#cb2-18"></a>    <span class="dt">sex =</span> x34</span>
-<span id="cb2-19"><a href="#cb2-19"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb2-20"><a href="#cb2-20"></a><span class="st">  </span><span class="kw">separate</span>(aids, <span class="kw">c</span>(<span class="st">&quot;aids_N&quot;</span>, <span class="st">&quot;aids_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb2-21"><a href="#cb2-21"></a><span class="st">  </span><span class="kw">separate</span>(plwha, <span class="kw">c</span>(<span class="st">&quot;plwha_N&quot;</span>, <span class="st">&quot;plwha_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb2-22"><a href="#cb2-22"></a><span class="st">  </span><span class="kw">separate</span>(death, <span class="kw">c</span>(<span class="st">&quot;death_N&quot;</span>, <span class="st">&quot;death_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb2-23"><a href="#cb2-23"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>aids_per, <span class="op">-</span>plwha_per, <span class="op">-</span>death_per) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb2-24"><a href="#cb2-24"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="dv">2011</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb2-25"><a href="#cb2-25"></a><span class="st">  </span><span class="kw">mutate_if</span>(is.numeric, as.character)</span></code></pre></div>
+<pre class="r"><code>data11 = read_excel(&#39;./data/hiv_data/2011_1.xlsx&#39;, range = &#39;A8:AH48&#39;, col_names = FALSE) %&gt;%
+  janitor::clean_names() %&gt;%
+  select(x1, x5, x10, x12, x14, x16, x18, x19, x25, x29, x33, x34) %&gt;%
+  filter(!is.na(x5)) %&gt;% 
+  filter(!str_detect(x1, &quot;poverty&quot;)) %&gt;% 
+  rename(
+    category = x1,
+    total_hiv_diag_N = x5,
+    total_hiv_diag_per = x10,
+    without_aids_N = x12,
+    without_aids_per = x14,
+    concurrent_aids_N = x16,
+    concurrent_aids_per = x18,
+    aids = x19,
+    plwha = x25,
+    death = x29,
+    borough = x33,
+    sex = x34
+  ) %&gt;%
+  separate(aids, c(&quot;aids_N&quot;, &quot;aids_per&quot;), &quot; &quot;) %&gt;% 
+  separate(plwha, c(&quot;plwha_N&quot;, &quot;plwha_per&quot;), &quot; &quot;) %&gt;% 
+  separate(death, c(&quot;death_N&quot;, &quot;death_per&quot;), &quot; &quot;) %&gt;% 
+  select(-aids_per, -plwha_per, -death_per) %&gt;% 
+  mutate(year = 2011) %&gt;% 
+  mutate_if(is.numeric, as.character)</code></pre>
 <pre><code>## New names:
 ## * `` -&gt; ...1
 ## * `` -&gt; ...2
@@ -672,33 +404,32 @@ body {
 ## Warning: Expected 2 pieces. Additional pieces discarded in 32 rows [2, 3, 4, 5,
 ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
 
-## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [1].
-</code></pre>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>data11_d =<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;./data/hiv_data/2011_1.xlsx&#39;</span>, <span class="dt">range =</span> <span class="st">&#39;A49:AH324&#39;</span>, <span class="dt">col_names =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="st">  </span>janitor<span class="op">::</span><span class="kw">clean_names</span>() <span class="op">%&gt;%</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="st">  </span><span class="kw">select</span>(x1, x7, x10, x13, x14, x16, x18, x20, x26, x29, x33, x34) <span class="op">%&gt;%</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(x7)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">str_detect</span>(x1, <span class="st">&quot;poverty&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="st">  </span><span class="kw">rename</span>(</span>
-<span id="cb4-7"><a href="#cb4-7"></a>    <span class="dt">category =</span> x1,</span>
-<span id="cb4-8"><a href="#cb4-8"></a>    <span class="dt">total_hiv_diag_N =</span> x7,</span>
-<span id="cb4-9"><a href="#cb4-9"></a>    <span class="dt">total_hiv_diag_per =</span> x10,</span>
-<span id="cb4-10"><a href="#cb4-10"></a>    <span class="dt">without_aids_N =</span> x13,</span>
-<span id="cb4-11"><a href="#cb4-11"></a>    <span class="dt">without_aids_per =</span> x14,</span>
-<span id="cb4-12"><a href="#cb4-12"></a>    <span class="dt">concurrent_aids_N =</span> x16,</span>
-<span id="cb4-13"><a href="#cb4-13"></a>    <span class="dt">concurrent_aids_per =</span> x18,</span>
-<span id="cb4-14"><a href="#cb4-14"></a>    <span class="dt">aids =</span> x20,</span>
-<span id="cb4-15"><a href="#cb4-15"></a>    <span class="dt">plwha =</span> x26,</span>
-<span id="cb4-16"><a href="#cb4-16"></a>    <span class="dt">death =</span> x29,</span>
-<span id="cb4-17"><a href="#cb4-17"></a>    <span class="dt">borough =</span> x33,</span>
-<span id="cb4-18"><a href="#cb4-18"></a>    <span class="dt">sex =</span> x34</span>
-<span id="cb4-19"><a href="#cb4-19"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb4-20"><a href="#cb4-20"></a><span class="st">  </span><span class="kw">separate</span>(aids, <span class="kw">c</span>(<span class="st">&quot;aids_N&quot;</span>, <span class="st">&quot;aids_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb4-21"><a href="#cb4-21"></a><span class="st">  </span><span class="kw">separate</span>(plwha, <span class="kw">c</span>(<span class="st">&quot;plwha_N&quot;</span>, <span class="st">&quot;plwha_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb4-22"><a href="#cb4-22"></a><span class="st">  </span><span class="kw">separate</span>(death, <span class="kw">c</span>(<span class="st">&quot;death_N&quot;</span>, <span class="st">&quot;death_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb4-23"><a href="#cb4-23"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>aids_per, <span class="op">-</span>plwha_per, <span class="op">-</span>death_per) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb4-24"><a href="#cb4-24"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="dv">2011</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb4-25"><a href="#cb4-25"></a><span class="st">  </span><span class="kw">mutate_if</span>(is.numeric, as.character)</span></code></pre></div>
+## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [1].</code></pre>
+<pre class="r"><code>data11_d = read_excel(&#39;./data/hiv_data/2011_1.xlsx&#39;, range = &#39;A49:AH324&#39;, col_names = FALSE) %&gt;%
+  janitor::clean_names() %&gt;%
+  select(x1, x7, x10, x13, x14, x16, x18, x20, x26, x29, x33, x34) %&gt;%
+  filter(!is.na(x7)) %&gt;% 
+  filter(!str_detect(x1, &quot;poverty&quot;)) %&gt;% 
+  rename(
+    category = x1,
+    total_hiv_diag_N = x7,
+    total_hiv_diag_per = x10,
+    without_aids_N = x13,
+    without_aids_per = x14,
+    concurrent_aids_N = x16,
+    concurrent_aids_per = x18,
+    aids = x20,
+    plwha = x26,
+    death = x29,
+    borough = x33,
+    sex = x34
+  ) %&gt;%
+  separate(aids, c(&quot;aids_N&quot;, &quot;aids_per&quot;), &quot; &quot;) %&gt;% 
+  separate(plwha, c(&quot;plwha_N&quot;, &quot;plwha_per&quot;), &quot; &quot;) %&gt;% 
+  separate(death, c(&quot;death_N&quot;, &quot;death_per&quot;), &quot; &quot;) %&gt;% 
+  select(-aids_per, -plwha_per, -death_per) %&gt;% 
+  mutate(year = 2011) %&gt;% 
+  mutate_if(is.numeric, as.character)</code></pre>
 <pre><code>## New names:
 ## * `` -&gt; ...1
 ## * `` -&gt; ...2
@@ -723,34 +454,33 @@ body {
 ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
 
 ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 10 rows [1, 24,
-## 45, 68, 89, 112, 133, 156, 177, 198].
-</code></pre>
+## 45, 68, 89, 112, 133, 156, 177, 198].</code></pre>
 <p>This is the data for 2012:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>data12 =<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;./data/hiv_data/2012.xlsx&#39;</span>, <span class="dt">range =</span> <span class="st">&#39;A8:AG48&#39;</span>, <span class="dt">col_names =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="st">  </span>janitor<span class="op">::</span><span class="kw">clean_names</span>() <span class="op">%&gt;%</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="st">  </span><span class="kw">select</span>(x1, x5, x10, x12, x14, x16, x18, x19, x24, x29, x32, x33) <span class="op">%&gt;%</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(x5)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">str_detect</span>(x1, <span class="st">&quot;poverty&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb6-6"><a href="#cb6-6"></a><span class="st">  </span><span class="kw">rename</span>(</span>
-<span id="cb6-7"><a href="#cb6-7"></a>    <span class="dt">category =</span> x1,</span>
-<span id="cb6-8"><a href="#cb6-8"></a>    <span class="dt">total_hiv_diag_N =</span> x5,</span>
-<span id="cb6-9"><a href="#cb6-9"></a>    <span class="dt">total_hiv_diag_per =</span> x10,</span>
-<span id="cb6-10"><a href="#cb6-10"></a>    <span class="dt">without_aids_N =</span> x12,</span>
-<span id="cb6-11"><a href="#cb6-11"></a>    <span class="dt">without_aids_per =</span> x14,</span>
-<span id="cb6-12"><a href="#cb6-12"></a>    <span class="dt">concurrent_aids_N =</span> x16,</span>
-<span id="cb6-13"><a href="#cb6-13"></a>    <span class="dt">concurrent_aids_per =</span> x18,</span>
-<span id="cb6-14"><a href="#cb6-14"></a>    <span class="dt">aids =</span> x19,</span>
-<span id="cb6-15"><a href="#cb6-15"></a>    <span class="dt">plwha =</span> x24,</span>
-<span id="cb6-16"><a href="#cb6-16"></a>    <span class="dt">death =</span> x29,</span>
-<span id="cb6-17"><a href="#cb6-17"></a>    <span class="dt">borough =</span> x32,</span>
-<span id="cb6-18"><a href="#cb6-18"></a>    <span class="dt">sex =</span> x33</span>
-<span id="cb6-19"><a href="#cb6-19"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb6-20"><a href="#cb6-20"></a><span class="st">  </span><span class="kw">separate</span>(aids, <span class="kw">c</span>(<span class="st">&quot;aids_N&quot;</span>, <span class="st">&quot;aids_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb6-21"><a href="#cb6-21"></a><span class="st">  </span><span class="kw">separate</span>(plwha, <span class="kw">c</span>(<span class="st">&quot;plwha_N&quot;</span>, <span class="st">&quot;plwha_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb6-22"><a href="#cb6-22"></a><span class="st">  </span><span class="kw">separate</span>(death, <span class="kw">c</span>(<span class="st">&quot;death_N&quot;</span>, <span class="st">&quot;death_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb6-23"><a href="#cb6-23"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>aids_per, <span class="op">-</span>plwha_per, <span class="op">-</span>death_per) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb6-24"><a href="#cb6-24"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="dv">2012</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb6-25"><a href="#cb6-25"></a><span class="st">  </span><span class="kw">mutate_if</span>(is.numeric, as.character)</span></code></pre></div>
+<pre class="r"><code>data12 = read_excel(&#39;./data/hiv_data/2012.xlsx&#39;, range = &#39;A8:AG48&#39;, col_names = FALSE) %&gt;%
+  janitor::clean_names() %&gt;%
+  select(x1, x5, x10, x12, x14, x16, x18, x19, x24, x29, x32, x33) %&gt;%
+  filter(!is.na(x5)) %&gt;% 
+  filter(!str_detect(x1, &quot;poverty&quot;)) %&gt;% 
+  rename(
+    category = x1,
+    total_hiv_diag_N = x5,
+    total_hiv_diag_per = x10,
+    without_aids_N = x12,
+    without_aids_per = x14,
+    concurrent_aids_N = x16,
+    concurrent_aids_per = x18,
+    aids = x19,
+    plwha = x24,
+    death = x29,
+    borough = x32,
+    sex = x33
+  ) %&gt;%
+  separate(aids, c(&quot;aids_N&quot;, &quot;aids_per&quot;), &quot; &quot;) %&gt;% 
+  separate(plwha, c(&quot;plwha_N&quot;, &quot;plwha_per&quot;), &quot; &quot;) %&gt;% 
+  separate(death, c(&quot;death_N&quot;, &quot;death_per&quot;), &quot; &quot;) %&gt;% 
+  select(-aids_per, -plwha_per, -death_per) %&gt;% 
+  mutate(year = 2012) %&gt;% 
+  mutate_if(is.numeric, as.character)</code></pre>
 <pre><code>## New names:
 ## * `` -&gt; ...1
 ## * `` -&gt; ...2
@@ -772,33 +502,32 @@ body {
 ## Warning: Expected 2 pieces. Additional pieces discarded in 32 rows [2, 3, 4, 5,
 ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
 
-## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [1].
-</code></pre>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>data12_d =<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;./data/hiv_data/2012.xlsx&#39;</span>, <span class="dt">range =</span> <span class="st">&#39;A49:AH324&#39;</span>, <span class="dt">col_names =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="st">  </span>janitor<span class="op">::</span><span class="kw">clean_names</span>() <span class="op">%&gt;%</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="st">  </span><span class="kw">select</span>(x1, x7, x10, x13, x14, x16, x18, x20, x26, x29, x32, x33) <span class="op">%&gt;%</span></span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(x7)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-5"><a href="#cb8-5"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">str_detect</span>(x1, <span class="st">&quot;poverty&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-6"><a href="#cb8-6"></a><span class="st">  </span><span class="kw">rename</span>(</span>
-<span id="cb8-7"><a href="#cb8-7"></a>    <span class="dt">category =</span> x1,</span>
-<span id="cb8-8"><a href="#cb8-8"></a>    <span class="dt">total_hiv_diag_N =</span> x7,</span>
-<span id="cb8-9"><a href="#cb8-9"></a>    <span class="dt">total_hiv_diag_per =</span> x10,</span>
-<span id="cb8-10"><a href="#cb8-10"></a>    <span class="dt">without_aids_N =</span> x13,</span>
-<span id="cb8-11"><a href="#cb8-11"></a>    <span class="dt">without_aids_per =</span> x14,</span>
-<span id="cb8-12"><a href="#cb8-12"></a>    <span class="dt">concurrent_aids_N =</span> x16,</span>
-<span id="cb8-13"><a href="#cb8-13"></a>    <span class="dt">concurrent_aids_per =</span> x18,</span>
-<span id="cb8-14"><a href="#cb8-14"></a>    <span class="dt">aids =</span> x20,</span>
-<span id="cb8-15"><a href="#cb8-15"></a>    <span class="dt">plwha =</span> x26,</span>
-<span id="cb8-16"><a href="#cb8-16"></a>    <span class="dt">death =</span> x29,</span>
-<span id="cb8-17"><a href="#cb8-17"></a>    <span class="dt">borough =</span> x32,</span>
-<span id="cb8-18"><a href="#cb8-18"></a>    <span class="dt">sex =</span> x33</span>
-<span id="cb8-19"><a href="#cb8-19"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb8-20"><a href="#cb8-20"></a><span class="st">  </span><span class="kw">separate</span>(aids, <span class="kw">c</span>(<span class="st">&quot;aids_N&quot;</span>, <span class="st">&quot;aids_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-21"><a href="#cb8-21"></a><span class="st">  </span><span class="kw">separate</span>(plwha, <span class="kw">c</span>(<span class="st">&quot;plwha_N&quot;</span>, <span class="st">&quot;plwha_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-22"><a href="#cb8-22"></a><span class="st">  </span><span class="kw">separate</span>(death, <span class="kw">c</span>(<span class="st">&quot;death_N&quot;</span>, <span class="st">&quot;death_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-23"><a href="#cb8-23"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>aids_per, <span class="op">-</span>plwha_per, <span class="op">-</span>death_per) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-24"><a href="#cb8-24"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="dv">2012</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-25"><a href="#cb8-25"></a><span class="st">  </span><span class="kw">mutate_if</span>(is.numeric, as.character)</span></code></pre></div>
+## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [1].</code></pre>
+<pre class="r"><code>data12_d = read_excel(&#39;./data/hiv_data/2012.xlsx&#39;, range = &#39;A49:AH324&#39;, col_names = FALSE) %&gt;%
+  janitor::clean_names() %&gt;%
+  select(x1, x7, x10, x13, x14, x16, x18, x20, x26, x29, x32, x33) %&gt;%
+  filter(!is.na(x7)) %&gt;% 
+  filter(!str_detect(x1, &quot;poverty&quot;)) %&gt;% 
+  rename(
+    category = x1,
+    total_hiv_diag_N = x7,
+    total_hiv_diag_per = x10,
+    without_aids_N = x13,
+    without_aids_per = x14,
+    concurrent_aids_N = x16,
+    concurrent_aids_per = x18,
+    aids = x20,
+    plwha = x26,
+    death = x29,
+    borough = x32,
+    sex = x33
+  ) %&gt;%
+  separate(aids, c(&quot;aids_N&quot;, &quot;aids_per&quot;), &quot; &quot;) %&gt;% 
+  separate(plwha, c(&quot;plwha_N&quot;, &quot;plwha_per&quot;), &quot; &quot;) %&gt;% 
+  separate(death, c(&quot;death_N&quot;, &quot;death_per&quot;), &quot; &quot;) %&gt;% 
+  select(-aids_per, -plwha_per, -death_per) %&gt;% 
+  mutate(year = 2012) %&gt;% 
+  mutate_if(is.numeric, as.character)</code></pre>
 <pre><code>## New names:
 ## * `` -&gt; ...1
 ## * `` -&gt; ...2
@@ -823,34 +552,33 @@ body {
 ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
 
 ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 10 rows [1, 24,
-## 45, 68, 89, 112, 133, 156, 177, 198].
-</code></pre>
+## 45, 68, 89, 112, 133, 156, 177, 198].</code></pre>
 <p>This is the data for 2013:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>data13 =<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;./data/hiv_data/2013.xlsx&#39;</span>, <span class="dt">range =</span> <span class="st">&#39;A8:AG48&#39;</span>, <span class="dt">col_names =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="st">  </span>janitor<span class="op">::</span><span class="kw">clean_names</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb10-3"><a href="#cb10-3"></a><span class="st">  </span><span class="kw">select</span>(x1, x5, x9, x11, x13, x15, x17, x18, x24, x28, x32, x33) <span class="op">%&gt;%</span></span>
-<span id="cb10-4"><a href="#cb10-4"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(x5)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb10-5"><a href="#cb10-5"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">str_detect</span>(x1, <span class="st">&quot;poverty&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb10-6"><a href="#cb10-6"></a><span class="st">  </span><span class="kw">rename</span>(</span>
-<span id="cb10-7"><a href="#cb10-7"></a>    <span class="dt">category =</span> x1,</span>
-<span id="cb10-8"><a href="#cb10-8"></a>    <span class="dt">total_hiv_diag_N =</span> x5,</span>
-<span id="cb10-9"><a href="#cb10-9"></a>    <span class="dt">total_hiv_diag_per =</span> x9,</span>
-<span id="cb10-10"><a href="#cb10-10"></a>    <span class="dt">without_aids_N =</span> x11,</span>
-<span id="cb10-11"><a href="#cb10-11"></a>    <span class="dt">without_aids_per =</span> x13,</span>
-<span id="cb10-12"><a href="#cb10-12"></a>    <span class="dt">concurrent_aids_N =</span> x15,</span>
-<span id="cb10-13"><a href="#cb10-13"></a>    <span class="dt">concurrent_aids_per =</span> x17,</span>
-<span id="cb10-14"><a href="#cb10-14"></a>    <span class="dt">aids =</span> x18,</span>
-<span id="cb10-15"><a href="#cb10-15"></a>    <span class="dt">plwha =</span> x24,</span>
-<span id="cb10-16"><a href="#cb10-16"></a>    <span class="dt">death =</span> x28,</span>
-<span id="cb10-17"><a href="#cb10-17"></a>    <span class="dt">borough =</span> x32,</span>
-<span id="cb10-18"><a href="#cb10-18"></a>    <span class="dt">sex =</span> x33</span>
-<span id="cb10-19"><a href="#cb10-19"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb10-20"><a href="#cb10-20"></a><span class="st">  </span><span class="kw">separate</span>(aids, <span class="kw">c</span>(<span class="st">&quot;aids_N&quot;</span>, <span class="st">&quot;aids_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb10-21"><a href="#cb10-21"></a><span class="st">  </span><span class="kw">separate</span>(plwha, <span class="kw">c</span>(<span class="st">&quot;plwha_N&quot;</span>, <span class="st">&quot;plwha_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb10-22"><a href="#cb10-22"></a><span class="st">  </span><span class="kw">separate</span>(death, <span class="kw">c</span>(<span class="st">&quot;death_N&quot;</span>, <span class="st">&quot;death_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb10-23"><a href="#cb10-23"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>aids_per, <span class="op">-</span>plwha_per, <span class="op">-</span>death_per) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb10-24"><a href="#cb10-24"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="dv">2013</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb10-25"><a href="#cb10-25"></a><span class="st">  </span><span class="kw">mutate_if</span>(is.numeric, as.character)</span></code></pre></div>
+<pre class="r"><code>data13 = read_excel(&#39;./data/hiv_data/2013.xlsx&#39;, range = &#39;A8:AG48&#39;, col_names = FALSE) %&gt;%
+  janitor::clean_names() %&gt;% 
+  select(x1, x5, x9, x11, x13, x15, x17, x18, x24, x28, x32, x33) %&gt;%
+  filter(!is.na(x5)) %&gt;% 
+  filter(!str_detect(x1, &quot;poverty&quot;)) %&gt;% 
+  rename(
+    category = x1,
+    total_hiv_diag_N = x5,
+    total_hiv_diag_per = x9,
+    without_aids_N = x11,
+    without_aids_per = x13,
+    concurrent_aids_N = x15,
+    concurrent_aids_per = x17,
+    aids = x18,
+    plwha = x24,
+    death = x28,
+    borough = x32,
+    sex = x33
+  ) %&gt;%
+  separate(aids, c(&quot;aids_N&quot;, &quot;aids_per&quot;), &quot; &quot;) %&gt;% 
+  separate(plwha, c(&quot;plwha_N&quot;, &quot;plwha_per&quot;), &quot; &quot;) %&gt;% 
+  separate(death, c(&quot;death_N&quot;, &quot;death_per&quot;), &quot; &quot;) %&gt;% 
+  select(-aids_per, -plwha_per, -death_per) %&gt;% 
+  mutate(year = 2013) %&gt;% 
+  mutate_if(is.numeric, as.character)</code></pre>
 <pre><code>## New names:
 ## * `` -&gt; ...1
 ## * `` -&gt; ...2
@@ -872,33 +600,32 @@ body {
 ## Warning: Expected 2 pieces. Additional pieces discarded in 32 rows [2, 3, 4, 5,
 ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
 
-## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [1].
-</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>data13_d =<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;./data/hiv_data/2013.xlsx&#39;</span>, <span class="dt">range =</span> <span class="st">&#39;A49:AG324&#39;</span>, <span class="dt">col_names =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></span>
-<span id="cb12-2"><a href="#cb12-2"></a><span class="st">  </span>janitor<span class="op">::</span><span class="kw">clean_names</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb12-3"><a href="#cb12-3"></a><span class="st">  </span><span class="kw">select</span>(x1, x6, x9, x12, x13, x15, x17, x19, x25, x28, x32, x33) <span class="op">%&gt;%</span></span>
-<span id="cb12-4"><a href="#cb12-4"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(x6)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb12-5"><a href="#cb12-5"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">str_detect</span>(x1, <span class="st">&quot;poverty&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb12-6"><a href="#cb12-6"></a><span class="st">  </span><span class="kw">rename</span>(</span>
-<span id="cb12-7"><a href="#cb12-7"></a>    <span class="dt">category =</span> x1,</span>
-<span id="cb12-8"><a href="#cb12-8"></a>    <span class="dt">total_hiv_diag_N =</span> x6,</span>
-<span id="cb12-9"><a href="#cb12-9"></a>    <span class="dt">total_hiv_diag_per =</span> x9,</span>
-<span id="cb12-10"><a href="#cb12-10"></a>    <span class="dt">without_aids_N =</span> x12,</span>
-<span id="cb12-11"><a href="#cb12-11"></a>    <span class="dt">without_aids_per =</span> x13,</span>
-<span id="cb12-12"><a href="#cb12-12"></a>    <span class="dt">concurrent_aids_N =</span> x15,</span>
-<span id="cb12-13"><a href="#cb12-13"></a>    <span class="dt">concurrent_aids_per =</span> x17,</span>
-<span id="cb12-14"><a href="#cb12-14"></a>    <span class="dt">aids =</span> x19,</span>
-<span id="cb12-15"><a href="#cb12-15"></a>    <span class="dt">plwha =</span> x25,</span>
-<span id="cb12-16"><a href="#cb12-16"></a>    <span class="dt">death =</span> x28,</span>
-<span id="cb12-17"><a href="#cb12-17"></a>    <span class="dt">borough =</span> x32,</span>
-<span id="cb12-18"><a href="#cb12-18"></a>    <span class="dt">sex =</span> x33</span>
-<span id="cb12-19"><a href="#cb12-19"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb12-20"><a href="#cb12-20"></a><span class="st">  </span><span class="kw">separate</span>(aids, <span class="kw">c</span>(<span class="st">&quot;aids_N&quot;</span>, <span class="st">&quot;aids_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb12-21"><a href="#cb12-21"></a><span class="st">  </span><span class="kw">separate</span>(plwha, <span class="kw">c</span>(<span class="st">&quot;plwha_N&quot;</span>, <span class="st">&quot;plwha_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb12-22"><a href="#cb12-22"></a><span class="st">  </span><span class="kw">separate</span>(death, <span class="kw">c</span>(<span class="st">&quot;death_N&quot;</span>, <span class="st">&quot;death_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb12-23"><a href="#cb12-23"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>aids_per, <span class="op">-</span>plwha_per, <span class="op">-</span>death_per) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb12-24"><a href="#cb12-24"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="dv">2013</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb12-25"><a href="#cb12-25"></a><span class="st">  </span><span class="kw">mutate_if</span>(is.numeric, as.character)</span></code></pre></div>
+## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [1].</code></pre>
+<pre class="r"><code>data13_d = read_excel(&#39;./data/hiv_data/2013.xlsx&#39;, range = &#39;A49:AG324&#39;, col_names = FALSE) %&gt;%
+  janitor::clean_names() %&gt;% 
+  select(x1, x6, x9, x12, x13, x15, x17, x19, x25, x28, x32, x33) %&gt;%
+  filter(!is.na(x6)) %&gt;% 
+  filter(!str_detect(x1, &quot;poverty&quot;)) %&gt;% 
+  rename(
+    category = x1,
+    total_hiv_diag_N = x6,
+    total_hiv_diag_per = x9,
+    without_aids_N = x12,
+    without_aids_per = x13,
+    concurrent_aids_N = x15,
+    concurrent_aids_per = x17,
+    aids = x19,
+    plwha = x25,
+    death = x28,
+    borough = x32,
+    sex = x33
+  ) %&gt;%
+  separate(aids, c(&quot;aids_N&quot;, &quot;aids_per&quot;), &quot; &quot;) %&gt;% 
+  separate(plwha, c(&quot;plwha_N&quot;, &quot;plwha_per&quot;), &quot; &quot;) %&gt;% 
+  separate(death, c(&quot;death_N&quot;, &quot;death_per&quot;), &quot; &quot;) %&gt;% 
+  select(-aids_per, -plwha_per, -death_per) %&gt;% 
+  mutate(year = 2013) %&gt;% 
+  mutate_if(is.numeric, as.character)</code></pre>
 <pre><code>## New names:
 ## * `` -&gt; ...1
 ## * `` -&gt; ...2
@@ -923,34 +650,33 @@ body {
 ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
 
 ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 10 rows [1, 24,
-## 45, 68, 89, 112, 133, 156, 177, 198].
-</code></pre>
+## 45, 68, 89, 112, 133, 156, 177, 198].</code></pre>
 <p>This is the data for 2014:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>data14 =<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;./data/hiv_data/2014.xlsx&#39;</span>, <span class="dt">range =</span> <span class="st">&#39;A8:AG48&#39;</span>, <span class="dt">col_names =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></span>
-<span id="cb14-2"><a href="#cb14-2"></a><span class="st">  </span>janitor<span class="op">::</span><span class="kw">clean_names</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb14-3"><a href="#cb14-3"></a><span class="st">  </span><span class="kw">select</span>(x1, x5, x8, x10, x11, x13, x15, x16, x21, x25, x29, x30) <span class="op">%&gt;%</span></span>
-<span id="cb14-4"><a href="#cb14-4"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(x5)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb14-5"><a href="#cb14-5"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">str_detect</span>(x1, <span class="st">&quot;poverty&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb14-6"><a href="#cb14-6"></a><span class="st">  </span><span class="kw">rename</span>(</span>
-<span id="cb14-7"><a href="#cb14-7"></a>    <span class="dt">category =</span> x1,</span>
-<span id="cb14-8"><a href="#cb14-8"></a>    <span class="dt">total_hiv_diag_N =</span> x5,</span>
-<span id="cb14-9"><a href="#cb14-9"></a>    <span class="dt">total_hiv_diag_per =</span> x8,</span>
-<span id="cb14-10"><a href="#cb14-10"></a>    <span class="dt">without_aids_N =</span> x10,</span>
-<span id="cb14-11"><a href="#cb14-11"></a>    <span class="dt">without_aids_per =</span> x11,</span>
-<span id="cb14-12"><a href="#cb14-12"></a>    <span class="dt">concurrent_aids_N =</span> x13,</span>
-<span id="cb14-13"><a href="#cb14-13"></a>    <span class="dt">concurrent_aids_per =</span> x15,</span>
-<span id="cb14-14"><a href="#cb14-14"></a>    <span class="dt">aids =</span> x16,</span>
-<span id="cb14-15"><a href="#cb14-15"></a>    <span class="dt">plwha =</span> x21,</span>
-<span id="cb14-16"><a href="#cb14-16"></a>    <span class="dt">death =</span> x25,</span>
-<span id="cb14-17"><a href="#cb14-17"></a>    <span class="dt">borough =</span> x29,</span>
-<span id="cb14-18"><a href="#cb14-18"></a>    <span class="dt">sex =</span> x30</span>
-<span id="cb14-19"><a href="#cb14-19"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb14-20"><a href="#cb14-20"></a><span class="st">  </span><span class="kw">separate</span>(aids, <span class="kw">c</span>(<span class="st">&quot;aids_N&quot;</span>, <span class="st">&quot;aids_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb14-21"><a href="#cb14-21"></a><span class="st">  </span><span class="kw">separate</span>(plwha, <span class="kw">c</span>(<span class="st">&quot;plwha_N&quot;</span>, <span class="st">&quot;plwha_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb14-22"><a href="#cb14-22"></a><span class="st">  </span><span class="kw">separate</span>(death, <span class="kw">c</span>(<span class="st">&quot;death_N&quot;</span>, <span class="st">&quot;death_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb14-23"><a href="#cb14-23"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>aids_per, <span class="op">-</span>plwha_per, <span class="op">-</span>death_per) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb14-24"><a href="#cb14-24"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="dv">2014</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb14-25"><a href="#cb14-25"></a><span class="st">  </span><span class="kw">mutate_if</span>(is.numeric, as.character)</span></code></pre></div>
+<pre class="r"><code>data14 = read_excel(&#39;./data/hiv_data/2014.xlsx&#39;, range = &#39;A8:AG48&#39;, col_names = FALSE) %&gt;%
+  janitor::clean_names() %&gt;% 
+  select(x1, x5, x8, x10, x11, x13, x15, x16, x21, x25, x29, x30) %&gt;%
+  filter(!is.na(x5)) %&gt;% 
+  filter(!str_detect(x1, &quot;poverty&quot;)) %&gt;% 
+  rename(
+    category = x1,
+    total_hiv_diag_N = x5,
+    total_hiv_diag_per = x8,
+    without_aids_N = x10,
+    without_aids_per = x11,
+    concurrent_aids_N = x13,
+    concurrent_aids_per = x15,
+    aids = x16,
+    plwha = x21,
+    death = x25,
+    borough = x29,
+    sex = x30
+  ) %&gt;%
+  separate(aids, c(&quot;aids_N&quot;, &quot;aids_per&quot;), &quot; &quot;) %&gt;% 
+  separate(plwha, c(&quot;plwha_N&quot;, &quot;plwha_per&quot;), &quot; &quot;) %&gt;% 
+  separate(death, c(&quot;death_N&quot;, &quot;death_per&quot;), &quot; &quot;) %&gt;% 
+  select(-aids_per, -plwha_per, -death_per) %&gt;% 
+  mutate(year = 2014) %&gt;% 
+  mutate_if(is.numeric, as.character)</code></pre>
 <pre><code>## New names:
 ## * `` -&gt; ...1
 ## * `` -&gt; ...2
@@ -972,33 +698,32 @@ body {
 ## Warning: Expected 2 pieces. Additional pieces discarded in 31 rows [2, 3, 4, 5,
 ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
 
-## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [1].
-</code></pre>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>data14_d =<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;./data/hiv_data/2014.xlsx&#39;</span>, <span class="dt">range =</span> <span class="st">&#39;A50:AD335&#39;</span>, <span class="dt">col_names =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></span>
-<span id="cb16-2"><a href="#cb16-2"></a><span class="st">  </span>janitor<span class="op">::</span><span class="kw">clean_names</span>() <span class="op">%&gt;%</span></span>
-<span id="cb16-3"><a href="#cb16-3"></a><span class="st">  </span><span class="kw">select</span>(x1, x6, x8, x10, x11, x13, x15, x16, x22, x25, x29, x30) <span class="op">%&gt;%</span></span>
-<span id="cb16-4"><a href="#cb16-4"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(x6)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb16-5"><a href="#cb16-5"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">str_detect</span>(x1, <span class="st">&quot;poverty&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb16-6"><a href="#cb16-6"></a><span class="st">  </span><span class="kw">rename</span>(</span>
-<span id="cb16-7"><a href="#cb16-7"></a>    <span class="dt">category =</span> x1,</span>
-<span id="cb16-8"><a href="#cb16-8"></a>    <span class="dt">total_hiv_diag_N =</span> x6,</span>
-<span id="cb16-9"><a href="#cb16-9"></a>    <span class="dt">total_hiv_diag_per =</span> x8,</span>
-<span id="cb16-10"><a href="#cb16-10"></a>    <span class="dt">without_aids_N =</span> x10,</span>
-<span id="cb16-11"><a href="#cb16-11"></a>    <span class="dt">without_aids_per =</span> x11,</span>
-<span id="cb16-12"><a href="#cb16-12"></a>    <span class="dt">concurrent_aids_N =</span> x13,</span>
-<span id="cb16-13"><a href="#cb16-13"></a>    <span class="dt">concurrent_aids_per =</span> x15,</span>
-<span id="cb16-14"><a href="#cb16-14"></a>    <span class="dt">aids =</span> x16,</span>
-<span id="cb16-15"><a href="#cb16-15"></a>    <span class="dt">plwha =</span> x22,</span>
-<span id="cb16-16"><a href="#cb16-16"></a>    <span class="dt">death =</span> x25,</span>
-<span id="cb16-17"><a href="#cb16-17"></a>    <span class="dt">borough =</span> x29,</span>
-<span id="cb16-18"><a href="#cb16-18"></a>    <span class="dt">sex =</span> x30</span>
-<span id="cb16-19"><a href="#cb16-19"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb16-20"><a href="#cb16-20"></a><span class="st">  </span><span class="kw">separate</span>(aids, <span class="kw">c</span>(<span class="st">&quot;aids_N&quot;</span>, <span class="st">&quot;aids_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb16-21"><a href="#cb16-21"></a><span class="st">  </span><span class="kw">separate</span>(plwha, <span class="kw">c</span>(<span class="st">&quot;plwha_N&quot;</span>, <span class="st">&quot;plwha_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb16-22"><a href="#cb16-22"></a><span class="st">  </span><span class="kw">separate</span>(death, <span class="kw">c</span>(<span class="st">&quot;death_N&quot;</span>, <span class="st">&quot;death_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb16-23"><a href="#cb16-23"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>aids_per, <span class="op">-</span>plwha_per, <span class="op">-</span>death_per) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb16-24"><a href="#cb16-24"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="dv">2014</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb16-25"><a href="#cb16-25"></a><span class="st">  </span><span class="kw">mutate_if</span>(is.numeric, as.character)</span></code></pre></div>
+## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [1].</code></pre>
+<pre class="r"><code>data14_d = read_excel(&#39;./data/hiv_data/2014.xlsx&#39;, range = &#39;A50:AD335&#39;, col_names = FALSE) %&gt;%
+  janitor::clean_names() %&gt;%
+  select(x1, x6, x8, x10, x11, x13, x15, x16, x22, x25, x29, x30) %&gt;%
+  filter(!is.na(x6)) %&gt;% 
+  filter(!str_detect(x1, &quot;poverty&quot;)) %&gt;% 
+  rename(
+    category = x1,
+    total_hiv_diag_N = x6,
+    total_hiv_diag_per = x8,
+    without_aids_N = x10,
+    without_aids_per = x11,
+    concurrent_aids_N = x13,
+    concurrent_aids_per = x15,
+    aids = x16,
+    plwha = x22,
+    death = x25,
+    borough = x29,
+    sex = x30
+  ) %&gt;%
+  separate(aids, c(&quot;aids_N&quot;, &quot;aids_per&quot;), &quot; &quot;) %&gt;% 
+  separate(plwha, c(&quot;plwha_N&quot;, &quot;plwha_per&quot;), &quot; &quot;) %&gt;% 
+  separate(death, c(&quot;death_N&quot;, &quot;death_per&quot;), &quot; &quot;) %&gt;% 
+  select(-aids_per, -plwha_per, -death_per) %&gt;% 
+  mutate(year = 2014) %&gt;% 
+  mutate_if(is.numeric, as.character)</code></pre>
 <pre><code>## New names:
 ## * `` -&gt; ...1
 ## * `` -&gt; ...2
@@ -1023,34 +748,33 @@ body {
 ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
 
 ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 10 rows [1, 24,
-## 45, 68, 89, 112, 133, 156, 177, 198].
-</code></pre>
+## 45, 68, 89, 112, 133, 156, 177, 198].</code></pre>
 <p>This is the data for 2015:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>data15 =<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;./data/hiv_data/2015.xlsx&#39;</span>, <span class="dt">range =</span> <span class="st">&#39;A8:AG49&#39;</span>, <span class="dt">col_names =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></span>
-<span id="cb18-2"><a href="#cb18-2"></a><span class="st">  </span>janitor<span class="op">::</span><span class="kw">clean_names</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb18-3"><a href="#cb18-3"></a><span class="st">  </span><span class="kw">select</span>(x1, x5, x9, x11, x12, x14, x16, x18, x23, x28, x32, x33) <span class="op">%&gt;%</span></span>
-<span id="cb18-4"><a href="#cb18-4"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(x5)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb18-5"><a href="#cb18-5"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">str_detect</span>(x1, <span class="st">&quot;poverty&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb18-6"><a href="#cb18-6"></a><span class="st">  </span><span class="kw">rename</span>(</span>
-<span id="cb18-7"><a href="#cb18-7"></a>    <span class="dt">category =</span> x1,</span>
-<span id="cb18-8"><a href="#cb18-8"></a>    <span class="dt">total_hiv_diag_N =</span> x5,</span>
-<span id="cb18-9"><a href="#cb18-9"></a>    <span class="dt">total_hiv_diag_per =</span> x9,</span>
-<span id="cb18-10"><a href="#cb18-10"></a>    <span class="dt">without_aids_N =</span> x11,</span>
-<span id="cb18-11"><a href="#cb18-11"></a>    <span class="dt">without_aids_per =</span> x12,</span>
-<span id="cb18-12"><a href="#cb18-12"></a>    <span class="dt">concurrent_aids_N =</span> x14,</span>
-<span id="cb18-13"><a href="#cb18-13"></a>    <span class="dt">concurrent_aids_per =</span> x16,</span>
-<span id="cb18-14"><a href="#cb18-14"></a>    <span class="dt">aids =</span> x18,</span>
-<span id="cb18-15"><a href="#cb18-15"></a>    <span class="dt">plwha =</span> x23,</span>
-<span id="cb18-16"><a href="#cb18-16"></a>    <span class="dt">death =</span> x28,</span>
-<span id="cb18-17"><a href="#cb18-17"></a>    <span class="dt">borough =</span> x32,</span>
-<span id="cb18-18"><a href="#cb18-18"></a>    <span class="dt">sex =</span> x33</span>
-<span id="cb18-19"><a href="#cb18-19"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb18-20"><a href="#cb18-20"></a><span class="st">  </span><span class="kw">separate</span>(aids, <span class="kw">c</span>(<span class="st">&quot;aids_N&quot;</span>, <span class="st">&quot;aids_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb18-21"><a href="#cb18-21"></a><span class="st">  </span><span class="kw">separate</span>(plwha, <span class="kw">c</span>(<span class="st">&quot;plwha_N&quot;</span>, <span class="st">&quot;plwha_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb18-22"><a href="#cb18-22"></a><span class="st">  </span><span class="kw">separate</span>(death, <span class="kw">c</span>(<span class="st">&quot;death_N&quot;</span>, <span class="st">&quot;death_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb18-23"><a href="#cb18-23"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>aids_per, <span class="op">-</span>plwha_per, <span class="op">-</span>death_per) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb18-24"><a href="#cb18-24"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="dv">2015</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb18-25"><a href="#cb18-25"></a><span class="st">  </span><span class="kw">mutate_if</span>(is.numeric, as.character)</span></code></pre></div>
+<pre class="r"><code>data15 = read_excel(&#39;./data/hiv_data/2015.xlsx&#39;, range = &#39;A8:AG49&#39;, col_names = FALSE) %&gt;%
+  janitor::clean_names() %&gt;% 
+  select(x1, x5, x9, x11, x12, x14, x16, x18, x23, x28, x32, x33) %&gt;%
+  filter(!is.na(x5)) %&gt;% 
+  filter(!str_detect(x1, &quot;poverty&quot;)) %&gt;% 
+  rename(
+    category = x1,
+    total_hiv_diag_N = x5,
+    total_hiv_diag_per = x9,
+    without_aids_N = x11,
+    without_aids_per = x12,
+    concurrent_aids_N = x14,
+    concurrent_aids_per = x16,
+    aids = x18,
+    plwha = x23,
+    death = x28,
+    borough = x32,
+    sex = x33
+  ) %&gt;%
+  separate(aids, c(&quot;aids_N&quot;, &quot;aids_per&quot;), &quot; &quot;) %&gt;% 
+  separate(plwha, c(&quot;plwha_N&quot;, &quot;plwha_per&quot;), &quot; &quot;) %&gt;% 
+  separate(death, c(&quot;death_N&quot;, &quot;death_per&quot;), &quot; &quot;) %&gt;% 
+  select(-aids_per, -plwha_per, -death_per) %&gt;% 
+  mutate(year = 2015) %&gt;% 
+  mutate_if(is.numeric, as.character)</code></pre>
 <pre><code>## New names:
 ## * `` -&gt; ...1
 ## * `` -&gt; ...2
@@ -1072,33 +796,32 @@ body {
 ## Warning: Expected 2 pieces. Additional pieces discarded in 32 rows [2, 3, 4, 5,
 ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
 
-## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [1].
-</code></pre>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>data15_d =<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;./data/hiv_data/2015.xlsx&#39;</span>, <span class="dt">range =</span> <span class="st">&#39;A50:AG335&#39;</span>, <span class="dt">col_names =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></span>
-<span id="cb20-2"><a href="#cb20-2"></a><span class="st">  </span>janitor<span class="op">::</span><span class="kw">clean_names</span>() <span class="op">%&gt;%</span></span>
-<span id="cb20-3"><a href="#cb20-3"></a><span class="st">  </span><span class="kw">select</span>(x1, x6, x9, x11, x12, x14, x16, x18, x25, x28, x32, x33) <span class="op">%&gt;%</span></span>
-<span id="cb20-4"><a href="#cb20-4"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(x6)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb20-5"><a href="#cb20-5"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">str_detect</span>(x1, <span class="st">&quot;poverty&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb20-6"><a href="#cb20-6"></a><span class="st">  </span><span class="kw">rename</span>(</span>
-<span id="cb20-7"><a href="#cb20-7"></a>    <span class="dt">category =</span> x1,</span>
-<span id="cb20-8"><a href="#cb20-8"></a>    <span class="dt">total_hiv_diag_N =</span> x6,</span>
-<span id="cb20-9"><a href="#cb20-9"></a>    <span class="dt">total_hiv_diag_per =</span> x9,</span>
-<span id="cb20-10"><a href="#cb20-10"></a>    <span class="dt">without_aids_N =</span> x11,</span>
-<span id="cb20-11"><a href="#cb20-11"></a>    <span class="dt">without_aids_per =</span> x12,</span>
-<span id="cb20-12"><a href="#cb20-12"></a>    <span class="dt">concurrent_aids_N =</span> x14,</span>
-<span id="cb20-13"><a href="#cb20-13"></a>    <span class="dt">concurrent_aids_per =</span> x16,</span>
-<span id="cb20-14"><a href="#cb20-14"></a>    <span class="dt">aids =</span> x18,</span>
-<span id="cb20-15"><a href="#cb20-15"></a>    <span class="dt">plwha =</span> x25,</span>
-<span id="cb20-16"><a href="#cb20-16"></a>    <span class="dt">death =</span> x28,</span>
-<span id="cb20-17"><a href="#cb20-17"></a>    <span class="dt">borough =</span> x32,</span>
-<span id="cb20-18"><a href="#cb20-18"></a>    <span class="dt">sex =</span> x33</span>
-<span id="cb20-19"><a href="#cb20-19"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb20-20"><a href="#cb20-20"></a><span class="st">  </span><span class="kw">separate</span>(aids, <span class="kw">c</span>(<span class="st">&quot;aids_N&quot;</span>, <span class="st">&quot;aids_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb20-21"><a href="#cb20-21"></a><span class="st">  </span><span class="kw">separate</span>(plwha, <span class="kw">c</span>(<span class="st">&quot;plwha_N&quot;</span>, <span class="st">&quot;plwha_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb20-22"><a href="#cb20-22"></a><span class="st">  </span><span class="kw">separate</span>(death, <span class="kw">c</span>(<span class="st">&quot;death_N&quot;</span>, <span class="st">&quot;death_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb20-23"><a href="#cb20-23"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>aids_per, <span class="op">-</span>plwha_per, <span class="op">-</span>death_per) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb20-24"><a href="#cb20-24"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="dv">2015</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb20-25"><a href="#cb20-25"></a><span class="st">  </span><span class="kw">mutate_if</span>(is.numeric, as.character)</span></code></pre></div>
+## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [1].</code></pre>
+<pre class="r"><code>data15_d = read_excel(&#39;./data/hiv_data/2015.xlsx&#39;, range = &#39;A50:AG335&#39;, col_names = FALSE) %&gt;%
+  janitor::clean_names() %&gt;%
+  select(x1, x6, x9, x11, x12, x14, x16, x18, x25, x28, x32, x33) %&gt;%
+  filter(!is.na(x6)) %&gt;% 
+  filter(!str_detect(x1, &quot;poverty&quot;)) %&gt;% 
+  rename(
+    category = x1,
+    total_hiv_diag_N = x6,
+    total_hiv_diag_per = x9,
+    without_aids_N = x11,
+    without_aids_per = x12,
+    concurrent_aids_N = x14,
+    concurrent_aids_per = x16,
+    aids = x18,
+    plwha = x25,
+    death = x28,
+    borough = x32,
+    sex = x33
+  ) %&gt;%
+  separate(aids, c(&quot;aids_N&quot;, &quot;aids_per&quot;), &quot; &quot;) %&gt;% 
+  separate(plwha, c(&quot;plwha_N&quot;, &quot;plwha_per&quot;), &quot; &quot;) %&gt;% 
+  separate(death, c(&quot;death_N&quot;, &quot;death_per&quot;), &quot; &quot;) %&gt;% 
+  select(-aids_per, -plwha_per, -death_per) %&gt;% 
+  mutate(year = 2015) %&gt;% 
+  mutate_if(is.numeric, as.character)</code></pre>
 <pre><code>## New names:
 ## * `` -&gt; ...1
 ## * `` -&gt; ...2
@@ -1123,34 +846,33 @@ body {
 ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
 
 ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 10 rows [1, 24,
-## 45, 68, 89, 112, 133, 156, 177, 198].
-</code></pre>
+## 45, 68, 89, 112, 133, 156, 177, 198].</code></pre>
 <p>This is the data for 2016:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>data16 =<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;./data/hiv_data/2016.xlsx&#39;</span>, <span class="dt">range =</span> <span class="st">&#39;A8:AC49&#39;</span>, <span class="dt">col_names =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></span>
-<span id="cb22-2"><a href="#cb22-2"></a><span class="st">  </span>janitor<span class="op">::</span><span class="kw">clean_names</span>() <span class="op">%&gt;%</span></span>
-<span id="cb22-3"><a href="#cb22-3"></a><span class="st">  </span><span class="kw">select</span>(x1, x5, x7, x9, x10, x12, x14, x15, x20, x24, x28, x29) <span class="op">%&gt;%</span></span>
-<span id="cb22-4"><a href="#cb22-4"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(x5)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb22-5"><a href="#cb22-5"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">str_detect</span>(x1, <span class="st">&quot;poverty&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb22-6"><a href="#cb22-6"></a><span class="st">  </span><span class="kw">rename</span>(</span>
-<span id="cb22-7"><a href="#cb22-7"></a>    <span class="dt">category =</span> x1,</span>
-<span id="cb22-8"><a href="#cb22-8"></a>    <span class="dt">total_hiv_diag_N =</span> x5,</span>
-<span id="cb22-9"><a href="#cb22-9"></a>    <span class="dt">total_hiv_diag_per =</span> x7,</span>
-<span id="cb22-10"><a href="#cb22-10"></a>    <span class="dt">without_aids_N =</span> x9,</span>
-<span id="cb22-11"><a href="#cb22-11"></a>    <span class="dt">without_aids_per =</span> x10,</span>
-<span id="cb22-12"><a href="#cb22-12"></a>    <span class="dt">concurrent_aids_N =</span> x12,</span>
-<span id="cb22-13"><a href="#cb22-13"></a>    <span class="dt">concurrent_aids_per =</span> x14,</span>
-<span id="cb22-14"><a href="#cb22-14"></a>    <span class="dt">aids =</span> x15,</span>
-<span id="cb22-15"><a href="#cb22-15"></a>    <span class="dt">plwha =</span> x20,</span>
-<span id="cb22-16"><a href="#cb22-16"></a>    <span class="dt">death =</span> x24,</span>
-<span id="cb22-17"><a href="#cb22-17"></a>    <span class="dt">borough =</span> x28,</span>
-<span id="cb22-18"><a href="#cb22-18"></a>    <span class="dt">sex =</span> x29</span>
-<span id="cb22-19"><a href="#cb22-19"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb22-20"><a href="#cb22-20"></a><span class="st">  </span><span class="kw">separate</span>(aids, <span class="kw">c</span>(<span class="st">&quot;aids_N&quot;</span>, <span class="st">&quot;aids_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb22-21"><a href="#cb22-21"></a><span class="st">  </span><span class="kw">separate</span>(plwha, <span class="kw">c</span>(<span class="st">&quot;plwha_N&quot;</span>, <span class="st">&quot;plwha_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb22-22"><a href="#cb22-22"></a><span class="st">  </span><span class="kw">separate</span>(death, <span class="kw">c</span>(<span class="st">&quot;death_N&quot;</span>, <span class="st">&quot;death_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb22-23"><a href="#cb22-23"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>aids_per, <span class="op">-</span>plwha_per, <span class="op">-</span>death_per) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb22-24"><a href="#cb22-24"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="dv">2016</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb22-25"><a href="#cb22-25"></a><span class="st">  </span><span class="kw">mutate_if</span>(is.numeric, as.character)</span></code></pre></div>
+<pre class="r"><code>data16 = read_excel(&#39;./data/hiv_data/2016.xlsx&#39;, range = &#39;A8:AC49&#39;, col_names = FALSE) %&gt;%
+  janitor::clean_names() %&gt;%
+  select(x1, x5, x7, x9, x10, x12, x14, x15, x20, x24, x28, x29) %&gt;%
+  filter(!is.na(x5)) %&gt;% 
+  filter(!str_detect(x1, &quot;poverty&quot;)) %&gt;% 
+  rename(
+    category = x1,
+    total_hiv_diag_N = x5,
+    total_hiv_diag_per = x7,
+    without_aids_N = x9,
+    without_aids_per = x10,
+    concurrent_aids_N = x12,
+    concurrent_aids_per = x14,
+    aids = x15,
+    plwha = x20,
+    death = x24,
+    borough = x28,
+    sex = x29
+  ) %&gt;%
+  separate(aids, c(&quot;aids_N&quot;, &quot;aids_per&quot;), &quot; &quot;) %&gt;% 
+  separate(plwha, c(&quot;plwha_N&quot;, &quot;plwha_per&quot;), &quot; &quot;) %&gt;% 
+  separate(death, c(&quot;death_N&quot;, &quot;death_per&quot;), &quot; &quot;) %&gt;% 
+  select(-aids_per, -plwha_per, -death_per) %&gt;% 
+  mutate(year = 2016) %&gt;% 
+  mutate_if(is.numeric, as.character)</code></pre>
 <pre><code>## New names:
 ## * `` -&gt; ...1
 ## * `` -&gt; ...2
@@ -1172,33 +894,32 @@ body {
 ## Warning: Expected 2 pieces. Additional pieces discarded in 32 rows [2, 3, 4, 5,
 ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
 
-## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [1].
-</code></pre>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>data16_d =<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;./data/hiv_data/2016.xlsx&#39;</span>, <span class="dt">range =</span> <span class="st">&#39;A50:AC335&#39;</span>, <span class="dt">col_names =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></span>
-<span id="cb24-2"><a href="#cb24-2"></a><span class="st">  </span>janitor<span class="op">::</span><span class="kw">clean_names</span>() <span class="op">%&gt;%</span></span>
-<span id="cb24-3"><a href="#cb24-3"></a><span class="st">  </span><span class="kw">select</span>(x1, x5, x7, x9, x10, x12, x14, x15, x21, x24, x28, x29) <span class="op">%&gt;%</span></span>
-<span id="cb24-4"><a href="#cb24-4"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(x5)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb24-5"><a href="#cb24-5"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">str_detect</span>(x1, <span class="st">&quot;poverty&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb24-6"><a href="#cb24-6"></a><span class="st">  </span><span class="kw">rename</span>(</span>
-<span id="cb24-7"><a href="#cb24-7"></a>    <span class="dt">category =</span> x1,</span>
-<span id="cb24-8"><a href="#cb24-8"></a>    <span class="dt">total_hiv_diag_N =</span> x5,</span>
-<span id="cb24-9"><a href="#cb24-9"></a>    <span class="dt">total_hiv_diag_per =</span> x7,</span>
-<span id="cb24-10"><a href="#cb24-10"></a>    <span class="dt">without_aids_N =</span> x9,</span>
-<span id="cb24-11"><a href="#cb24-11"></a>    <span class="dt">without_aids_per =</span> x10,</span>
-<span id="cb24-12"><a href="#cb24-12"></a>    <span class="dt">concurrent_aids_N =</span> x12,</span>
-<span id="cb24-13"><a href="#cb24-13"></a>    <span class="dt">concurrent_aids_per =</span> x14,</span>
-<span id="cb24-14"><a href="#cb24-14"></a>    <span class="dt">aids =</span> x15,</span>
-<span id="cb24-15"><a href="#cb24-15"></a>    <span class="dt">plwha =</span> x21,</span>
-<span id="cb24-16"><a href="#cb24-16"></a>    <span class="dt">death =</span> x24,</span>
-<span id="cb24-17"><a href="#cb24-17"></a>    <span class="dt">borough =</span> x28,</span>
-<span id="cb24-18"><a href="#cb24-18"></a>    <span class="dt">sex =</span> x29</span>
-<span id="cb24-19"><a href="#cb24-19"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb24-20"><a href="#cb24-20"></a><span class="st">  </span><span class="kw">separate</span>(aids, <span class="kw">c</span>(<span class="st">&quot;aids_N&quot;</span>, <span class="st">&quot;aids_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb24-21"><a href="#cb24-21"></a><span class="st">  </span><span class="kw">separate</span>(plwha, <span class="kw">c</span>(<span class="st">&quot;plwha_N&quot;</span>, <span class="st">&quot;plwha_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb24-22"><a href="#cb24-22"></a><span class="st">  </span><span class="kw">separate</span>(death, <span class="kw">c</span>(<span class="st">&quot;death_N&quot;</span>, <span class="st">&quot;death_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb24-23"><a href="#cb24-23"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>aids_per, <span class="op">-</span>plwha_per, <span class="op">-</span>death_per) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb24-24"><a href="#cb24-24"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="dv">2016</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb24-25"><a href="#cb24-25"></a><span class="st">  </span><span class="kw">mutate_if</span>(is.numeric, as.character)</span></code></pre></div>
+## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [1].</code></pre>
+<pre class="r"><code>data16_d = read_excel(&#39;./data/hiv_data/2016.xlsx&#39;, range = &#39;A50:AC335&#39;, col_names = FALSE) %&gt;%
+  janitor::clean_names() %&gt;%
+  select(x1, x5, x7, x9, x10, x12, x14, x15, x21, x24, x28, x29) %&gt;%
+  filter(!is.na(x5)) %&gt;% 
+  filter(!str_detect(x1, &quot;poverty&quot;)) %&gt;% 
+  rename(
+    category = x1,
+    total_hiv_diag_N = x5,
+    total_hiv_diag_per = x7,
+    without_aids_N = x9,
+    without_aids_per = x10,
+    concurrent_aids_N = x12,
+    concurrent_aids_per = x14,
+    aids = x15,
+    plwha = x21,
+    death = x24,
+    borough = x28,
+    sex = x29
+  ) %&gt;%
+  separate(aids, c(&quot;aids_N&quot;, &quot;aids_per&quot;), &quot; &quot;) %&gt;% 
+  separate(plwha, c(&quot;plwha_N&quot;, &quot;plwha_per&quot;), &quot; &quot;) %&gt;% 
+  separate(death, c(&quot;death_N&quot;, &quot;death_per&quot;), &quot; &quot;) %&gt;% 
+  select(-aids_per, -plwha_per, -death_per) %&gt;% 
+  mutate(year = 2016) %&gt;% 
+  mutate_if(is.numeric, as.character)</code></pre>
 <pre><code>## New names:
 ## * `` -&gt; ...1
 ## * `` -&gt; ...2
@@ -1223,34 +944,33 @@ body {
 ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
 
 ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 10 rows [1, 24,
-## 45, 68, 89, 112, 133, 156, 177, 198].
-</code></pre>
+## 45, 68, 89, 112, 133, 156, 177, 198].</code></pre>
 <p>This is the data for 2017:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>data17 =<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;./data/hiv_data/2017.xlsx&#39;</span>, <span class="dt">range =</span> <span class="st">&#39;A8:AD49&#39;</span>, <span class="dt">col_names =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></span>
-<span id="cb26-2"><a href="#cb26-2"></a><span class="st">  </span>janitor<span class="op">::</span><span class="kw">clean_names</span>() <span class="op">%&gt;%</span></span>
-<span id="cb26-3"><a href="#cb26-3"></a><span class="st">  </span><span class="kw">select</span>(x1, x5, x8, x10, x11, x13, x15, x16, x21, x25, x29, x30) <span class="op">%&gt;%</span></span>
-<span id="cb26-4"><a href="#cb26-4"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(x5)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb26-5"><a href="#cb26-5"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">str_detect</span>(x1, <span class="st">&quot;poverty&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb26-6"><a href="#cb26-6"></a><span class="st">  </span><span class="kw">rename</span>(</span>
-<span id="cb26-7"><a href="#cb26-7"></a>    <span class="dt">category =</span> x1,</span>
-<span id="cb26-8"><a href="#cb26-8"></a>    <span class="dt">total_hiv_diag_N =</span> x5,</span>
-<span id="cb26-9"><a href="#cb26-9"></a>    <span class="dt">total_hiv_diag_per =</span> x8,</span>
-<span id="cb26-10"><a href="#cb26-10"></a>    <span class="dt">without_aids_N =</span> x10,</span>
-<span id="cb26-11"><a href="#cb26-11"></a>    <span class="dt">without_aids_per =</span> x11,</span>
-<span id="cb26-12"><a href="#cb26-12"></a>    <span class="dt">concurrent_aids_N =</span> x13,</span>
-<span id="cb26-13"><a href="#cb26-13"></a>    <span class="dt">concurrent_aids_per =</span> x15,</span>
-<span id="cb26-14"><a href="#cb26-14"></a>    <span class="dt">aids =</span> x16,</span>
-<span id="cb26-15"><a href="#cb26-15"></a>    <span class="dt">plwha =</span> x21,</span>
-<span id="cb26-16"><a href="#cb26-16"></a>    <span class="dt">death =</span> x25,</span>
-<span id="cb26-17"><a href="#cb26-17"></a>    <span class="dt">borough =</span> x29,</span>
-<span id="cb26-18"><a href="#cb26-18"></a>    <span class="dt">sex =</span> x30</span>
-<span id="cb26-19"><a href="#cb26-19"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb26-20"><a href="#cb26-20"></a><span class="st">  </span><span class="kw">separate</span>(aids, <span class="kw">c</span>(<span class="st">&quot;aids_N&quot;</span>, <span class="st">&quot;aids_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb26-21"><a href="#cb26-21"></a><span class="st">  </span><span class="kw">separate</span>(plwha, <span class="kw">c</span>(<span class="st">&quot;plwha_N&quot;</span>, <span class="st">&quot;plwha_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb26-22"><a href="#cb26-22"></a><span class="st">  </span><span class="kw">separate</span>(death, <span class="kw">c</span>(<span class="st">&quot;death_N&quot;</span>, <span class="st">&quot;death_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb26-23"><a href="#cb26-23"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>aids_per, <span class="op">-</span>plwha_per, <span class="op">-</span>death_per) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb26-24"><a href="#cb26-24"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="dv">2017</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb26-25"><a href="#cb26-25"></a><span class="st">  </span><span class="kw">mutate_if</span>(is.numeric, as.character)</span></code></pre></div>
+<pre class="r"><code>data17 = read_excel(&#39;./data/hiv_data/2017.xlsx&#39;, range = &#39;A8:AD49&#39;, col_names = FALSE) %&gt;%
+  janitor::clean_names() %&gt;%
+  select(x1, x5, x8, x10, x11, x13, x15, x16, x21, x25, x29, x30) %&gt;%
+  filter(!is.na(x5)) %&gt;% 
+  filter(!str_detect(x1, &quot;poverty&quot;)) %&gt;% 
+  rename(
+    category = x1,
+    total_hiv_diag_N = x5,
+    total_hiv_diag_per = x8,
+    without_aids_N = x10,
+    without_aids_per = x11,
+    concurrent_aids_N = x13,
+    concurrent_aids_per = x15,
+    aids = x16,
+    plwha = x21,
+    death = x25,
+    borough = x29,
+    sex = x30
+  ) %&gt;%
+  separate(aids, c(&quot;aids_N&quot;, &quot;aids_per&quot;), &quot; &quot;) %&gt;% 
+  separate(plwha, c(&quot;plwha_N&quot;, &quot;plwha_per&quot;), &quot; &quot;) %&gt;% 
+  separate(death, c(&quot;death_N&quot;, &quot;death_per&quot;), &quot; &quot;) %&gt;% 
+  select(-aids_per, -plwha_per, -death_per) %&gt;% 
+  mutate(year = 2017) %&gt;% 
+  mutate_if(is.numeric, as.character)</code></pre>
 <pre><code>## New names:
 ## * `` -&gt; ...1
 ## * `` -&gt; ...2
@@ -1272,33 +992,32 @@ body {
 ## Warning: Expected 2 pieces. Additional pieces discarded in 32 rows [2, 3, 4, 5,
 ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
 
-## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [1].
-</code></pre>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>data17_d =<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;./data/hiv_data/2017.xlsx&#39;</span>, <span class="dt">range =</span> <span class="st">&#39;A50:AD335&#39;</span>, <span class="dt">col_names =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></span>
-<span id="cb28-2"><a href="#cb28-2"></a><span class="st">  </span>janitor<span class="op">::</span><span class="kw">clean_names</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb28-3"><a href="#cb28-3"></a><span class="st">  </span><span class="kw">select</span>(x1, x6, x8, x10, x11, x13, x15, x16, x22, x25, x29, x30) <span class="op">%&gt;%</span></span>
-<span id="cb28-4"><a href="#cb28-4"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(x6)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb28-5"><a href="#cb28-5"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">str_detect</span>(x1, <span class="st">&quot;poverty&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb28-6"><a href="#cb28-6"></a><span class="st">  </span><span class="kw">rename</span>(</span>
-<span id="cb28-7"><a href="#cb28-7"></a>    <span class="dt">category =</span> x1,</span>
-<span id="cb28-8"><a href="#cb28-8"></a>    <span class="dt">total_hiv_diag_N =</span> x6,</span>
-<span id="cb28-9"><a href="#cb28-9"></a>    <span class="dt">total_hiv_diag_per =</span> x8,</span>
-<span id="cb28-10"><a href="#cb28-10"></a>    <span class="dt">without_aids_N =</span> x10,</span>
-<span id="cb28-11"><a href="#cb28-11"></a>    <span class="dt">without_aids_per =</span> x11,</span>
-<span id="cb28-12"><a href="#cb28-12"></a>    <span class="dt">concurrent_aids_N =</span> x13,</span>
-<span id="cb28-13"><a href="#cb28-13"></a>    <span class="dt">concurrent_aids_per =</span> x15,</span>
-<span id="cb28-14"><a href="#cb28-14"></a>    <span class="dt">aids =</span> x16,</span>
-<span id="cb28-15"><a href="#cb28-15"></a>    <span class="dt">plwha =</span> x22,</span>
-<span id="cb28-16"><a href="#cb28-16"></a>    <span class="dt">death =</span> x25,</span>
-<span id="cb28-17"><a href="#cb28-17"></a>    <span class="dt">borough =</span> x29,</span>
-<span id="cb28-18"><a href="#cb28-18"></a>    <span class="dt">sex =</span> x30</span>
-<span id="cb28-19"><a href="#cb28-19"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb28-20"><a href="#cb28-20"></a><span class="st">  </span><span class="kw">separate</span>(aids, <span class="kw">c</span>(<span class="st">&quot;aids_N&quot;</span>, <span class="st">&quot;aids_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb28-21"><a href="#cb28-21"></a><span class="st">  </span><span class="kw">separate</span>(plwha, <span class="kw">c</span>(<span class="st">&quot;plwha_N&quot;</span>, <span class="st">&quot;plwha_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb28-22"><a href="#cb28-22"></a><span class="st">  </span><span class="kw">separate</span>(death, <span class="kw">c</span>(<span class="st">&quot;death_N&quot;</span>, <span class="st">&quot;death_per&quot;</span>), <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb28-23"><a href="#cb28-23"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>aids_per, <span class="op">-</span>plwha_per, <span class="op">-</span>death_per) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb28-24"><a href="#cb28-24"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="dv">2017</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb28-25"><a href="#cb28-25"></a><span class="st">  </span><span class="kw">mutate_if</span>(is.numeric, as.character)</span></code></pre></div>
+## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [1].</code></pre>
+<pre class="r"><code>data17_d = read_excel(&#39;./data/hiv_data/2017.xlsx&#39;, range = &#39;A50:AD335&#39;, col_names = FALSE) %&gt;%
+  janitor::clean_names() %&gt;% 
+  select(x1, x6, x8, x10, x11, x13, x15, x16, x22, x25, x29, x30) %&gt;%
+  filter(!is.na(x6)) %&gt;% 
+  filter(!str_detect(x1, &quot;poverty&quot;)) %&gt;% 
+  rename(
+    category = x1,
+    total_hiv_diag_N = x6,
+    total_hiv_diag_per = x8,
+    without_aids_N = x10,
+    without_aids_per = x11,
+    concurrent_aids_N = x13,
+    concurrent_aids_per = x15,
+    aids = x16,
+    plwha = x22,
+    death = x25,
+    borough = x29,
+    sex = x30
+  ) %&gt;%
+  separate(aids, c(&quot;aids_N&quot;, &quot;aids_per&quot;), &quot; &quot;) %&gt;% 
+  separate(plwha, c(&quot;plwha_N&quot;, &quot;plwha_per&quot;), &quot; &quot;) %&gt;% 
+  separate(death, c(&quot;death_N&quot;, &quot;death_per&quot;), &quot; &quot;) %&gt;% 
+  select(-aids_per, -plwha_per, -death_per) %&gt;% 
+  mutate(year = 2017) %&gt;% 
+  mutate_if(is.numeric, as.character)</code></pre>
 <pre><code>## New names:
 ## * `` -&gt; ...1
 ## * `` -&gt; ...2
@@ -1323,164 +1042,207 @@ body {
 ## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...].
 
 ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 10 rows [1, 24,
-## 45, 68, 89, 112, 133, 156, 177, 198].
-</code></pre>
+## 45, 68, 89, 112, 133, 156, 177, 198].</code></pre>
 <p>This is the data for 2018:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>data18 =<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;./data/hiv_data/2018.xlsx&#39;</span>, <span class="dt">range =</span> <span class="st">&#39;A7:BU128&#39;</span>, <span class="dt">col_names =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></span>
-<span id="cb30-2"><a href="#cb30-2"></a><span class="st">  </span>janitor<span class="op">::</span><span class="kw">clean_names</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb30-3"><a href="#cb30-3"></a><span class="st">  </span><span class="kw">select</span>(x1, x21, x24, x27, x31, x38, x42, x50, x58, x67, x72, x73) <span class="op">%&gt;%</span></span>
-<span id="cb30-4"><a href="#cb30-4"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(x21)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb30-5"><a href="#cb30-5"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">str_detect</span>(x1, <span class="st">&quot;poverty&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb30-6"><a href="#cb30-6"></a><span class="st">  </span><span class="kw">rename</span>(</span>
-<span id="cb30-7"><a href="#cb30-7"></a>    <span class="dt">category =</span> x1,</span>
-<span id="cb30-8"><a href="#cb30-8"></a>    <span class="dt">total_hiv_diag_N =</span> x21,</span>
-<span id="cb30-9"><a href="#cb30-9"></a>    <span class="dt">total_hiv_diag_per =</span> x24,</span>
-<span id="cb30-10"><a href="#cb30-10"></a>    <span class="dt">without_aids_N =</span> x27,</span>
-<span id="cb30-11"><a href="#cb30-11"></a>    <span class="dt">without_aids_per =</span> x31,</span>
-<span id="cb30-12"><a href="#cb30-12"></a>    <span class="dt">concurrent_aids_N =</span> x38,</span>
-<span id="cb30-13"><a href="#cb30-13"></a>    <span class="dt">concurrent_aids_per =</span> x42,</span>
-<span id="cb30-14"><a href="#cb30-14"></a>    <span class="dt">aids_N =</span> x50,</span>
-<span id="cb30-15"><a href="#cb30-15"></a>    <span class="dt">plwha_N =</span> x58,</span>
-<span id="cb30-16"><a href="#cb30-16"></a>    <span class="dt">death_N =</span> x67,</span>
-<span id="cb30-17"><a href="#cb30-17"></a>    <span class="dt">borough =</span> x72,</span>
-<span id="cb30-18"><a href="#cb30-18"></a>    <span class="dt">sex =</span> x73</span>
-<span id="cb30-19"><a href="#cb30-19"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb30-20"><a href="#cb30-20"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="dv">2018</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb30-21"><a href="#cb30-21"></a><span class="st">  </span><span class="kw">mutate_if</span>(is.numeric, as.character)</span></code></pre></div>
+<pre class="r"><code>data18 = read_excel(&#39;./data/hiv_data/2018.xlsx&#39;, range = &#39;A7:BU128&#39;, col_names = FALSE) %&gt;%
+  janitor::clean_names() %&gt;% 
+  select(x1, x21, x24, x27, x31, x38, x42, x50, x58, x67, x72, x73) %&gt;%
+  filter(!is.na(x21)) %&gt;% 
+  filter(!str_detect(x1, &quot;poverty&quot;)) %&gt;% 
+  rename(
+    category = x1,
+    total_hiv_diag_N = x21,
+    total_hiv_diag_per = x24,
+    without_aids_N = x27,
+    without_aids_per = x31,
+    concurrent_aids_N = x38,
+    concurrent_aids_per = x42,
+    aids_N = x50,
+    plwha_N = x58,
+    death_N = x67,
+    borough = x72,
+    sex = x73
+  ) %&gt;%
+  mutate(year = 2018) %&gt;% 
+  mutate_if(is.numeric, as.character)</code></pre>
 <pre><code>## New names:
 ## * `` -&gt; ...1
 ## * `` -&gt; ...2
 ## * `` -&gt; ...3
 ## * `` -&gt; ...4
 ## * `` -&gt; ...5
-## * ...
-</code></pre>
+## * ...</code></pre>
 <p>This is the data for 2019:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>data19 =<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;./data/hiv_data/2019.xlsx&#39;</span>, <span class="dt">range =</span> <span class="st">&#39;A7:O128&#39;</span>, <span class="dt">col_names =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></span>
-<span id="cb32-2"><a href="#cb32-2"></a><span class="st">  </span>janitor<span class="op">::</span><span class="kw">clean_names</span>() <span class="op">%&gt;%</span></span>
-<span id="cb32-3"><a href="#cb32-3"></a><span class="st">  </span><span class="kw">select</span>(x1, x4, x5, x6, x7, x8, x9, x10, x11, x12, x14, x15) <span class="op">%&gt;%</span></span>
-<span id="cb32-4"><a href="#cb32-4"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(x4)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb32-5"><a href="#cb32-5"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">str_detect</span>(x1, <span class="st">&quot;poverty&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb32-6"><a href="#cb32-6"></a><span class="st">  </span><span class="kw">rename</span>(</span>
-<span id="cb32-7"><a href="#cb32-7"></a>    <span class="dt">category =</span> x1,</span>
-<span id="cb32-8"><a href="#cb32-8"></a>    <span class="dt">total_hiv_diag_N =</span> x4,</span>
-<span id="cb32-9"><a href="#cb32-9"></a>    <span class="dt">total_hiv_diag_per =</span> x5,</span>
-<span id="cb32-10"><a href="#cb32-10"></a>    <span class="dt">without_aids_N =</span> x6,</span>
-<span id="cb32-11"><a href="#cb32-11"></a>    <span class="dt">without_aids_per =</span> x7,</span>
-<span id="cb32-12"><a href="#cb32-12"></a>    <span class="dt">concurrent_aids_N =</span> x8,</span>
-<span id="cb32-13"><a href="#cb32-13"></a>    <span class="dt">concurrent_aids_per =</span> x9,</span>
-<span id="cb32-14"><a href="#cb32-14"></a>    <span class="dt">aids_N =</span> x10,</span>
-<span id="cb32-15"><a href="#cb32-15"></a>    <span class="dt">plwha_N =</span> x11,</span>
-<span id="cb32-16"><a href="#cb32-16"></a>    <span class="dt">death_N =</span> x12,</span>
-<span id="cb32-17"><a href="#cb32-17"></a>    <span class="dt">borough =</span> x14,</span>
-<span id="cb32-18"><a href="#cb32-18"></a>    <span class="dt">sex =</span> x15</span>
-<span id="cb32-19"><a href="#cb32-19"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb32-20"><a href="#cb32-20"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="dv">2019</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb32-21"><a href="#cb32-21"></a><span class="st">  </span><span class="kw">mutate_if</span>(is.numeric, as.character)</span></code></pre></div>
+<pre class="r"><code>data19 = read_excel(&#39;./data/hiv_data/2019.xlsx&#39;, range = &#39;A7:O128&#39;, col_names = FALSE) %&gt;%
+  janitor::clean_names() %&gt;%
+  select(x1, x4, x5, x6, x7, x8, x9, x10, x11, x12, x14, x15) %&gt;%
+  filter(!is.na(x4)) %&gt;% 
+  filter(!str_detect(x1, &quot;poverty&quot;)) %&gt;% 
+  rename(
+    category = x1,
+    total_hiv_diag_N = x4,
+    total_hiv_diag_per = x5,
+    without_aids_N = x6,
+    without_aids_per = x7,
+    concurrent_aids_N = x8,
+    concurrent_aids_per = x9,
+    aids_N = x10,
+    plwha_N = x11,
+    death_N = x12,
+    borough = x14,
+    sex = x15
+  ) %&gt;%
+  mutate(year = 2019) %&gt;% 
+  mutate_if(is.numeric, as.character)</code></pre>
 <pre><code>## New names:
 ## * `` -&gt; ...1
 ## * `` -&gt; ...2
 ## * `` -&gt; ...3
 ## * `` -&gt; ...4
 ## * `` -&gt; ...5
-## * ...
-</code></pre>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>data19 =<span class="st"> </span>data19 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">retype</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb34-2"><a href="#cb34-2"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
-<span id="cb34-3"><a href="#cb34-3"></a>    <span class="dt">total_hiv_diag_N =</span> <span class="dv">2</span><span class="op">*</span>total_hiv_diag_N,</span>
-<span id="cb34-4"><a href="#cb34-4"></a>    <span class="dt">without_aids_N =</span> <span class="dv">2</span><span class="op">*</span>without_aids_N,</span>
-<span id="cb34-5"><a href="#cb34-5"></a>    <span class="dt">concurrent_aids_N =</span> <span class="dv">2</span><span class="op">*</span>concurrent_aids_N,</span>
-<span id="cb34-6"><a href="#cb34-6"></a>    <span class="dt">aids_N =</span> <span class="dv">2</span><span class="op">*</span>aids_N,</span>
-<span id="cb34-7"><a href="#cb34-7"></a>    <span class="dt">death_N =</span> <span class="dv">2</span><span class="op">*</span>death_N</span>
-<span id="cb34-8"><a href="#cb34-8"></a>  ) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate_if</span>(is.numeric, as.character)</span></code></pre></div>
+## * ...</code></pre>
+<pre class="r"><code>data19 = data19 %&gt;% retype() %&gt;% 
+  mutate(
+    total_hiv_diag_N = 2*total_hiv_diag_N,
+    without_aids_N = 2*without_aids_N,
+    concurrent_aids_N = 2*concurrent_aids_N,
+    aids_N = 2*aids_N,
+    death_N = 2*death_N
+  ) %&gt;% mutate_if(is.numeric, as.character)</code></pre>
 <p>Combine all the datasets together:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>hiv_complete =<span class="st"> </span><span class="kw">list</span>(</span>
-<span id="cb35-2"><a href="#cb35-2"></a>  data11,</span>
-<span id="cb35-3"><a href="#cb35-3"></a>  data11_d,</span>
-<span id="cb35-4"><a href="#cb35-4"></a>  data12,</span>
-<span id="cb35-5"><a href="#cb35-5"></a>  data12_d,</span>
-<span id="cb35-6"><a href="#cb35-6"></a>  data13,</span>
-<span id="cb35-7"><a href="#cb35-7"></a>  data13_d,</span>
-<span id="cb35-8"><a href="#cb35-8"></a>  data14,</span>
-<span id="cb35-9"><a href="#cb35-9"></a>  data14_d,</span>
-<span id="cb35-10"><a href="#cb35-10"></a>  data15,</span>
-<span id="cb35-11"><a href="#cb35-11"></a>  data15_d,</span>
-<span id="cb35-12"><a href="#cb35-12"></a>  data16,</span>
-<span id="cb35-13"><a href="#cb35-13"></a>  data16_d,</span>
-<span id="cb35-14"><a href="#cb35-14"></a>  data17,</span>
-<span id="cb35-15"><a href="#cb35-15"></a>  data17_d,</span>
-<span id="cb35-16"><a href="#cb35-16"></a>  data18,</span>
-<span id="cb35-17"><a href="#cb35-17"></a>  data19</span>
-<span id="cb35-18"><a href="#cb35-18"></a>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb35-19"><a href="#cb35-19"></a><span class="st">  </span><span class="kw">bind_rows</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">relocate</span>(year) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">retype</span>()</span>
-<span id="cb35-20"><a href="#cb35-20"></a></span>
-<span id="cb35-21"><a href="#cb35-21"></a>hiv_complete =<span class="st"> </span>hiv_complete <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb35-22"><a href="#cb35-22"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
-<span id="cb35-23"><a href="#cb35-23"></a>    <span class="dt">category =</span> <span class="kw">str_replace</span>(category, <span class="st">&quot;0‐12&quot;</span>, <span class="st">&quot;0-12&quot;</span>),</span>
-<span id="cb35-24"><a href="#cb35-24"></a>    <span class="dt">category =</span> <span class="kw">str_replace</span>(category, <span class="st">&quot;13‐19&quot;</span>, <span class="st">&quot;13-19&quot;</span>),</span>
-<span id="cb35-25"><a href="#cb35-25"></a>    <span class="dt">category =</span> <span class="kw">str_replace</span>(category, <span class="st">&quot;20‐29&quot;</span>, <span class="st">&quot;20-29&quot;</span>),</span>
-<span id="cb35-26"><a href="#cb35-26"></a>    <span class="dt">category =</span> <span class="kw">str_replace</span>(category, <span class="st">&quot;30‐39&quot;</span>, <span class="st">&quot;30-39&quot;</span>),</span>
-<span id="cb35-27"><a href="#cb35-27"></a>    <span class="dt">category =</span> <span class="kw">str_replace</span>(category, <span class="st">&quot;40‐49&quot;</span>, <span class="st">&quot;40-49&quot;</span>),</span>
-<span id="cb35-28"><a href="#cb35-28"></a>    <span class="dt">category =</span> <span class="kw">str_replace</span>(category, <span class="st">&quot;50‐59&quot;</span>, <span class="st">&quot;50-59&quot;</span>),</span>
-<span id="cb35-29"><a href="#cb35-29"></a>    <span class="dt">category =</span> <span class="kw">str_replace</span>(category, <span class="st">&quot;Latina/Hispanic&quot;</span>, <span class="st">&quot;Latino/Hispanic&quot;</span>),</span>
-<span id="cb35-30"><a href="#cb35-30"></a>    <span class="dt">category =</span> <span class="kw">str_replace</span>(category, <span class="st">&quot;MSM‐IDU&quot;</span>, <span class="st">&quot;MSM-IDU&quot;</span>),</span>
-<span id="cb35-31"><a href="#cb35-31"></a>    <span class="dt">category =</span> <span class="kw">str_replace</span>(category, <span class="st">&quot;Other rsk&quot;</span>, <span class="st">&quot;Other risk&quot;</span>),</span>
-<span id="cb35-32"><a href="#cb35-32"></a>    <span class="dt">category =</span> <span class="kw">str_replace</span>(category, <span class="st">&quot;Total&quot;</span>, <span class="st">&quot;TOTAL&quot;</span>),</span>
-<span id="cb35-33"><a href="#cb35-33"></a>    <span class="dt">category =</span> <span class="kw">str_replace</span>(category, <span class="st">&quot;Women&quot;</span>, <span class="st">&quot;Female&quot;</span>),</span>
-<span id="cb35-34"><a href="#cb35-34"></a>    <span class="dt">category =</span> <span class="kw">str_replace</span>(category, <span class="st">&quot;Men&quot;</span>, <span class="st">&quot;Male&quot;</span>),</span>
-<span id="cb35-35"><a href="#cb35-35"></a>  ) </span>
-<span id="cb35-36"><a href="#cb35-36"></a></span>
-<span id="cb35-37"><a href="#cb35-37"></a>hiv_complete =<span class="st"> </span>hiv_complete <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb35-38"><a href="#cb35-38"></a><span class="st">    </span><span class="kw">mutate</span>(</span>
-<span id="cb35-39"><a href="#cb35-39"></a>    <span class="dt">sex_cat =</span> <span class="kw">case_when</span>(</span>
-<span id="cb35-40"><a href="#cb35-40"></a>      category <span class="op">==</span><span class="st"> &quot;Male&quot;</span> <span class="op">~</span><span class="st"> &quot;Male&quot;</span>,</span>
-<span id="cb35-41"><a href="#cb35-41"></a>      category <span class="op">==</span><span class="st"> &quot;Female&quot;</span> <span class="op">~</span><span class="st"> &quot;Female&quot;</span>,</span>
-<span id="cb35-42"><a href="#cb35-42"></a>      category <span class="op">==</span><span class="st"> &quot;Transgender&quot;</span> <span class="op">~</span><span class="st"> &quot;Transgender&quot;</span>,</span>
-<span id="cb35-43"><a href="#cb35-43"></a>      <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> &quot;All&quot;</span></span>
-<span id="cb35-44"><a href="#cb35-44"></a>    ),</span>
-<span id="cb35-45"><a href="#cb35-45"></a>    <span class="dt">race_cat =</span> <span class="kw">case_when</span>(</span>
-<span id="cb35-46"><a href="#cb35-46"></a>      category <span class="op">==</span><span class="st"> &quot;Black&quot;</span> <span class="op">~</span><span class="st"> &quot;Black&quot;</span>,</span>
-<span id="cb35-47"><a href="#cb35-47"></a>      category <span class="op">==</span><span class="st"> &quot;Latino/Hispanic&quot;</span> <span class="op">~</span><span class="st"> &quot;Latino/Hispanic&quot;</span>,</span>
-<span id="cb35-48"><a href="#cb35-48"></a>      category <span class="op">==</span><span class="st"> &quot;White&quot;</span> <span class="op">~</span><span class="st"> &quot;White&quot;</span>,</span>
-<span id="cb35-49"><a href="#cb35-49"></a>      category <span class="op">==</span><span class="st"> &quot;Asian/Pacific Islander&quot;</span> <span class="op">~</span><span class="st"> &quot;Asian/Pacific Islander&quot;</span>,</span>
-<span id="cb35-50"><a href="#cb35-50"></a>      category <span class="op">==</span><span class="st"> &quot;Native American&quot;</span> <span class="op">~</span><span class="st"> &quot;Native American&quot;</span>,</span>
-<span id="cb35-51"><a href="#cb35-51"></a>      category <span class="op">==</span><span class="st"> &quot;Multiracial&quot;</span> <span class="op">~</span><span class="st"> &quot;Multiracial&quot;</span>,</span>
-<span id="cb35-52"><a href="#cb35-52"></a>      category <span class="op">==</span><span class="st"> &quot;Unknown race&quot;</span> <span class="op">~</span><span class="st"> &quot;Unknown race&quot;</span>,</span>
-<span id="cb35-53"><a href="#cb35-53"></a>      <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> &quot;All&quot;</span></span>
-<span id="cb35-54"><a href="#cb35-54"></a>    ),</span>
-<span id="cb35-55"><a href="#cb35-55"></a>    <span class="dt">borough_cat =</span> <span class="kw">case_when</span>(</span>
-<span id="cb35-56"><a href="#cb35-56"></a>      category <span class="op">==</span><span class="st"> &quot;Bronx&quot;</span> <span class="op">~</span><span class="st"> &quot;Bronx&quot;</span>,</span>
-<span id="cb35-57"><a href="#cb35-57"></a>      category <span class="op">==</span><span class="st"> &quot;Brooklyn&quot;</span> <span class="op">~</span><span class="st"> &quot;Brooklyn&quot;</span>,</span>
-<span id="cb35-58"><a href="#cb35-58"></a>      category <span class="op">==</span><span class="st"> &quot;Manhattan&quot;</span> <span class="op">~</span><span class="st"> &quot;Manhattan&quot;</span>,</span>
-<span id="cb35-59"><a href="#cb35-59"></a>      category <span class="op">==</span><span class="st"> &quot;Queens&quot;</span> <span class="op">~</span><span class="st"> &quot;Queens&quot;</span>,</span>
-<span id="cb35-60"><a href="#cb35-60"></a>      category <span class="op">==</span><span class="st"> &quot;Staten Island&quot;</span> <span class="op">~</span><span class="st"> &quot;Staten Island&quot;</span>,</span>
-<span id="cb35-61"><a href="#cb35-61"></a>      category <span class="op">==</span><span class="st"> &quot;Outside NYC&quot;</span> <span class="op">~</span><span class="st"> &quot;Outside NYC&quot;</span>,</span>
-<span id="cb35-62"><a href="#cb35-62"></a>      category <span class="op">==</span><span class="st"> &quot;Unknown borough&quot;</span> <span class="op">~</span><span class="st"> &quot;Unknown borough&quot;</span>,</span>
-<span id="cb35-63"><a href="#cb35-63"></a>      <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> &quot;All&quot;</span></span>
-<span id="cb35-64"><a href="#cb35-64"></a>    ),</span>
-<span id="cb35-65"><a href="#cb35-65"></a>    <span class="dt">age_cat =</span> <span class="kw">case_when</span>(</span>
-<span id="cb35-66"><a href="#cb35-66"></a>      category <span class="op">==</span><span class="st"> &quot;0-12&quot;</span> <span class="op">~</span><span class="st"> &quot;0-12&quot;</span>,</span>
-<span id="cb35-67"><a href="#cb35-67"></a>      category <span class="op">==</span><span class="st"> &quot;13-19&quot;</span> <span class="op">~</span><span class="st"> &quot;13-19&quot;</span>,</span>
-<span id="cb35-68"><a href="#cb35-68"></a>      category <span class="op">==</span><span class="st"> &quot;20-29&quot;</span> <span class="op">~</span><span class="st"> &quot;20-29&quot;</span>,</span>
-<span id="cb35-69"><a href="#cb35-69"></a>      category <span class="op">==</span><span class="st"> &quot;30-39&quot;</span> <span class="op">~</span><span class="st"> &quot;30-39&quot;</span>,</span>
-<span id="cb35-70"><a href="#cb35-70"></a>      category <span class="op">==</span><span class="st"> &quot;40-49&quot;</span> <span class="op">~</span><span class="st"> &quot;40-49&quot;</span>,</span>
-<span id="cb35-71"><a href="#cb35-71"></a>      category <span class="op">==</span><span class="st"> &quot;50-59&quot;</span> <span class="op">~</span><span class="st"> &quot;50-59&quot;</span>,</span>
-<span id="cb35-72"><a href="#cb35-72"></a>      category <span class="op">==</span><span class="st"> &quot;60+&quot;</span> <span class="op">~</span><span class="st"> &quot;60+&quot;</span>,</span>
-<span id="cb35-73"><a href="#cb35-73"></a>      <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> &quot;All&quot;</span></span>
-<span id="cb35-74"><a href="#cb35-74"></a>    ),</span>
-<span id="cb35-75"><a href="#cb35-75"></a>    <span class="dt">risk_cat =</span> <span class="kw">case_when</span>(</span>
-<span id="cb35-76"><a href="#cb35-76"></a>      category <span class="op">==</span><span class="st"> &quot;Injection drug use history (IDU)&quot;</span> <span class="op">~</span><span class="st"> &quot;Injection drug use history (IDU)&quot;</span>,</span>
-<span id="cb35-77"><a href="#cb35-77"></a>      category <span class="op">==</span><span class="st"> &quot;Heterosexual contact&quot;</span> <span class="op">~</span><span class="st"> &quot;Heterosexual contact&quot;</span>,</span>
-<span id="cb35-78"><a href="#cb35-78"></a>      category <span class="op">==</span><span class="st"> &quot;Male who have sex with men (MSM)&quot;</span> <span class="op">~</span><span class="st"> &quot;Male who have sex with men (MSM)&quot;</span>,</span>
-<span id="cb35-79"><a href="#cb35-79"></a>      category <span class="op">==</span><span class="st"> &quot;MSM-IDU&quot;</span> <span class="op">~</span><span class="st"> &quot;MSM-IDU&quot;</span>,</span>
-<span id="cb35-80"><a href="#cb35-80"></a>      category <span class="op">==</span><span class="st"> &quot;Perinatal&quot;</span> <span class="op">~</span><span class="st"> &quot;Perinatal&quot;</span>,</span>
-<span id="cb35-81"><a href="#cb35-81"></a>      category <span class="op">==</span><span class="st"> &quot;Transgender people with sexual contact&quot;</span> <span class="op">~</span><span class="st"> &quot;Transgender people with sexual contact&quot;</span>,</span>
-<span id="cb35-82"><a href="#cb35-82"></a>      category <span class="op">==</span><span class="st"> &quot;Unknown risk&quot;</span> <span class="op">~</span><span class="st"> &quot;Unknown risk&quot;</span>,</span>
-<span id="cb35-83"><a href="#cb35-83"></a>      category <span class="op">==</span><span class="st"> &quot;Other risk&quot;</span> <span class="op">~</span><span class="st"> &quot;Other risk&quot;</span>,</span>
-<span id="cb35-84"><a href="#cb35-84"></a>      <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> &quot;All&quot;</span></span>
-<span id="cb35-85"><a href="#cb35-85"></a>    ))</span>
-<span id="cb35-86"><a href="#cb35-86"></a></span>
-<span id="cb35-87"><a href="#cb35-87"></a><span class="kw">write.csv</span>(hiv_complete,<span class="st">&#39;./data/hiv_complete.csv&#39;</span>)</span></code></pre></div>
+<pre class="r"><code>hiv_complete = list(
+  data11,
+  data11_d,
+  data12,
+  data12_d,
+  data13,
+  data13_d,
+  data14,
+  data14_d,
+  data15,
+  data15_d,
+  data16,
+  data16_d,
+  data17,
+  data17_d,
+  data18,
+  data19
+) %&gt;% 
+  bind_rows() %&gt;% relocate(year) %&gt;% retype()
+
+hiv_complete = hiv_complete %&gt;% 
+  mutate(
+    category = str_replace(category, &quot;0‐12&quot;, &quot;0-12&quot;),
+    category = str_replace(category, &quot;13‐19&quot;, &quot;13-19&quot;),
+    category = str_replace(category, &quot;20‐29&quot;, &quot;20-29&quot;),
+    category = str_replace(category, &quot;30‐39&quot;, &quot;30-39&quot;),
+    category = str_replace(category, &quot;40‐49&quot;, &quot;40-49&quot;),
+    category = str_replace(category, &quot;50‐59&quot;, &quot;50-59&quot;),
+    category = str_replace(category, &quot;Latina/Hispanic&quot;, &quot;Latino/Hispanic&quot;),
+    category = str_replace(category, &quot;MSM‐IDU&quot;, &quot;MSM-IDU&quot;),
+    category = str_replace(category, &quot;Other rsk&quot;, &quot;Other risk&quot;),
+    category = str_replace(category, &quot;Total&quot;, &quot;TOTAL&quot;),
+    category = str_replace(category, &quot;Women&quot;, &quot;Female&quot;),
+    category = str_replace(category, &quot;Men&quot;, &quot;Male&quot;),
+  ) 
+
+hiv_complete = hiv_complete %&gt;% 
+    mutate(
+    sex_cat = case_when(
+      category == &quot;Male&quot; ~ &quot;Male&quot;,
+      category == &quot;Female&quot; ~ &quot;Female&quot;,
+      category == &quot;Transgender&quot; ~ &quot;Transgender&quot;,
+      TRUE ~ &quot;All&quot;
+    ),
+    race_cat = case_when(
+      category == &quot;Black&quot; ~ &quot;Black&quot;,
+      category == &quot;Latino/Hispanic&quot; ~ &quot;Latino/Hispanic&quot;,
+      category == &quot;White&quot; ~ &quot;White&quot;,
+      category == &quot;Asian/Pacific Islander&quot; ~ &quot;Asian/Pacific Islander&quot;,
+      category == &quot;Native American&quot; ~ &quot;Native American&quot;,
+      category == &quot;Multiracial&quot; ~ &quot;Multiracial&quot;,
+      category == &quot;Unknown race&quot; ~ &quot;Unknown race&quot;,
+      TRUE ~ &quot;All&quot;
+    ),
+    borough_cat = case_when(
+      category == &quot;Bronx&quot; ~ &quot;Bronx&quot;,
+      category == &quot;Brooklyn&quot; ~ &quot;Brooklyn&quot;,
+      category == &quot;Manhattan&quot; ~ &quot;Manhattan&quot;,
+      category == &quot;Queens&quot; ~ &quot;Queens&quot;,
+      category == &quot;Staten Island&quot; ~ &quot;Staten Island&quot;,
+      category == &quot;Outside NYC&quot; ~ &quot;Outside NYC&quot;,
+      category == &quot;Unknown borough&quot; ~ &quot;Unknown borough&quot;,
+      TRUE ~ &quot;All&quot;
+    ),
+    age_cat = case_when(
+      category == &quot;0-12&quot; ~ &quot;0-12&quot;,
+      category == &quot;13-19&quot; ~ &quot;13-19&quot;,
+      category == &quot;20-29&quot; ~ &quot;20-29&quot;,
+      category == &quot;30-39&quot; ~ &quot;30-39&quot;,
+      category == &quot;40-49&quot; ~ &quot;40-49&quot;,
+      category == &quot;50-59&quot; ~ &quot;50-59&quot;,
+      category == &quot;60+&quot; ~ &quot;60+&quot;,
+      TRUE ~ &quot;All&quot;
+    ),
+    risk_cat = case_when(
+      category == &quot;Injection drug use history (IDU)&quot; ~ &quot;Injection drug use history (IDU)&quot;,
+      category == &quot;Heterosexual contact&quot; ~ &quot;Heterosexual contact&quot;,
+      category == &quot;Male who have sex with men (MSM)&quot; ~ &quot;Male who have sex with men (MSM)&quot;,
+      category == &quot;MSM-IDU&quot; ~ &quot;MSM-IDU&quot;,
+      category == &quot;Perinatal&quot; ~ &quot;Perinatal&quot;,
+      category == &quot;Transgender people with sexual contact&quot; ~ &quot;Transgender people with sexual contact&quot;,
+      category == &quot;Unknown risk&quot; ~ &quot;Unknown risk&quot;,
+      category == &quot;Other risk&quot; ~ &quot;Other risk&quot;,
+      TRUE ~ &quot;All&quot;
+    ))
+
+write.csv(hiv_complete,&#39;./data/hiv_complete.csv&#39;)</code></pre>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 
 </body>
 </html>

@@ -31,6 +31,8 @@ options(
 
 scale_colour_discrete = scale_colour_viridis_d
 scale_fill_discrete = scale_fill_viridis_d
+
+set.seed(1)
 ```
 
 ## Analysis 
@@ -52,6 +54,7 @@ rate_complete_df %>%
 ```
 
 <br>
+
 ## Relevant predictors
 The data we are using includes the following variables:
 
@@ -120,7 +123,7 @@ In addition, we propose a baseline model:
 
 ```{r, message=FALSE, warning=FALSE}
 naive_model = 
-  geeglm(formula = hiv_diag_rate ~ borough_cat,
+  geeglm(formula = hiv_diag_rate ~ year,
          data = rate_complete_df,
          family = poisson,
          id = borough_cat,
@@ -132,8 +135,7 @@ rate_df =
 
 hyp_model =
   geeglm(hiv_diag_rate ~
-         borough_cat + year +
-         crime_rate + unemployment_rate,
+         year + crime_rate + unemployment_rate,
          id = borough_cat,
          data = rate_df,
          family = poisson,
@@ -141,7 +143,8 @@ hyp_model =
 
 hyp_model_2 =
   geeglm(hiv_diag_rate ~
-         borough_cat + year,
+         year + crime_rate + unemployment_rate + 
+         black + asian + bachelor + age_18_64,
          id = borough_cat,
          data = rate_df,
          family = poisson,
@@ -149,22 +152,6 @@ hyp_model_2 =
 
 ```
 
-```{r, error = TRUE, message=FALSE, warning=FALSE}
-
-full_fit = 
-  geeglm(hiv_diag_rate ~
-         borough_cat + year +
-         crime_rate + unemployment_rate +
-         black + asian + bachelor + age_18_64, 
-         id = borough_cat,
-         data = rate_df,
-         family = poisson, 
-         corstr = "ar1")
-
-step.spind(full_fit, data = rate_df, steps = NULL, trace = TRUE, AICc = FALSE)
-
-gee_stepper_o(full_fit, formula(full_fit))
-```
 
 <br>
 
@@ -240,7 +227,7 @@ cv_df %>%
 ## Select a Model
 
 ```{r, message=FALSE, warning=FALSE}
-hyp_model %>% 
+hyp_model_2 %>% 
   broom::tidy() %>% 
   knitr::kable()
 ```

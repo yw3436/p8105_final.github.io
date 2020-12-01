@@ -97,3 +97,29 @@ census_df =
 ``` r
 write.csv(census_df, "./data/census.csv")
 ```
+
+``` r
+full_fit = 
+  geeglm(hiv_diag_rate ~
+         year +
+         crime_rate + unemployment_rate +
+         black + asian + bachelor + age_18_64, 
+         id = borough_cat,
+         data = rate_df,
+         family = poisson, 
+         corstr = "ar1")
+```
+
+    ## Error in geeglm(hiv_diag_rate ~ year + crime_rate + unemployment_rate + : could not find function "geeglm"
+
+``` r
+step.spind(full_fit, data = rate_df, steps = NULL, trace = TRUE, AICc = FALSE)
+```
+
+    ## Error in step.spind(full_fit, data = rate_df, steps = NULL, trace = TRUE, : could not find function "step.spind"
+
+``` r
+gee_stepper_o(full_fit, formula(full_fit))
+```
+
+    ## Error in gee_stepper_o(full_fit, formula(full_fit)): could not find function "gee_stepper_o"

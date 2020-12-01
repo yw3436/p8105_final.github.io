@@ -680,6 +680,23 @@ body {
 ## `summarise()` ungrouping output (override with `.groups` argument)
 </code></pre>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">write.csv</span>(census_df, <span class="st">&quot;./data/census.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>full_fit =<span class="st"> </span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="st">  </span><span class="kw">geeglm</span>(hiv_diag_rate <span class="op">~</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="st">         </span>year <span class="op">+</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="st">         </span>crime_rate <span class="op">+</span><span class="st"> </span>unemployment_rate <span class="op">+</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="st">         </span>black <span class="op">+</span><span class="st"> </span>asian <span class="op">+</span><span class="st"> </span>bachelor <span class="op">+</span><span class="st"> </span>age_<span class="dv">18</span>_<span class="dv">64</span>, </span>
+<span id="cb8-6"><a href="#cb8-6"></a>         <span class="dt">id =</span> borough_cat,</span>
+<span id="cb8-7"><a href="#cb8-7"></a>         <span class="dt">data =</span> rate_df,</span>
+<span id="cb8-8"><a href="#cb8-8"></a>         <span class="dt">family =</span> poisson, </span>
+<span id="cb8-9"><a href="#cb8-9"></a>         <span class="dt">corstr =</span> <span class="st">&quot;ar1&quot;</span>)</span></code></pre></div>
+<pre><code>## Error in geeglm(hiv_diag_rate ~ year + crime_rate + unemployment_rate + : could not find function &quot;geeglm&quot;
+</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">step.spind</span>(full_fit, <span class="dt">data =</span> rate_df, <span class="dt">steps =</span> <span class="ot">NULL</span>, <span class="dt">trace =</span> <span class="ot">TRUE</span>, <span class="dt">AICc =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<pre><code>## Error in step.spind(full_fit, data = rate_df, steps = NULL, trace = TRUE, : could not find function &quot;step.spind&quot;
+</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">gee_stepper_o</span>(full_fit, <span class="kw">formula</span>(full_fit))</span></code></pre></div>
+<pre><code>## Error in gee_stepper_o(full_fit, formula(full_fit)): could not find function &quot;gee_stepper_o&quot;
+</code></pre>
 
 </body>
 </html>

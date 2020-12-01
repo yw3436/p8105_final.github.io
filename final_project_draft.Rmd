@@ -83,3 +83,21 @@ census_df =
 write.csv(census_df, "./data/census.csv")
 ```
 
+
+```{r, error = TRUE, message=FALSE, warning=FALSE}
+
+full_fit = 
+  geeglm(hiv_diag_rate ~
+         year +
+         crime_rate + unemployment_rate +
+         black + asian + bachelor + age_18_64, 
+         id = borough_cat,
+         data = rate_df,
+         family = poisson, 
+         corstr = "ar1")
+
+step.spind(full_fit, data = rate_df, steps = NULL, trace = TRUE, AICc = FALSE)
+
+gee_stepper_o(full_fit, formula(full_fit))
+```
+

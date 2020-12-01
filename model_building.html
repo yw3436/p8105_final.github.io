@@ -26,6 +26,8 @@
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
@@ -36,7 +38,7 @@
   div.column{display: inline-block; vertical-align: top; width: 50%;}
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
-      </style>
+    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -439,7 +441,9 @@ options(
 )
 
 scale_colour_discrete = scale_colour_viridis_d
-scale_fill_discrete = scale_fill_viridis_d</code></pre>
+scale_fill_discrete = scale_fill_viridis_d
+
+set.seed(1)</code></pre>
 <div id="analysis" class="section level2">
 <h2>Analysis</h2>
 <pre class="r"><code>rate_complete_df = read_csv(&#39;./data/rate_complete.csv&#39;)</code></pre>
@@ -453,7 +457,11 @@ scale_fill_discrete = scale_fill_viridis_d</code></pre>
        title = &quot;Distribution of HIV Diagnoses Rate&quot;) +
   theme(plot.title = element_text(hjust = 0.5))</code></pre>
 <p><img src="model_building_files/figure-html/unnamed-chunk-3-1.png" width="90%" /></p>
-<p><br> ## Relevant predictors The data we are using includes the following variables:</p>
+<p><br></p>
+</div>
+<div id="relevant-predictors" class="section level2">
+<h2>Relevant predictors</h2>
+<p>The data we are using includes the following variables:</p>
 <ul>
 <li><code>year</code> The year of HIV diagnosis measured.</li>
 <li><code>hiv_diag_rate</code> The HIV diagnosis rate.</li>
@@ -516,7 +524,7 @@ scale_fill_discrete = scale_fill_viridis_d</code></pre>
 <li>A naive model, which only uses <code>borough_cat</code> to predict HIV diagnosis rate.</li>
 </ol>
 <pre class="r"><code>naive_model = 
-  geeglm(formula = hiv_diag_rate ~ borough_cat,
+  geeglm(formula = hiv_diag_rate ~ year,
          data = rate_complete_df,
          family = poisson,
          id = borough_cat,
@@ -528,8 +536,7 @@ rate_df =
 
 hyp_model =
   geeglm(hiv_diag_rate ~
-         borough_cat + year +
-         crime_rate + unemployment_rate,
+         year + crime_rate + unemployment_rate,
          id = borough_cat,
          data = rate_df,
          family = poisson,
@@ -537,46 +544,12 @@ hyp_model =
 
 hyp_model_2 =
   geeglm(hiv_diag_rate ~
-         borough_cat + year,
+         year + crime_rate + unemployment_rate + 
+         black + asian + bachelor + age_18_64,
          id = borough_cat,
          data = rate_df,
          family = poisson,
          corstr = &quot;ar1&quot;)</code></pre>
-<pre class="r"><code>full_fit = 
-  geeglm(hiv_diag_rate ~
-         borough_cat + year +
-         crime_rate + unemployment_rate +
-         black + asian + bachelor + age_18_64, 
-         id = borough_cat,
-         data = rate_df,
-         family = poisson, 
-         corstr = &quot;ar1&quot;)</code></pre>
-<pre><code>##   (Intercept) borough_catBrooklyn borough_catManhattan borough_catQueens
-## 1           1                   0                    0                 0
-## 2           1                   1                    0                 0
-## 3           1                   0                    1                 0
-## 4           1                   0                    0                 1
-## 5           1                   0                    0                 0
-## 6           1                   0                    0                 0
-##   borough_catStaten Island year crime_rate unemployment_rate black asian
-## 1                        0 2013  1.4943961              11.8 0.436 0.046
-## 2                        0 2013  1.4220865               9.4 0.338 0.127
-## 3                        0 2013  1.7357632               7.5 0.178 0.128
-## 4                        0 2013  1.0796504               7.7 0.207 0.269
-## 5                        1 2013  0.7266443               9.0 0.116 0.109
-## 6                        0 2014  1.4345452               9.8 0.436 0.046
-##   bachelor age_18_64
-## 1    0.198     0.621
-## 2    0.365     0.629
-## 3    0.608     0.687
-## 4    0.315     0.637
-## 5    0.330     0.615
-## 6    0.198     0.621</code></pre>
-<pre><code>## Error in geeglm(hiv_diag_rate ~ borough_cat + year + crime_rate + unemployment_rate + : Model matrix is rank deficient; geeglm can not proceed</code></pre>
-<pre class="r"><code>step.spind(full_fit, data = rate_df, steps = NULL, trace = TRUE, AICc = FALSE)</code></pre>
-<pre><code>## Error in step.spind(full_fit, data = rate_df, steps = NULL, trace = TRUE, : could not find function &quot;step.spind&quot;</code></pre>
-<pre class="r"><code>gee_stepper_o(full_fit, formula(full_fit))</code></pre>
-<pre><code>## Error in gee_stepper_o(full_fit, formula(full_fit)): could not find function &quot;gee_stepper_o&quot;</code></pre>
 <p><br></p>
 </div>
 <div id="cross-validation" class="section level2">
@@ -627,7 +600,7 @@ cv_df =
   ggplot(aes(x = model, y = rmse)) +
   geom_violin(aes(fill = model)) + 
   theme_light()</code></pre>
-<p><img src="model_building_files/figure-html/unnamed-chunk-8-1.png" width="90%" /></p>
+<p><img src="model_building_files/figure-html/unnamed-chunk-7-1.png" width="90%" /></p>
 <pre class="r"><code>cv_df %&gt;% 
   select(starts_with(&quot;rmse&quot;)) %&gt;% 
   pivot_longer(
@@ -648,27 +621,15 @@ cv_df =
 <tbody>
 <tr class="odd">
 <td align="left">hyp</td>
-<<<<<<< HEAD
-<td align="right">1.672230</td>
+<td align="right">1.668283</td>
 </tr>
 <tr class="even">
 <td align="left">hyp_2</td>
-<td align="right">1.670526</td>
+<td align="right">1.667923</td>
 </tr>
 <tr class="odd">
 <td align="left">naive</td>
-<td align="right">1.687211</td>
-=======
-<td align="right">1.703789</td>
-</tr>
-<tr class="even">
-<td align="left">hyp_2</td>
-<td align="right">1.707904</td>
-</tr>
-<tr class="odd">
-<td align="left">naive</td>
-<td align="right">1.723145</td>
->>>>>>> 7665cb2977044b535ac8112e85ef71beabeb3c3a
+<td align="right">1.681116</td>
 </tr>
 </tbody>
 </table>
@@ -676,7 +637,7 @@ cv_df =
 </div>
 <div id="select-a-model" class="section level2">
 <h2>Select a Model</h2>
-<pre class="r"><code>hyp_model %&gt;% 
+<pre class="r"><code>hyp_model_2 %&gt;% 
   broom::tidy() %&gt;% 
   knitr::kable()</code></pre>
 <table>
@@ -692,58 +653,58 @@ cv_df =
 <tbody>
 <tr class="odd">
 <td align="left">(Intercept)</td>
-<td align="right">238.5589662</td>
-<td align="right">3.18e-05</td>
-<td align="right">5.629125e+13</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">borough_catBrooklyn</td>
-<td align="right">-0.4564782</td>
-<td align="right">1.00e-07</td>
-<td align="right">2.439861e+13</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">borough_catManhattan</td>
-<td align="right">-0.2988790</td>
-<td align="right">1.00e-07</td>
-<td align="right">1.600614e+13</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">borough_catQueens</td>
-<td align="right">-0.8243160</td>
-<td align="right">2.00e-07</td>
-<td align="right">1.437565e+13</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">borough_catStaten Island</td>
-<td align="right">-1.2626298</td>
-<td align="right">3.00e-07</td>
-<td align="right">1.401075e+13</td>
+<td align="right">227.7725816</td>
+<td align="right">2.8e-05</td>
+<td align="right">6.606461e+13</td>
 <td align="right">0</td>
 </tr>
 <tr class="even">
 <td align="left">year</td>
 <td align="right">-0.1175101</td>
-<td align="right">0.00e+00</td>
-<td align="right">5.776262e+13</td>
+<td align="right">0.0e+00</td>
+<td align="right">5.776260e+13</td>
 <td align="right">0</td>
 </tr>
 <tr class="odd">
 <td align="left">crime_rate</td>
 <td align="right">0.0186565</td>
-<td align="right">4.00e-07</td>
-<td align="right">2.145730e+09</td>
+<td align="right">4.0e-07</td>
+<td align="right">2.145729e+09</td>
 <td align="right">0</td>
 </tr>
 <tr class="even">
 <td align="left">unemployment_rate</td>
 <td align="right">-0.0580295</td>
-<td align="right">0.00e+00</td>
-<td align="right">1.077674e+14</td>
+<td align="right">0.0e+00</td>
+<td align="right">1.077675e+14</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">black</td>
+<td align="right">2.9211773</td>
+<td align="right">8.0e-07</td>
+<td align="right">1.306431e+13</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">asian</td>
+<td align="right">-1.2044209</td>
+<td align="right">5.0e-07</td>
+<td align="right">6.099238e+12</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">bachelor</td>
+<td align="right">-1.1912850</td>
+<td align="right">1.0e-07</td>
+<td align="right">1.176121e+14</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">age_18_64</td>
+<td align="right">15.7874865</td>
+<td align="right">5.6e-06</td>
+<td align="right">8.006377e+12</td>
 <td align="right">0</td>
 </tr>
 </tbody>
@@ -761,7 +722,7 @@ cv_df =
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
