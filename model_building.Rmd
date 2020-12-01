@@ -12,12 +12,9 @@ library(tidyverse)
 library(plotly)
 library(corrplot)
 library(geepack)
-<<<<<<< HEAD
 library(fastDummies)
-=======
 library(modelr)
 library(mgcv)
->>>>>>> 2813dc3087b94a0bf6d04a6b2185e64248d74319
 
 knitr::opts_chunk$set(
   fig.width = 6,
@@ -54,7 +51,7 @@ rate_complete_df %>%
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
-<<<<<<< HEAD
+<br>
 ## Relevant predictors
 The data we are using includes the following variables:
 
@@ -78,8 +75,8 @@ The data we are using includes the following variables:
 * `age_over_64` The percentage of population over 64 years.
 * `age_18_64` The percentage of population between 18 and 64 years.
 
+<br>
 
-=======
 ## Correlation Matrx
 
 ```{r, message=FALSE, warning=FALSE}
@@ -92,13 +89,12 @@ rate_complete_df %>%
            method = "color", 
            addCoef.col = "black", 
            diag = FALSE, 
-           number.cex = .55,
+           number.cex = .45,
            insig = "blank" ,
            tl.col = "black",
-           tl.cex = .9,
-           tl.srt = 45
+           tl.cex = .7,
+           tl.srt = 1
            )
-
 ```
 
 We found that several predictors are highly correlated with each other, which should not be included in the model simultaneously, such as:
@@ -109,6 +105,7 @@ We found that several predictors are highly correlated with each other, which sh
 * `high_school` and `black` (r=-0.93)
 * `age_over_64` and `black` (r=-0.97)
 
+<br>
 
 ## Summary of Models
 
@@ -152,7 +149,7 @@ hyp_model_2 =
 
 ```
 
-```{r, error = TRUE}
+```{r, error = TRUE, message=FALSE, warning=FALSE}
 
 full_fit = 
   geeglm(hiv_diag_rate ~
@@ -168,6 +165,8 @@ step.spind(full_fit, data = rate_df, steps = NULL, trace = TRUE, AICc = FALSE)
 
 gee_stepper_o(full_fit, formula(full_fit))
 ```
+
+<br>
 
 ## Cross Validation
 
@@ -207,6 +206,8 @@ cv_df =
     rmse_hyp_2 = map2_dbl(hyp_model_2, test, ~rmse(model = .x, data = .y)))
 ```
 
+<br>
+
 **Compare models using cross-validated prediction error**
 
 ```{r, message=FALSE, warning=FALSE}
@@ -234,6 +235,8 @@ cv_df %>%
   knitr::kable()
 ```
 
+<br>
+
 ## Select a Model
 
 ```{r, message=FALSE, warning=FALSE}
@@ -241,5 +244,5 @@ hyp_model %>%
   broom::tidy() %>% 
   knitr::kable()
 ```
->>>>>>> 2813dc3087b94a0bf6d04a6b2185e64248d74319
+
 
