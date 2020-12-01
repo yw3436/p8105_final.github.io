@@ -1,0 +1,16 @@
+---
+title: "Conclusion"
+output: html_document
+---
+
+![](xxx.jpg)
+
+* Some meaningful trends using our dataset: 
+  + The shiny dashboard shows decreasing trends in HIV diagnosis rate, AIDs rates and HIV death rate with unemployment rate as well as crime rate increase in all the boroughs in the New York City.
+  + People living with AIDs rate increases over time in all the boroughs in the New York City
+  + However, the crime rate is fluctuating in Manhattan over year and showed a slightly increasing trend starting in 2017 while the death rate also started increasing since 2018. 
+
+* Strength and Limitation 
+  + Our dataset contains not only HIV related data, but the data have potential association with HIV diagnosis 
+  + Different predictors are analyzed in the model to show the best fit 
+
