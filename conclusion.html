@@ -327,17 +327,49 @@ $(document).ready(function () {
 
 
 <p><img src="image/hiv.png" style=:width:60%"></p>
+<p><br></p>
 <ul>
-<li>Some meaningful trends using our dataset:
+<li><strong>Basic characteristics of HIV patients</strong>
+<ul>
+<li>Our analysis shows the basic demographic and socioeconomic characteristics of patients with HIV diagnosis in the five boroughs in NYC.</li>
+<li>Male patients accounted for about a quarter of the total diagnoses; black, Latino and Hispanic patients took a large proportion of the total diagnoses; as for age distribution, people aged 20-29 years were the largest contributor in all the five boroughs.</li>
+</ul></li>
+</ul>
+<p><br></p>
+<ul>
+<li><strong>Meaningful trends from our dataset </strong>
 <ul>
 <li>The shiny dashboard shows decreasing trends in HIV diagnosis rate, AIDs rates and HIV death rate with unemployment rate as well as crime rate increase in all the boroughs in the New York City.</li>
-<li>People living with AIDs rate increases over time in all the boroughs in the New York City</li>
+<li>People living with AIDs rate increases over time in all the boroughs in the New York City.</li>
 <li>However, the crime rate is fluctuating in Manhattan over year and showed a slightly increasing trend starting in 2017 while the death rate also started increasing since 2018.</li>
 </ul></li>
-<li>Strength and Limitation
+</ul>
+<p><br></p>
 <ul>
-<li>Our dataset contains not only HIV related data, but the data have potential association with HIV diagnosis</li>
-<li>Different predictors are analyzed in the model to show the best fit</li>
+<li><strong>Regression Results</strong>
+<ul>
+<li>We adopted Poisson regression with GEE method to evaluate the association between various predictors and HIV diagnosis in the five boroughs.</li>
+<li>Year, unemployment rate, the proportion of Asian people, the proportion of people with bachelor degree was found to be significantly inversely associated with HIV diagnosis rate.</li>
+<li>Crime rate, the proportion of black people, the the proportion of people aged 18-64 years were significantly positively associated with HIV diagnosis rate.</li>
+</ul></li>
+</ul>
+<p><br></p>
+<ul>
+<li><strong>Overall Conclusion</strong>
+<ul>
+<li>The regression results satisfy our initial hypothesis that though the overall HIV diagnosis rate is decreasing from 2011 to 2019, crime rate, the race distribution, and the age distribution are still potential risk factors in NYC.</li>
+<li>In order to reduce HIV/AIDS, further healthcare program, healthcare education and health administration is still in demands.</li>
+</ul></li>
+</ul>
+<p><br></p>
+<ul>
+<li><strong>Strength and Limitation</strong>
+<ul>
+<li>Our dataset contains not only HIV related data, but the data have potential association with HIV diagnosis.</li>
+<li>Various predictors are analyzed in the model to show the best fit and we used cross validation for model selection.</li>
+<li>However, the sample size in our analysis was relatively small, which yielded large test statistics in the regression results.</li>
+<li>Since we used the proportion of black, Asian and people with bachelor degree rather than the rate, the standard error is relatively small.</li>
+<li>Further analysis need to be done to include larger sample size with more precise assessment of these predictors.</li>
 </ul></li>
 </ul>
 
