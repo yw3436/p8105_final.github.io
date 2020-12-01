@@ -83,6 +83,10 @@ The data we are using includes the following variables:
 
 ## Correlation Matrix
 
+
+Before building the model, it is important to assess crude correlation among relevant variables, in case issues of multicollinearity arise.
+
+
 ```{r, message=FALSE, warning=FALSE}
 
 rate_complete_df %>% 
@@ -159,6 +163,11 @@ hyp_model_2 =
 
 ## Cross Validation
 
+
+We assessed prediction accuracy of our proposed models using cross validation, which allowed us to compare the root mean squared error (RMSE) across models. Models with lower RMSEs indicates a smaller prediction error and a better prediction accuracy.
+
+(*Note:* We split our dataset into training (80%) and testing (20%) dataset and repeated the process 100 times using the function `cross_mc`. We then used the training datasets to train our three proposed models, which were then ran on testing data. RMSEs were extracted to assess the prediction accuracy of the trained models on testing data. 100 RMSEs for each of the three models were obtained and the distributions of which were plotted using `ggplot` and `geom_violin`.)
+
 ```{r, message=FALSE, warning=FALSE}
 cv_df =
   crossv_mc(rate_df, 100) %>% 
@@ -197,7 +206,6 @@ cv_df =
 
 <br>
 
-**Compare models using cross-validated prediction error**
 
 ```{r, message=FALSE, warning=FALSE, cache=TRUE}
 cv_df %>%
@@ -223,6 +231,9 @@ cv_df %>%
   summarize(avg_rmse = mean(rmse)) %>% 
   knitr::kable()
 ```
+
+
+As we can see, the two hypothesized models have better predictive capabilities compared to the naive model. `hyp_model_2` has a slightly better predictive capability compared to `hyp_model`. Therefore, we select `hyp_model_2` for our further analyses.
 
 <br>
 

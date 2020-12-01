@@ -26,6 +26,8 @@
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
@@ -36,7 +38,7 @@
   div.column{display: inline-block; vertical-align: top; width: 50%;}
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
-      </style>
+    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -488,6 +490,7 @@ set.seed(1)</code></pre>
 </div>
 <div id="correlation-matrix" class="section level2">
 <h2>Correlation Matrix</h2>
+<p>Before building the model, it is important to assess crude correlation among relevant variables, in case issues of multicollinearity arise.</p>
 <pre class="r"><code>rate_complete_df %&gt;% 
   drop_na() %&gt;%
   select(-X1, -aids_rate, -plwha_rate, -death_rate, -borough_cat, -year) %&gt;% 
@@ -555,6 +558,8 @@ hyp_model_2 =
 </div>
 <div id="cross-validation" class="section level2">
 <h2>Cross Validation</h2>
+<p>We assessed prediction accuracy of our proposed models using cross validation, which allowed us to compare the root mean squared error (RMSE) across models. Models with lower RMSEs indicates a smaller prediction error and a better prediction accuracy.</p>
+<p>(<em>Note:</em> We split our dataset into training (80%) and testing (20%) dataset and repeated the process 100 times using the function <code>cross_mc</code>. We then used the training datasets to train our three proposed models, which were then ran on testing data. RMSEs were extracted to assess the prediction accuracy of the trained models on testing data. 100 RMSEs for each of the three models were obtained and the distributions of which were plotted using <code>ggplot</code> and <code>geom_violin</code>.)</p>
 <pre class="r"><code>cv_df =
   crossv_mc(rate_df, 100) %&gt;% 
   mutate(
@@ -589,7 +594,6 @@ cv_df =
     rmse_hyp = map2_dbl(hyp_model, test, ~rmse(model = .x, data = .y)),
     rmse_hyp_2 = map2_dbl(hyp_model_2, test, ~rmse(model = .x, data = .y)))</code></pre>
 <p><br></p>
-<p><strong>Compare models using cross-validated prediction error</strong></p>
 <pre class="r"><code>cv_df %&gt;%
   select(starts_with(&quot;rmse&quot;)) %&gt;% 
   pivot_longer(
@@ -634,6 +638,7 @@ cv_df =
 </tr>
 </tbody>
 </table>
+<p>As we can see, the two hypothesized models have better predictive capabilities compared to the naive model. <code>hyp_model_2</code> has a slightly better predictive capability compared to <code>hyp_model</code>. Therefore, we select <code>hyp_model_2</code> for our further analyses.</p>
 <p><br></p>
 </div>
 <div id="conclusion" class="section level2">
@@ -657,14 +662,14 @@ cv_df =
 <td align="left">(Intercept)</td>
 <td align="right">227.7725816</td>
 <td align="right">2.8e-05</td>
-<td align="right">6.606469e+13</td>
+<td align="right">6.606461e+13</td>
 <td align="right">0</td>
 </tr>
 <tr class="even">
 <td align="left">year</td>
 <td align="right">-0.1175101</td>
 <td align="right">0.0e+00</td>
-<td align="right">5.776267e+13</td>
+<td align="right">5.776260e+13</td>
 <td align="right">0</td>
 </tr>
 <tr class="odd">
@@ -678,7 +683,7 @@ cv_df =
 <td align="left">unemployment_rate</td>
 <td align="right">-0.0580295</td>
 <td align="right">0.0e+00</td>
-<td align="right">1.077678e+14</td>
+<td align="right">1.077675e+14</td>
 <td align="right">0</td>
 </tr>
 <tr class="odd">
@@ -692,21 +697,21 @@ cv_df =
 <td align="left">asian</td>
 <td align="right">-1.2044209</td>
 <td align="right">5.0e-07</td>
-<td align="right">6.099239e+12</td>
+<td align="right">6.099238e+12</td>
 <td align="right">0</td>
 </tr>
 <tr class="odd">
 <td align="left">bachelor</td>
 <td align="right">-1.1912850</td>
 <td align="right">1.0e-07</td>
-<td align="right">1.176123e+14</td>
+<td align="right">1.176121e+14</td>
 <td align="right">0</td>
 </tr>
 <tr class="even">
 <td align="left">age_18_64</td>
 <td align="right">15.7874865</td>
 <td align="right">5.6e-06</td>
-<td align="right">8.006379e+12</td>
+<td align="right">8.006377e+12</td>
 <td align="right">0</td>
 </tr>
 </tbody>
@@ -726,7 +731,7 @@ cv_df =
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
