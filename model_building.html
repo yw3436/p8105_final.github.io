@@ -454,7 +454,7 @@ set.seed(1)</code></pre>
   geom_density() +
   theme_light() +
   labs(x = &quot;HIV Diagnoses Rate&quot;,
-       y = &quot;Count&quot;,
+       y = &quot;Density&quot;,
        title = &quot;Distribution of HIV Diagnoses Rate&quot;) +
   theme(plot.title = element_text(hjust = 0.5))</code></pre>
 <p><img src="model_building_files/figure-html/unnamed-chunk-3-1.png" width="90%" /></p>
@@ -517,12 +517,12 @@ set.seed(1)</code></pre>
 <h2>Summary of Models</h2>
 <p>Based on our preliminary analysis and the correlation matrix, we propose the following models:</p>
 <ol style="list-style-type: decimal">
-<li>Our hypothesized model based on the effect of <code>borough_cat</code>, <code>year</code>, <code>black</code>, <code>Asian</code>, <code>crime_rate</code>, <code>unemployment_rate</code>, <code>bachelor</code> and <code>age_18_64</code>.</li>
-<li>A model selected via a GEE-specific forward stepwise selection process.</li>
+<li><p>A hypothesized model based on the effect of, <code>year</code>, <code>crime_rate</code>, <code>unemployment_rate</code>.</p></li>
+<li><p>A hypothesized model based on the effect of, <code>year</code>, <code>black</code>, <code>asian</code>, <code>crime_rate</code>, <code>unemployment_rate</code>, <code>bachelor</code> and <code>age_18_64</code>.</p></li>
 </ol>
 <p>In addition, we propose a baseline model:</p>
 <ol start="3" style="list-style-type: decimal">
-<li>A naive model, which only uses <code>borough_cat</code> to predict HIV diagnosis rate.</li>
+<li>A naive model, which only uses <code>year</code> to predict HIV diagnosis rate.</li>
 </ol>
 <pre class="r"><code>naive_model = 
   geeglm(formula = hiv_diag_rate ~ year,
@@ -636,8 +636,9 @@ cv_df =
 </table>
 <p><br></p>
 </div>
-<div id="select-a-model" class="section level2">
-<h2>Select a Model</h2>
+<div id="conclusion" class="section level2">
+<h2>Conclusion</h2>
+<p>Our model can be estimated via GEE:</p>
 <pre class="r"><code>hyp_model_2 %&gt;% 
   broom::tidy() %&gt;% 
   knitr::kable()</code></pre>
@@ -710,6 +711,8 @@ cv_df =
 </tr>
 </tbody>
 </table>
+<p>According to our resulting table, all hypothesized predictors, <code>year</code>, <code>black</code>, <code>asian</code>, <code>crime_rate</code>, <code>unemployment_rate</code>, <code>bachelor</code> and <code>age_18_64</code>, are significantly associated with HIV Diagnoses rate in Bronx, Brooklyn, Manhattan, Queens, and Staten Island at the 5% level of significance. Additionally, variable <code>year</code> and boroughs with lower <code>unemployment_rate</code>, higher percentage of education (<code>bachelor</code>) and race(<code>asian</code>) are negatively associated with HIV diagnosis.</p>
+<p>Furthermore, the corresponding interpretable estimated measure of effect can be obtained by exponentiating each parameter estimate.</p>
 </div>
 
 

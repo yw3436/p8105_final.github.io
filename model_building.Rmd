@@ -48,10 +48,11 @@ rate_complete_df %>%
   geom_density() +
   theme_light() +
   labs(x = "HIV Diagnoses Rate",
-       y = "Count",
+       y = "Density",
        title = "Distribution of HIV Diagnoses Rate") +
   theme(plot.title = element_text(hjust = 0.5))
 ```
+
 
 <br>
 
@@ -114,12 +115,13 @@ We found that several predictors are highly correlated with each other, which sh
 
 Based on our preliminary analysis and the correlation matrix, we propose the following models: 
 
-1. Our hypothesized model based on the effect of `borough_cat`, `year`, `black`, `Asian`, `crime_rate`, `unemployment_rate`, `bachelor` and `age_18_64`.
-2. A model selected via a GEE-specific forward stepwise selection process.
+1. A hypothesized model based on the effect of, `year`, `crime_rate`, `unemployment_rate`.
+
+2. A hypothesized model based on the effect of, `year`, `black`, `asian`, `crime_rate`, `unemployment_rate`, `bachelor` and `age_18_64`.
 
 In addition, we propose a baseline model:
 
-3. A naive model, which only uses `borough_cat` to predict HIV diagnosis rate.
+3. A naive model, which only uses `year` to predict HIV diagnosis rate.
 
 ```{r, message=FALSE, warning=FALSE}
 naive_model = 
@@ -224,7 +226,9 @@ cv_df %>%
 
 <br>
 
-## Select a Model
+## Conclusion
+
+Our model can be estimated via GEE:
 
 ```{r, message=FALSE, warning=FALSE}
 hyp_model_2 %>% 
@@ -232,4 +236,7 @@ hyp_model_2 %>%
   knitr::kable()
 ```
 
+According to our resulting table, all hypothesized predictors, `year`, `black`, `asian`, `crime_rate`, `unemployment_rate`, `bachelor` and `age_18_64`, are significantly associated with HIV Diagnoses rate in Bronx, Brooklyn, Manhattan, Queens, and Staten Island at the 5% level of significance. Additionally, variable `year` and boroughs with lower `unemployment_rate`, higher percentage of education (`bachelor`) and race(`asian`) are negatively associated with HIV diagnosis.
+
+Furthermore, the corresponding interpretable estimated measure of effect can be obtained by exponentiating each parameter estimate. 
 
