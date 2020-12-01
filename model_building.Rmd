@@ -12,7 +12,8 @@ library(tidyverse)
 library(plotly)
 library(corrplot)
 library(geepack)
-library(fastDummies)
+library(modelr)
+library(mgcv)
 
 knitr::opts_chunk$set(
   fig.width = 6,
@@ -38,7 +39,7 @@ rate_complete_df = read_csv('./data/rate_complete.csv')
 
 Since our outcome, HIV Diagnoses rate, is calculated using a count variable (number of HIV Diagnoses) repeated over 2013-2019, we’ll model it using Generalized Estimating Equation with a Poisson link function.
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 rate_complete_df %>% 
   ggplot(aes(x = hiv_diag_rate)) + 
   geom_density() +
@@ -51,7 +52,7 @@ rate_complete_df %>%
 
 ## Correlation Matrx
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 
 rate_complete_df %>% 
   drop_na() %>%
@@ -90,7 +91,7 @@ In addition, we propose a baseline model:
 
 3. A naive model, which only uses `borough_cat` to predict HIV diagnosis rate.
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 naive_model = 
   geeglm(formula = hiv_diag_rate ~ borough_cat,
          data = rate_complete_df,
@@ -106,6 +107,14 @@ hyp_model =
   geeglm(hiv_diag_rate ~
          borough_cat + year +
          crime_rate + unemployment_rate,
+         id = borough_cat,
+         data = rate_df,
+         family = poisson,
+         corstr = "ar1")
+
+hyp_model_2 =
+  geeglm(hiv_diag_rate ~
+         borough_cat + year,
          id = borough_cat,
          data = rate_df,
          family = poisson,
@@ -128,5 +137,78 @@ full_fit =
 step.spind(full_fit, data = rate_df, steps = NULL, trace = TRUE, AICc = FALSE)
 
 gee_stepper_o(full_fit, formula(full_fit))
+```
+
+## Cross Validation
+
+```{r, message=FALSE, warning=FALSE}
+cv_df =
+  crossv_mc(rate_df, 100) %>% 
+  mutate(
+    train = map(train, as_tibble),
+    test = map(test, as_tibble))
+
+cv_df = 
+  cv_df %>% 
+  mutate(
+    naive_model = map(train, ~geeglm(
+        formula = hiv_diag_rate ~ borough_cat,
+        family = poisson,
+        id = borough_cat,
+        corstr = "ar1", 
+        data = .x)),
+    hyp_model = map(train, ~geeglm(hiv_diag_rate ~
+        borough_cat + year +
+        crime_rate + unemployment_rate,
+        id = borough_cat,
+        family = poisson,
+        corstr = "ar1", 
+        data = .x)),
+    hyp_model_2 = map(train, ~geeglm(hiv_diag_rate ~
+        borough_cat + year,
+        id = borough_cat,
+        family = poisson,
+        corstr = "ar1", 
+        data = .x))
+    ) %>% 
+  mutate(
+    rmse_naive = map2_dbl(naive_model, test, ~rmse(model = .x, data = .y)),
+    rmse_hyp = map2_dbl(hyp_model, test, ~rmse(model = .x, data = .y)),
+    rmse_hyp_2 = map2_dbl(hyp_model_2, test, ~rmse(model = .x, data = .y)))
+```
+
+**Compare models using cross-validated prediction error**
+
+```{r, message=FALSE, warning=FALSE}
+cv_df %>%
+  select(starts_with("rmse")) %>% 
+  pivot_longer(
+    everything(),
+    names_to = "model",
+    values_to = "rmse",
+    names_prefix = "rmse_") %>% 
+  mutate(model = fct_inorder(model)) %>%
+  ggplot(aes(x = model, y = rmse)) +
+  geom_violin(aes(fill = model)) + 
+  theme_light()
+  
+cv_df %>% 
+  select(starts_with("rmse")) %>% 
+  pivot_longer(
+    everything(),
+    names_to = "model",
+    values_to = "rmse",
+    names_prefix = "rmse_") %>%
+  group_by(model) %>% 
+  summarize(avg_rmse = mean(rmse)) %>% 
+  knitr::kable()
+```
+
+## Select a Model
+
+```{r, message=FALSE, warning=FALSE}
+hyp_model %>% 
+  broom::tidy() %>% 
+  knitr::kable()
 ```
 
