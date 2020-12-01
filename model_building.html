@@ -419,6 +419,9 @@ div.tocify {
 
 <pre class="r"><code>library(tidyverse)
 library(plotly)
+library(corrplot)
+library(geepack)
+library(fastDummies)
 
 knitr::opts_chunk$set(
   fig.width = 6,
@@ -448,6 +451,31 @@ scale_fill_discrete = scale_fill_viridis_d</code></pre>
        title = &quot;Distribution of HIV Diagnoses Rate&quot;) +
   theme(plot.title = element_text(hjust = 0.5))</code></pre>
 <p><img src="model_building_files/figure-html/unnamed-chunk-3-1.png" width="90%" /></p>
+</div>
+<div id="relevant-predictors" class="section level2">
+<h2>Relevant predictors</h2>
+<p>The data we are using includes the following variables:</p>
+<ul>
+<li><code>year</code> The year of HIV diagnosis measured.</li>
+<li><code>hiv_diag_rate</code> The HIV diagnosis rate.</li>
+<li><code>crime_rate</code> The crime rate.</li>
+<li><code>unemployment_rate</code> The unemployment rate.</li>
+<li><code>borough_cat</code> The name of borough.</li>
+<li><code>female</code> The percentage of female within each borough.</li>
+<li><code>white</code> The percentage of population with Race categorized as White within each borough.</li>
+<li><code>black</code> The percentage of population with Race categorized as Black or African American within each borough.</li>
+<li><code>american_indian</code> The percentage of population with Race categorized as American Indian and Alaska Native within each borough.</li>
+<li><code>asian</code> The percentage of population with Race categorized as Asian within each borough.</li>
+<li><code>hawaiian</code> The percentage of population with Race categorized as Native Hawaiian and Other Pacific Islander within each borough.</li>
+<li><code>hispanic</code> The percentage of population with Race categorized as Hispanic or Latino within each borough.</li>
+<li><code>high_school</code> The percentage of people age 25 years+, 2014-2018, with Race categorized as High school graduate or higher degree within each borough.</li>
+<li><code>bachelor</code> The percentage of population with education categorized as Bachelor’s degree or higher degree within each borough.</li>
+<li><code>poverty</code> The percentage of population in poverty within each borough.</li>
+<li><code>labor_force</code> The percentage of people age 16 years+, 2014-2018, in civilian labor force.</li>
+<li><code>age_under_18</code> The percentage of population under 18 years.</li>
+<li><code>age_over_64</code> The percentage of population over 64 years.</li>
+<li><code>age_18_64</code> The percentage of population between 18 and 64 years.</li>
+</ul>
 </div>
 
 
