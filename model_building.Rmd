@@ -55,7 +55,7 @@ rate_complete_df %>%
 
 <br>
 
-## Relevant predictors
+## Relevant Predictors
 The data we are using includes the following variables:
 
 * `year` The year of HIV diagnosis measured.
@@ -80,7 +80,7 @@ The data we are using includes the following variables:
 
 <br>
 
-## Correlation Matrx
+## Correlation Matrix
 
 ```{r, message=FALSE, warning=FALSE}
 
