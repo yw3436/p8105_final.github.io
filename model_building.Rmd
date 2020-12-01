@@ -12,7 +12,12 @@ library(tidyverse)
 library(plotly)
 library(corrplot)
 library(geepack)
+<<<<<<< HEAD
 library(fastDummies)
+=======
+library(modelr)
+library(mgcv)
+>>>>>>> 2813dc3087b94a0bf6d04a6b2185e64248d74319
 
 knitr::opts_chunk$set(
   fig.width = 6,
@@ -38,7 +43,7 @@ rate_complete_df = read_csv('./data/rate_complete.csv')
 
 Since our outcome, HIV Diagnoses rate, is calculated using a count variable (number of HIV Diagnoses) repeated over 2013-2019, we’ll model it using Generalized Estimating Equation with a Poisson link function.
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 rate_complete_df %>% 
   ggplot(aes(x = hiv_diag_rate)) + 
   geom_density() +
@@ -49,6 +54,7 @@ rate_complete_df %>%
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
+<<<<<<< HEAD
 ## Relevant predictors
 The data we are using includes the following variables:
 
@@ -73,4 +79,167 @@ The data we are using includes the following variables:
 * `age_18_64` The percentage of population between 18 and 64 years.
 
 
+=======
+## Correlation Matrx
+
+```{r, message=FALSE, warning=FALSE}
+
+rate_complete_df %>% 
+  drop_na() %>%
+  select(-X1, -aids_rate, -plwha_rate, -death_rate, -borough_cat, -year) %>% 
+  cor() %>%
+  corrplot(type = "lower",
+           method = "color", 
+           addCoef.col = "black", 
+           diag = FALSE, 
+           number.cex = .55,
+           insig = "blank" ,
+           tl.col = "black",
+           tl.cex = .9,
+           tl.srt = 45
+           )
+
+```
+
+We found that several predictors are highly correlated with each other, which should not be included in the model simultaneously, such as:
+
+* `crime_rate` and `female` (r=0.87)
+* `white` and `black` (r=-0.82)
+* `american_indian` and `hawaiian` (0.98)
+* `high_school` and `black` (r=-0.93)
+* `age_over_64` and `black` (r=-0.97)
+
+
+## Summary of Models
+
+Based on our preliminary analysis and the correlation matrix, we propose the following models: 
+
+1. Our hypothesized model based on the effect of `borough_cat`, `year`, `black`, `Asian`, `crime_rate`, `unemployment_rate`, `bachelor` and `age_18_64`.
+2. A model selected via a GEE-specific forward stepwise selection process.
+
+In addition, we propose a baseline model:
+
+3. A naive model, which only uses `borough_cat` to predict HIV diagnosis rate.
+
+```{r, message=FALSE, warning=FALSE}
+naive_model = 
+  geeglm(formula = hiv_diag_rate ~ borough_cat,
+         data = rate_complete_df,
+         family = poisson,
+         id = borough_cat,
+         corstr = "ar1")
+
+rate_df = 
+  rate_complete_df %>% 
+  filter(!year %in% c(2011,2012))
+
+hyp_model =
+  geeglm(hiv_diag_rate ~
+         borough_cat + year +
+         crime_rate + unemployment_rate,
+         id = borough_cat,
+         data = rate_df,
+         family = poisson,
+         corstr = "ar1")
+
+hyp_model_2 =
+  geeglm(hiv_diag_rate ~
+         borough_cat + year,
+         id = borough_cat,
+         data = rate_df,
+         family = poisson,
+         corstr = "ar1")
+
+```
+
+```{r, error = TRUE}
+
+full_fit = 
+  geeglm(hiv_diag_rate ~
+         borough_cat + year +
+         crime_rate + unemployment_rate +
+         black + asian + bachelor + age_18_64, 
+         id = borough_cat,
+         data = rate_df,
+         family = poisson, 
+         corstr = "ar1")
+
+step.spind(full_fit, data = rate_df, steps = NULL, trace = TRUE, AICc = FALSE)
+
+gee_stepper_o(full_fit, formula(full_fit))
+```
+
+## Cross Validation
+
+```{r, message=FALSE, warning=FALSE}
+cv_df =
+  crossv_mc(rate_df, 100) %>% 
+  mutate(
+    train = map(train, as_tibble),
+    test = map(test, as_tibble))
+
+cv_df = 
+  cv_df %>% 
+  mutate(
+    naive_model = map(train, ~geeglm(
+        formula = hiv_diag_rate ~ borough_cat,
+        family = poisson,
+        id = borough_cat,
+        corstr = "ar1", 
+        data = .x)),
+    hyp_model = map(train, ~geeglm(hiv_diag_rate ~
+        borough_cat + year +
+        crime_rate + unemployment_rate,
+        id = borough_cat,
+        family = poisson,
+        corstr = "ar1", 
+        data = .x)),
+    hyp_model_2 = map(train, ~geeglm(hiv_diag_rate ~
+        borough_cat + year,
+        id = borough_cat,
+        family = poisson,
+        corstr = "ar1", 
+        data = .x))
+    ) %>% 
+  mutate(
+    rmse_naive = map2_dbl(naive_model, test, ~rmse(model = .x, data = .y)),
+    rmse_hyp = map2_dbl(hyp_model, test, ~rmse(model = .x, data = .y)),
+    rmse_hyp_2 = map2_dbl(hyp_model_2, test, ~rmse(model = .x, data = .y)))
+```
+
+**Compare models using cross-validated prediction error**
+
+```{r, message=FALSE, warning=FALSE}
+cv_df %>%
+  select(starts_with("rmse")) %>% 
+  pivot_longer(
+    everything(),
+    names_to = "model",
+    values_to = "rmse",
+    names_prefix = "rmse_") %>% 
+  mutate(model = fct_inorder(model)) %>%
+  ggplot(aes(x = model, y = rmse)) +
+  geom_violin(aes(fill = model)) + 
+  theme_light()
+  
+cv_df %>% 
+  select(starts_with("rmse")) %>% 
+  pivot_longer(
+    everything(),
+    names_to = "model",
+    values_to = "rmse",
+    names_prefix = "rmse_") %>%
+  group_by(model) %>% 
+  summarize(avg_rmse = mean(rmse)) %>% 
+  knitr::kable()
+```
+
+## Select a Model
+
+```{r, message=FALSE, warning=FALSE}
+hyp_model %>% 
+  broom::tidy() %>% 
+  knitr::kable()
+```
+>>>>>>> 2813dc3087b94a0bf6d04a6b2185e64248d74319
 

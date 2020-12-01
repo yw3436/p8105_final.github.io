@@ -26,6 +26,8 @@
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
@@ -36,7 +38,7 @@
   div.column{display: inline-block; vertical-align: top; width: 50%;}
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
-      </style>
+    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -421,7 +423,12 @@ div.tocify {
 library(plotly)
 library(corrplot)
 library(geepack)
+<<<<<<< HEAD
 library(fastDummies)
+=======
+library(modelr)
+library(mgcv)
+>>>>>>> 2813dc3087b94a0bf6d04a6b2185e64248d74319
 
 knitr::opts_chunk$set(
   fig.width = 6,
@@ -452,6 +459,7 @@ scale_fill_discrete = scale_fill_viridis_d</code></pre>
   theme(plot.title = element_text(hjust = 0.5))</code></pre>
 <p><img src="model_building_files/figure-html/unnamed-chunk-3-1.png" width="90%" /></p>
 </div>
+<<<<<<< HEAD
 <div id="relevant-predictors" class="section level2">
 <h2>Relevant predictors</h2>
 <p>The data we are using includes the following variables:</p>
@@ -477,6 +485,299 @@ scale_fill_discrete = scale_fill_viridis_d</code></pre>
 <li><code>age_18_64</code> The percentage of population between 18 and 64 years.</li>
 </ul>
 </div>
+=======
+<div id="correlation-matrx" class="section level2">
+<h2>Correlation Matrx</h2>
+<pre class="r"><code>rate_complete_df %&gt;% 
+  drop_na() %&gt;%
+  select(-X1, -aids_rate, -plwha_rate, -death_rate, -borough_cat, -year) %&gt;% 
+  cor() %&gt;%
+  corrplot(type = &quot;lower&quot;,
+           method = &quot;color&quot;, 
+           addCoef.col = &quot;black&quot;, 
+           diag = FALSE, 
+           number.cex = .55,
+           insig = &quot;blank&quot; ,
+           tl.col = &quot;black&quot;,
+           tl.cex = .9,
+           tl.srt = 45
+           )</code></pre>
+<p><img src="model_building_files/figure-html/unnamed-chunk-4-1.png" width="90%" /></p>
+<p>We found that several predictors are highly correlated with each other, which should not be included in the model simultaneously, such as:</p>
+<ul>
+<li><code>crime_rate</code> and <code>female</code> (r=0.87)</li>
+<li><code>white</code> and <code>black</code> (r=-0.82)</li>
+<li><code>american_indian</code> and <code>hawaiian</code> (0.98)</li>
+<li><code>high_school</code> and <code>black</code> (r=-0.93)</li>
+<li><code>age_over_64</code> and <code>black</code> (r=-0.97)</li>
+</ul>
+</div>
+<div id="summary-of-models" class="section level2">
+<h2>Summary of Models</h2>
+<p>Based on our preliminary analysis and the correlation matrix, we propose the following models:</p>
+<ol style="list-style-type: decimal">
+<li>Our hypothesized model based on the effect of <code>borough_cat</code>, <code>year</code>, <code>black</code>, <code>Asian</code>, <code>crime_rate</code>, <code>unemployment_rate</code>, <code>bachelor</code> and <code>age_18_64</code>.</li>
+<li>A model selected via a GEE-specific forward stepwise selection process.</li>
+</ol>
+<p>In addition, we propose a baseline model:</p>
+<ol start="3" style="list-style-type: decimal">
+<li>A naive model, which only uses <code>borough_cat</code> to predict HIV diagnosis rate.</li>
+</ol>
+<pre class="r"><code>naive_model = 
+  geeglm(formula = hiv_diag_rate ~ borough_cat,
+         data = rate_complete_df,
+         family = poisson,
+         id = borough_cat,
+         corstr = &quot;ar1&quot;)
+
+rate_df = 
+  rate_complete_df %&gt;% 
+  filter(!year %in% c(2011,2012))
+
+hyp_model =
+  geeglm(hiv_diag_rate ~
+         borough_cat + year +
+         crime_rate + unemployment_rate,
+         id = borough_cat,
+         data = rate_df,
+         family = poisson,
+         corstr = &quot;ar1&quot;)
+
+hyp_model_2 =
+  geeglm(hiv_diag_rate ~
+         borough_cat + year,
+         id = borough_cat,
+         data = rate_df,
+         family = poisson,
+         corstr = &quot;ar1&quot;)</code></pre>
+<pre class="r"><code>full_fit = 
+  geeglm(hiv_diag_rate ~
+         borough_cat + year +
+         crime_rate + unemployment_rate +
+         black + asian + bachelor + age_18_64, 
+         id = borough_cat,
+         data = rate_df,
+         family = poisson, 
+         corstr = &quot;ar1&quot;)</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.855295</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.822693</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 4.357222</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.048664</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.130715</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.552070</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.878588</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.871685</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.012801</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.216052</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.544850</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.531241</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.436593</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.896247</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.301389</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.588168</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.287699</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.673606</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.829004</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.642737</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.270503</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.463369</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.433991</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.761761</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 0.853370</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.176648</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.227812</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.364628</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.604862</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 0.661362</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.321041</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.892442</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.295266</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.291062</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 0.810701</code></pre>
+<pre><code>##   (Intercept) borough_catBrooklyn borough_catManhattan borough_catQueens
+## 1           1                   0                    0                 0
+## 2           1                   1                    0                 0
+## 3           1                   0                    1                 0
+## 4           1                   0                    0                 1
+## 5           1                   0                    0                 0
+## 6           1                   0                    0                 0
+##   borough_catStaten Island year crime_rate unemployment_rate black asian
+## 1                        0 2013  1.4943961              11.8 0.436 0.046
+## 2                        0 2013  1.4220865               9.4 0.338 0.127
+## 3                        0 2013  1.7357632               7.5 0.178 0.128
+## 4                        0 2013  1.0796504               7.7 0.207 0.269
+## 5                        1 2013  0.7266443               9.0 0.116 0.109
+## 6                        0 2014  1.4345452               9.8 0.436 0.046
+##   bachelor age_18_64
+## 1    0.198     0.621
+## 2    0.365     0.629
+## 3    0.608     0.687
+## 4    0.315     0.637
+## 5    0.330     0.615
+## 6    0.198     0.621</code></pre>
+<pre><code>## Error in geeglm(hiv_diag_rate ~ borough_cat + year + crime_rate + unemployment_rate + : Model matrix is rank deficient; geeglm can not proceed</code></pre>
+<pre class="r"><code>step.spind(full_fit, data = rate_df, steps = NULL, trace = TRUE, AICc = FALSE)</code></pre>
+<pre><code>## Error in step.spind(full_fit, data = rate_df, steps = NULL, trace = TRUE, : could not find function &quot;step.spind&quot;</code></pre>
+<pre class="r"><code>gee_stepper_o(full_fit, formula(full_fit))</code></pre>
+<pre><code>## Error in gee_stepper_o(full_fit, formula(full_fit)): could not find function &quot;gee_stepper_o&quot;</code></pre>
+</div>
+<div id="cross-validation" class="section level2">
+<h2>Cross Validation</h2>
+<pre class="r"><code>cv_df =
+  crossv_mc(rate_df, 100) %&gt;% 
+  mutate(
+    train = map(train, as_tibble),
+    test = map(test, as_tibble))
+
+cv_df = 
+  cv_df %&gt;% 
+  mutate(
+    naive_model = map(train, ~geeglm(
+        formula = hiv_diag_rate ~ borough_cat,
+        family = poisson,
+        id = borough_cat,
+        corstr = &quot;ar1&quot;, 
+        data = .x)),
+    hyp_model = map(train, ~geeglm(hiv_diag_rate ~
+        borough_cat + year +
+        crime_rate + unemployment_rate,
+        id = borough_cat,
+        family = poisson,
+        corstr = &quot;ar1&quot;, 
+        data = .x)),
+    hyp_model_2 = map(train, ~geeglm(hiv_diag_rate ~
+        borough_cat + year,
+        id = borough_cat,
+        family = poisson,
+        corstr = &quot;ar1&quot;, 
+        data = .x))
+    ) %&gt;% 
+  mutate(
+    rmse_naive = map2_dbl(naive_model, test, ~rmse(model = .x, data = .y)),
+    rmse_hyp = map2_dbl(hyp_model, test, ~rmse(model = .x, data = .y)),
+    rmse_hyp_2 = map2_dbl(hyp_model_2, test, ~rmse(model = .x, data = .y)))</code></pre>
+<p><strong>Compare models using cross-validated prediction error</strong></p>
+<pre class="r"><code>cv_df %&gt;%
+  select(starts_with(&quot;rmse&quot;)) %&gt;% 
+  pivot_longer(
+    everything(),
+    names_to = &quot;model&quot;,
+    values_to = &quot;rmse&quot;,
+    names_prefix = &quot;rmse_&quot;) %&gt;% 
+  mutate(model = fct_inorder(model)) %&gt;%
+  ggplot(aes(x = model, y = rmse)) +
+  geom_violin(aes(fill = model)) + 
+  theme_light()</code></pre>
+<p><img src="model_building_files/figure-html/unnamed-chunk-8-1.png" width="90%" /></p>
+<pre class="r"><code>cv_df %&gt;% 
+  select(starts_with(&quot;rmse&quot;)) %&gt;% 
+  pivot_longer(
+    everything(),
+    names_to = &quot;model&quot;,
+    values_to = &quot;rmse&quot;,
+    names_prefix = &quot;rmse_&quot;) %&gt;%
+  group_by(model) %&gt;% 
+  summarize(avg_rmse = mean(rmse)) %&gt;% 
+  knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">model</th>
+<th align="right">avg_rmse</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">hyp</td>
+<td align="right">1.671156</td>
+</tr>
+<tr class="even">
+<td align="left">hyp_2</td>
+<td align="right">1.669137</td>
+</tr>
+<tr class="odd">
+<td align="left">naive</td>
+<td align="right">1.676730</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="select-a-model" class="section level2">
+<h2>Select a Model</h2>
+<pre class="r"><code>hyp_model %&gt;% 
+  broom::tidy() %&gt;% 
+  knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">term</th>
+<th align="right">estimate</th>
+<th align="right">std.error</th>
+<th align="right">statistic</th>
+<th align="right">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">238.5589662</td>
+<td align="right">3.18e-05</td>
+<td align="right">5.629132e+13</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">borough_catBrooklyn</td>
+<td align="right">-0.4564782</td>
+<td align="right">1.00e-07</td>
+<td align="right">2.439861e+13</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">borough_catManhattan</td>
+<td align="right">-0.2988790</td>
+<td align="right">1.00e-07</td>
+<td align="right">1.600613e+13</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">borough_catQueens</td>
+<td align="right">-0.8243160</td>
+<td align="right">2.00e-07</td>
+<td align="right">1.437565e+13</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">borough_catStaten Island</td>
+<td align="right">-1.2626298</td>
+<td align="right">3.00e-07</td>
+<td align="right">1.401075e+13</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">year</td>
+<td align="right">-0.1175101</td>
+<td align="right">0.00e+00</td>
+<td align="right">5.776269e+13</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">crime_rate</td>
+<td align="right">0.0186565</td>
+<td align="right">4.00e-07</td>
+<td align="right">2.145730e+09</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">unemployment_rate</td>
+<td align="right">-0.0580295</td>
+<td align="right">0.00e+00</td>
+<td align="right">1.077676e+14</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+>>>>>>> 2813dc3087b94a0bf6d04a6b2185e64248d74319
 
 
 
@@ -489,7 +790,7 @@ scale_fill_discrete = scale_fill_viridis_d</code></pre>
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
