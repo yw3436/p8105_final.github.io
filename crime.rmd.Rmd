@@ -120,4 +120,4 @@ ggplotly(hiv_crime_plot)
 
 **_Comments_**
 
-There is a positive correlation between crime rate and HIV diagnosis rate. In Manhattan, HIV diagnosis declined from 2013 to 2019, but crime rate did not change much.
+With the increase of crime rate, there seems to be an increasing trend of HIV diagnosis rate overall. In Manhattan, HIV diagnosis declined from 2013 to 2019, but crime rate did not change much.
