@@ -197,7 +197,7 @@ cv_df =
 
 **Compare models using cross-validated prediction error**
 
-```{r, message=FALSE, warning=FALSE}
+```{r, message=FALSE, warning=FALSE, cache=TRUE}
 cv_df %>%
   select(starts_with("rmse")) %>% 
   pivot_longer(
