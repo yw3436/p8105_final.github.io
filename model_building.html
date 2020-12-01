@@ -453,9 +453,12 @@ scale_fill_discrete = scale_fill_viridis_d</code></pre>
        title = &quot;Distribution of HIV Diagnoses Rate&quot;) +
   theme(plot.title = element_text(hjust = 0.5))</code></pre>
 <p><img src="model_building_files/figure-html/unnamed-chunk-3-1.png" width="90%" /></p>
+</div>
+<div id="correlation-matrx" class="section level2">
+<h2>Correlation Matrx</h2>
 <pre class="r"><code>rate_complete_df %&gt;% 
   drop_na() %&gt;%
-  select(-X1, -aids_rate, -plwha_rate, -death_rate, -borough_cat, -year) %&gt;%
+  select(-X1, -aids_rate, -plwha_rate, -death_rate, -borough_cat, -year) %&gt;% 
   cor() %&gt;%
   corrplot(type = &quot;lower&quot;,
            method = &quot;color&quot;, 
@@ -476,6 +479,188 @@ scale_fill_discrete = scale_fill_viridis_d</code></pre>
 <li><code>high_school</code> and <code>black</code> (r=-0.93)</li>
 <li><code>age_over_64</code> and <code>black</code> (r=-0.97)</li>
 </ul>
+</div>
+<div id="summary-of-models" class="section level2">
+<h2>Summary of Models</h2>
+<p>Based on our preliminary analysis and the correlation matrix, we propose the following models:</p>
+<ol style="list-style-type: decimal">
+<li>Our hypothesized model based on the effect of <code>borough_cat</code>, <code>year</code>, <code>black</code>, <code>Asian</code>, <code>crime_rate</code>, <code>unemployment_rate</code>, <code>bachelor</code> and <code>age_18_64</code>.</li>
+<li>A model selected via a GEE-specific forward stepwise selection process.</li>
+</ol>
+<p>In addition, we propose a baseline model:</p>
+<ol start="3" style="list-style-type: decimal">
+<li>A naive model, which only uses <code>borough_cat</code> to predict HIV diagnosis rate.</li>
+</ol>
+<pre class="r"><code>naive_model = 
+  geeglm(formula = hiv_diag_rate ~ borough_cat,
+         data = rate_complete_df,
+         family = poisson,
+         id = borough_cat,
+         corstr = &quot;ar1&quot;)</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 4.526723</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.721005</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 5.208488</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.192115</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 0.832036</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 4.100763</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.229928</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 4.849064</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.151770</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 0.789367</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.855295</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.822693</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 4.357222</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.048664</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.130715</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.552070</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.878588</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.871685</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.012801</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.216052</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.544850</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.531241</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.436593</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.896247</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.301389</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.588168</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.287699</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.673606</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.829004</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.642737</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.270503</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.463369</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.433991</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.761761</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 0.853370</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.176648</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.227812</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.364628</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.604862</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 0.661362</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.321041</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.892442</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.295266</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.291062</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 0.810701</code></pre>
+<pre><code>## Warning in diff(as.numeric(id)): NAs introduced by coercion</code></pre>
+<pre class="r"><code>rate_df = 
+  rate_complete_df %&gt;% 
+  filter(!year %in% c(2011,2012))
+
+hyp_model =
+  geeglm(hiv_diag_rate ~
+         borough_cat + year +
+         crime_rate + unemployment_rate,
+         id = borough_cat,
+         data = rate_df,
+         family = poisson,
+         corstr = &quot;ar1&quot;)</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.855295</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.822693</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 4.357222</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.048664</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.130715</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.552070</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.878588</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.871685</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.012801</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.216052</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.544850</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.531241</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.436593</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.896247</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.301389</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.588168</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.287699</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.673606</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.829004</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.642737</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.270503</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.463369</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.433991</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.761761</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 0.853370</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.176648</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.227812</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.364628</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.604862</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 0.661362</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.321041</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.892442</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.295266</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.291062</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 0.810701</code></pre>
+<pre><code>## Warning in diff(as.numeric(id)): NAs introduced by coercion</code></pre>
+<pre class="r"><code>full_fit = 
+  geeglm(hiv_diag_rate ~
+         borough_cat + year +
+         crime_rate + unemployment_rate +
+         black + asian + bachelor + age_18_64, 
+         id = borough_cat,
+         data = rate_df,
+         family = poisson, 
+         corstr = &quot;ar1&quot;)</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.855295</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.822693</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 4.357222</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.048664</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.130715</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.552070</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.878588</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.871685</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.012801</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.216052</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.544850</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.531241</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.436593</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.896247</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.301389</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.588168</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.287699</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.673606</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.829004</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.642737</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.270503</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.463369</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.433991</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.761761</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 0.853370</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.176648</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.227812</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.364628</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.604862</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 0.661362</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 3.321041</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.892442</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 2.295266</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 1.291062</code></pre>
+<pre><code>## Warning in dpois(y, mu, log = TRUE): non-integer x = 0.810701</code></pre>
+<pre><code>##   (Intercept) borough_catBrooklyn borough_catManhattan borough_catQueens
+## 1           1                   0                    0                 0
+## 2           1                   1                    0                 0
+## 3           1                   0                    1                 0
+## 4           1                   0                    0                 1
+## 5           1                   0                    0                 0
+## 6           1                   0                    0                 0
+##   borough_catStaten Island year crime_rate unemployment_rate black asian
+## 1                        0 2013  1.4943961              11.8 0.436 0.046
+## 2                        0 2013  1.4220865               9.4 0.338 0.127
+## 3                        0 2013  1.7357632               7.5 0.178 0.128
+## 4                        0 2013  1.0796504               7.7 0.207 0.269
+## 5                        1 2013  0.7266443               9.0 0.116 0.109
+## 6                        0 2014  1.4345452               9.8 0.436 0.046
+##   bachelor age_18_64
+## 1    0.198     0.621
+## 2    0.365     0.629
+## 3    0.608     0.687
+## 4    0.315     0.637
+## 5    0.330     0.615
+## 6    0.198     0.621</code></pre>
+<pre><code>## Error in geeglm(hiv_diag_rate ~ borough_cat + year + crime_rate + unemployment_rate + : Model matrix is rank deficient; geeglm can not proceed</code></pre>
+<pre class="r"><code>step.spind(full_fit, data = rate_df, steps = NULL, trace = TRUE, AICc = FALSE)</code></pre>
+<pre><code>## Error in step.spind(full_fit, data = rate_df, steps = NULL, trace = TRUE, : could not find function &quot;step.spind&quot;</code></pre>
+<pre class="r"><code>gee_stepper_o(full_fit, formula(full_fit))</code></pre>
+<pre><code>## Error in gee_stepper_o(full_fit, formula(full_fit)): could not find function &quot;gee_stepper_o&quot;</code></pre>
 </div>
 
 
