@@ -95,8 +95,7 @@ ggplotly(crime_plot) %>%
 
 **_Comments_**
 
-The unemployment rate decreases over time from 2015 to 2019 for Bronx (Bronx County), Brooklyn (Kings County), Manhattan (New York County), Queens (Queens County), Staten Island (Richmond County).
-
+The crime rate decreases in Brooklyn (Kings County), Queens (Queens County), and Staten Island (Richmond County) from 2013 to 2019, but fluctuated in Manhattan (New York County) and Bronx (Bronx County).
 
 
 

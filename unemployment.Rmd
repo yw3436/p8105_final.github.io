@@ -70,7 +70,7 @@ ggplotly(unemployment_plot) %>%
 
 **_Comments_**
 
-The unemployment rate decreases over time from 2011 to 2019 for Bronx (Bronx County), Brooklyn (Kings County), Manhattan (New York County), Queens (Queens County), Staten Island (Richmond County). Specifically, there is a slight increase from 2011 to 2012, and a repaid decrease from 2012 to 2015. 
+The unemployment rate decreases over time from 2011 to 2019 for Bronx (Bronx County), Brooklyn (Kings County), Manhattan (New York County), Queens (Queens County), Staten Island (Richmond County). Specifically, there is a slight increase from 2011 to 2012, and a rapid decrease from 2012 to 2015. 
 
 
 
