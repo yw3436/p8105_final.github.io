@@ -10,7 +10,7 @@ output: html_document
 
 * **Basic characteristics of HIV patients**
   + Our analysis shows the basic demographic and socioeconomic characteristics of patients with HIV diagnosis in the five boroughs in NYC.
-  + Male patients accounted for about a quarter of the total diagnoses; black, Latino and Hispanic patients took a large proportion of the total diagnoses; as for age distribution, people aged 20-29 years were the largest contributor in all the five boroughs.
+  + Male patients accounted for about three quarters of the total diagnoses; black, Latino and Hispanic patients took a large proportion of the total diagnoses; as for age distribution, people aged 20-29 years were the largest contributor in all the five boroughs.
 
 <br>
 
@@ -39,6 +39,7 @@ output: html_document
   + Various predictors are analyzed in the model to show the best fit and we used cross validation for model selection.
   + However, the sample size in our analysis was relatively small, which yielded large test statistics in the regression results.
   + Since we used the proportion of black, Asian and people with bachelor degree rather than the rate, the standard error is relatively small.
+  + In the regression, our results showed that unemployment rate was inversely associated with HIV diagnosis rate, which may be due to the inverse trend between unemployment rate and HIV diagnoses in Staten Island (shown in [Dashboard](https://yw3436.shinyapps.io/dashboard/)). More information need to be collected to explain this inverse association.
   + Further analysis need to be done to include larger sample size with more precise assessment of these predictors.
   
 

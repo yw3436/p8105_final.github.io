@@ -28,6 +28,7 @@ scale_colour_discrete = scale_colour_viridis_d
 scale_fill_discrete = scale_fill_viridis_d
 ```
 
+The following graphs show the overall trends of HIV diagnoses and deaths in five boroughs from 2011 to 2019, as well as the top risks of HIV infection.
 
 ```{r, message=FALSE, warning=FALSE}
 hiv_data = read_csv('./data/hiv_complete.csv')
@@ -47,6 +48,7 @@ hiv_diagnoses =
     outcome_cat = recode(outcome_cat, "total_hiv_diag_N" = "HIV diagnoses", "death_N" = "HIV Related Death")
     )
 ```
+
 
 
 ## HIV Trend Over Years (2011-2019)
@@ -76,7 +78,7 @@ ggplotly(hiv_diagnoses_plot) %>%
 
 **_Comments_**
 
-According to this overall trend, the HIV diagnoses and HIV related death decreased over the years. 
+The overall trends showed that the numbers of HIV diagnoses and HIV related death decreased over the years. For HIV diagnosis, it decreased more rapidly, while for HIV death, the trend showed a relatively flat pattern from 2014 to 2018.
 
 ```{r, message=FALSE, warning=FALSE}
 hiv = 
@@ -86,6 +88,16 @@ hiv =
   select(year, total_hiv_diag_N, borough, sex) %>% 
   group_by(borough, year) %>% 
   summarise(num_hiv_diagnoses = sum(total_hiv_diag_N))
+
+hiv19 = hiv_data %>% 
+  filter(year %in% c("2018", "2019"), sex == "All") %>% 
+  select(year, total_hiv_diag_N, borough_cat) %>% 
+  filter(borough_cat != "All") %>% 
+  rename(borough = borough_cat, 
+         num_hiv_diagnoses = total_hiv_diag_N)
+
+hiv = bind_rows(hiv, hiv19) %>% 
+  filter(!borough %in% c("Unknown borough", "Outside NYC"))
 ```
 
 
@@ -115,7 +127,11 @@ ggplotly(hiv_plot) %>%
 
 **_Comments_**
 
-Overall, Staten island has the lowest number of HIV diagnoses for each year from 2011 to 2017. The trend of HIV diagnoses for Bronx, Brooklyn, Manhattan, and Queens are similar to each other with a overall decreasing trend over years. 
+This plot shows that the Staten Island has the lowest number of HIV diagnoses for each year from 2011 to 2019, while Brooklyn has the highest number. Though the overall number of HIV diagnoses was decreasing over years, the situations in the five boroughs are different:
+
+* In Manhattan and Queens, the total number of HIV diagnoses showed a continuous reduction.
+
+* In Bronx, Brooklyn, Staten Island, the HIV diagnoses showed a small increasing trend in 2016 and 2017.
 
 
 ```{r, message=FALSE, warning=FALSE}
@@ -167,4 +183,5 @@ ggplotly(hiv_risk_plot)  %>%
 
 **_Comments_**
 
-The most common risk factor overall are men who have sex with men and heterosexual contact, which account for about 70% of HIV risk for all five boroughs. Sexual transmission is the main HIV transmission path in NYC.
+The most common risk factors overall are men who have sex with men and heterosexual contact, which accounted for about 70% of HIV risk for all five boroughs, which shows sexual transmission is the main HIV transmission path in NYC.
+

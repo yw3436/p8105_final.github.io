@@ -80,8 +80,7 @@ census_df =
   drop_na(population_2010)
 ```
 
-    ## 
-    ## ── Column specification ────────────────────────────────────────────────────────
+    ## Parsed with column specification:
     ## cols(
     ##   `Geographic Area - Borough` = col_character(),
     ##   `Geographic Area - 2010 Census FIPS County Code` = col_double(),

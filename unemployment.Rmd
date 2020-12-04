@@ -28,6 +28,8 @@ scale_colour_discrete = scale_colour_viridis_d
 scale_fill_discrete = scale_fill_viridis_d
 ```
 
+The following graphs show the unemployment rate in the five boroughs from 2011 to 2019, and the potential relationship between unemployment rate and HIV diagnoses.
+
 ```{r, message=FALSE, warning=FALSE}
 unemployment_df = read_csv('./data/unemployment_rate.csv')
 
@@ -70,9 +72,7 @@ ggplotly(unemployment_plot) %>%
 
 **_Comments_**
 
-The unemployment rate decreases over time from 2011 to 2019 for Bronx (Bronx County), Brooklyn (Kings County), Manhattan (New York County), Queens (Queens County), Staten Island (Richmond County). Specifically, there is a slight increase from 2011 to 2012, and a rapid decrease from 2012 to 2015. 
-
-
+The unemployment rate decreased over time from 2011 to 2019 for Bronx (Bronx County), Brooklyn (Kings County), Manhattan (New York County), Queens (Queens County), Staten Island (Richmond County). Specifically, there is a slight increase from 2011 to 2012, and a rapid decrease from 2012 to 2015. Bronx has the highest unemployment rate while Mahattan and Queens have the lowest unemployment rates.
 
 
 ```{r, message=FALSE, warning=FALSE}
@@ -115,4 +115,5 @@ ggplotly(hiv_unemployment_plot)
 
 **_Comments_**
 
-According to the plot that looks at the HIV diagnoses against unemployment rate, there are some frustration. However, overall, the smooth line indicates an increasing trend of HIV diagnoses when unemployment rate increases. 
+According to the plot that looks at the HIV diagnoses against unemployment rate, there are some fluctuations. However, overall, the smooth line indicates an increasing trend of HIV diagnoses when unemployment rate increases. Therefore, high unemployment rate may be a potential contributor for high HIV diagnoses.
+

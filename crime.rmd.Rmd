@@ -31,8 +31,7 @@ scale_colour_discrete = scale_colour_viridis_d
 scale_fill_discrete = scale_fill_viridis_d
 ```
 
-
-
+The following graphs show the crime rate in the five boroughs from 2013 to 2019, and the potential relationship between crime rate and HIV diagnoses.
 
 ```{r, message=FALSE, warning=FALSE}
 total_crime_df = 
@@ -95,7 +94,7 @@ ggplotly(crime_plot) %>%
 
 **_Comments_**
 
-The crime rate decreases in Brooklyn (Kings County), Queens (Queens County), and Staten Island (Richmond County) from 2013 to 2019, but fluctuated in Manhattan (New York County) and Bronx (Bronx County).
+Generally speaking, Mahattan has the highest crime rate while Staten Island has the lowest rate. More specifically, the crime rate decreases in Brooklyn (Kings County), Queens (Queens County), and Staten Island (Richmond County) from 2013 to 2019, but fluctuated in Manhattan (New York County) and Bronx (Bronx County).
 
 
 
@@ -119,4 +118,5 @@ ggplotly(hiv_crime_plot)
 
 **_Comments_**
 
-With the increase of crime rate, there seems to be an increasing trend of HIV diagnosis rate overall. In Manhattan, HIV diagnosis declined from 2013 to 2019, but crime rate did not change much.
+With the increase of crime rate, there seems to be an increasing trend of HIV diagnosis rate overall. However, in Manhattan, HIV diagnosis rate declined from 2013 to 2019, but crime rate did not change much.
+
