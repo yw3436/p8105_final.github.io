@@ -24,7 +24,6 @@ According to the latest report from New York Department of Health and Mental Hyg
 
 
 ## **Data Resources**
-We used data from the following datasets in NYC OpenData: 
 
 * [***HIV/AIDS Annual Surveillance Statistics***](https://www1.nyc.gov/site/doh/data/data-sets/hiv-aids-annual-surveillance-statistics.page) Annual data are provided on new diagnoses of HIV (non-AIDS), concurrent HIV/AIDS and AIDS, as well as the number of persons living with HIV and AIDS and the number of deaths among persons with HIV and AIDS. The data are shown for New York City overall and by sex, race, age, borough, area-based poverty level, risk factor, and United Hospital Fund neighborhood. All the data used in this project was extracted from 9 PDF files of the annual reports.
 

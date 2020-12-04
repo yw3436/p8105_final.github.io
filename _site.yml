@@ -5,8 +5,6 @@ navbar:
   right:
     - text: "HIV Trends"
       href: hiv_overview.html
-    - text: "Shiny Dashboard"
-      href: https://yw3436.shinyapps.io/dashboard/
     - text: "Overview"
       menu:
       - text: "Demographics"
@@ -15,6 +13,8 @@ navbar:
         href: unemployment.html 
       - text: "Crime"
         href: crime.rmd.html
+    - text: "Shiny Dashboard"
+      href: https://yw3436.shinyapps.io/dashboard/
     - text: "Model Building"
       href: model_building.html
     - text: "Conclusion"
