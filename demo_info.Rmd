@@ -147,7 +147,7 @@ ggplotly(race_plot) %>%
 
 **_Comments_**
 
-The distribution of race shows different patterns in different borough. In Bronx, Queens, and Manhattan, Latino or Hispanic people accounts for a the largest proportion of HIV diagnosis, while in Brooklyn and Staten Island, Black people take the largest weight. The results may indicate that the race distribution in the five boroughs contributes to different proportion of HIV diagnosis of different race. Another possible reason might be that people of different races face different risk of HIV infection in the five boroughs.
+The distribution of race shows different patterns in different borough. In Bronx, Queens, and Manhattan, Latino or Hispanic people account for a the largest proportion of HIV diagnosis, while in Brooklyn and Staten Island, Black people take the largest weight. The results may indicate that the race distribution in the five boroughs contributes to different proportion of HIV diagnosis of different race. Another possible reason might be that people of different races face different risk of HIV infection in the five boroughs.
 
 
 ## Age

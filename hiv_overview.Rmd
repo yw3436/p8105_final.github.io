@@ -49,7 +49,7 @@ hiv_diagnoses =
 ```
 
 
-## HIV Trend Over Years (2015-2019)
+## HIV Trend Over Years (2011-2019)
 ```{r, message=FALSE, warning=FALSE}
 hiv_diagnoses_plot = 
   hiv_diagnoses %>% 
@@ -76,7 +76,7 @@ ggplotly(hiv_diagnoses_plot) %>%
 
 **_Comments_**
 
-According to this overall trend, the HIV diagnoses and HIV related death decrease over the years. 
+According to this overall trend, the HIV diagnoses and HIV related death decreased over the years. 
 
 ```{r, message=FALSE, warning=FALSE}
 hiv = 
@@ -115,7 +115,7 @@ ggplotly(hiv_plot) %>%
 
 **_Comments_**
 
-Overall, Staten island has the lowest number of HIV diagnoses for each year from 2011 to 2017. The trend of HIV diagnoses for Bronx, Brooklyn, Manhattan, and Queens are similar to each other with a overall increasing trend over years. 
+Overall, Staten island has the lowest number of HIV diagnoses for each year from 2011 to 2017. The trend of HIV diagnoses for Bronx, Brooklyn, Manhattan, and Queens are similar to each other with a overall decreasing trend over years. 
 
 
 ```{r, message=FALSE, warning=FALSE}
