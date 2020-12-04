@@ -1,0 +1,44 @@
+---
+title: "Conclusion"
+output: html_document
+---
+
+
+<img src="image/hiv.png" style=:width:60%">
+
+<br>
+
+* **Basic characteristics of HIV patients**
+  + Our analysis shows the basic demographic and socioeconomic characteristics of patients with HIV diagnosis in the five boroughs in NYC.
+  + Male patients accounted for about a quarter of the total diagnoses; black, Latino and Hispanic patients took a large proportion of the total diagnoses; as for age distribution, people aged 20-29 years were the largest contributor in all the five boroughs.
+
+<br>
+
+* **Meaningful trends from our dataset **
+  + The shiny dashboard shows decreasing trends in HIV diagnosis rate, AIDs rates and HIV death rate with unemployment rate as well as crime rate increase in all the boroughs in the New York City.
+  + People living with AIDs rate increases over time in all the boroughs in the New York City.
+  + However, the crime rate is fluctuating in Manhattan over year and showed a slightly increasing trend starting in 2017 while the death rate also started increasing since 2018. 
+
+<br>
+
+* **Regression Results**
+  + We adopted Poisson regression with GEE method to evaluate the association between various predictors and HIV diagnosis in the five boroughs.
+  + Year, unemployment rate, the proportion of Asian people, the proportion of people with bachelor degree was found to be significantly inversely associated with HIV diagnosis rate.
+  + Crime rate, the proportion of black people, the the proportion of people aged 18-64 years were significantly positively associated with HIV diagnosis rate.
+
+<br>
+
+* **Overall Conclusion**
+  + The regression results satisfy our initial hypothesis that though the overall HIV diagnosis rate is decreasing from 2011 to 2019, crime rate, the race distribution, and the age distribution are still potential risk factors in NYC.
+  + In order to reduce HIV/AIDS, further healthcare program, healthcare education and health administration is still in demands.
+
+<br>
+
+* **Strength and Limitation**
+  + Our dataset contains not only HIV related data, but the data have potential association with HIV diagnosis.
+  + Various predictors are analyzed in the model to show the best fit and we used cross validation for model selection.
+  + However, the sample size in our analysis was relatively small, which yielded large test statistics in the regression results.
+  + Since we used the proportion of black, Asian and people with bachelor degree rather than the rate, the standard error is relatively small.
+  + Further analysis need to be done to include larger sample size with more precise assessment of these predictors.
+  
+

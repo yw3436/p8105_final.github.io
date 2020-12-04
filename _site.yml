@@ -17,6 +17,8 @@ navbar:
         href: crime.rmd.html
     - text: "Model Building"
       href: model_building.html
+    - text: "Conclusion"
+      href: conclusion.html
     - icon: fa-github fa-lg
       href: https://github.com/yw3436/p8105_final.github.io
 output:

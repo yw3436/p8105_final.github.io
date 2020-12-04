@@ -119,9 +119,9 @@ We found that several predictors are highly correlated with each other, which sh
 
 Based on our preliminary analysis and the correlation matrix, we propose the following models: 
 
-1. A hypothesized model based on the effect of, `year`, `crime_rate`, `unemployment_rate`.
+1. A hypothesized model based on the effect of `year`, `crime_rate`, `unemployment_rate`.
 
-2. A hypothesized model based on the effect of, `year`, `black`, `asian`, `crime_rate`, `unemployment_rate`, `bachelor` and `age_18_64`.
+2. A hypothesized model based on the effect of `year`, `black`, `asian`, `crime_rate`, `unemployment_rate`, `bachelor` and `age_18_64`.
 
 In addition, we propose a baseline model:
 

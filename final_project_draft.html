@@ -665,8 +665,7 @@ body {
 <span id="cb5-7"><a href="#cb5-7"></a><span class="st">  </span><span class="kw">group_by</span>(borough) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb5-8"><a href="#cb5-8"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">population_2010 =</span> <span class="kw">sum</span>(population_<span class="dv">2010</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb5-9"><a href="#cb5-9"></a><span class="st">  </span><span class="kw">drop_na</span>(population_<span class="dv">2010</span>)</span></code></pre></div>
-<pre><code>## 
-## ── Column specification ────────────────────────────────────────────────────────
+<pre><code>## Parsed with column specification:
 ## cols(
 ##   `Geographic Area - Borough` = col_character(),
 ##   `Geographic Area - 2010 Census FIPS County Code` = col_double(),
